@@ -1,0 +1,14 @@
+CREATE TABLE usuarios (
+    id BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    documento VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    role VARCHAR(50) DEFAULT 'ROLE_USER',
+    ativo BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_usuarios_documento ON usuarios(documento);
+CREATE INDEX idx_usuarios_email ON usuarios(email);

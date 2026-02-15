@@ -1,22 +1,16 @@
-// Função para alternar modo escuro
-function toggleDarkMode() {
-    const html = document.documentElement;
-    const isDark = html.classList.contains('dark');
-    
-    if (isDark) {
-        html.classList.remove('dark');
-        localStorage.setItem('darkMode', 'false');
-    } else {
-        html.classList.add('dark');
-        localStorage.setItem('darkMode', 'true');
-    }
-}
+// Módulo de Modo Escuro - Sisgetrim
+(function () {
+    const doc = document.documentElement;
 
-// Carregar preferência de modo escuro ao iniciar
-document.addEventListener('DOMContentLoaded', function() {
+    // Função global para alternar modo escuro
+    window.toggleDarkMode = function () {
+        const isDark = doc.classList.toggle('dark');
+        localStorage.setItem('darkMode', isDark);
+    };
+
+    // Inicialização rápida para evitar flicker
     const darkMode = localStorage.getItem('darkMode');
-    
-    if (darkMode === 'true') {
-        document.documentElement.classList.add('dark');
+    if (darkMode === 'true' || (darkMode === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        doc.classList.add('dark');
     }
-});
+})();

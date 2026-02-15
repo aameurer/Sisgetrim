@@ -17,19 +17,8 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;900&display=swap"
         rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        .font-outfit {
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .emerald-filter {
-            filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(134deg) brightness(94%) contrast(92%);
-        }
-    </style>
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body class="bg-[#F0F4F2] h-screen flex overflow-hidden font-inter antialiased">
@@ -78,7 +67,7 @@
                         <span th:text="${erro}">Erro ao cadastrar</span>
                     </div>
 
-                    <form th:action="@{/cadastro}" method="post" th:object="${usuario}" class="space-y-6">
+                    <form th:action="@{/cadastro}" method="post" th:object="${usuarioRequest}" class="space-y-6">
                         <!-- Nome -->
                         <div class="relative group">
                             <label for="nome"
@@ -88,6 +77,8 @@
                             <input type="text" id="nome" th:field="*{nome}" required
                                 class="w-full bg-emerald-50/50 border-2 border-emerald-50/50 rounded-2xl px-6 py-4 text-slate-700 font-bold placeholder-emerald-900/20 focus:outline-none focus:bg-white focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none"
                                 placeholder="Seu nome completo">
+                            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"
+                                class="text-rose-500 text-[10px] mt-1 ml-1 font-bold"></p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -100,6 +91,8 @@
                                 <input type="email" id="email" th:field="*{email}" required
                                     class="w-full bg-emerald-50/50 border-2 border-emerald-50/50 rounded-2xl px-6 py-4 text-slate-700 font-bold placeholder-emerald-900/20 focus:outline-none focus:bg-white focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none"
                                     placeholder="exemplo@gmail.com">
+                                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                    class="text-rose-500 text-[10px] mt-1 ml-1 font-bold"></p>
                             </div>
 
                             <!-- CPF/CNPJ -->
@@ -111,6 +104,8 @@
                                 <input type="text" id="documento" th:field="*{documento}" required
                                     class="w-full bg-emerald-50/50 border-2 border-emerald-50/50 rounded-2xl px-6 py-4 text-slate-700 font-bold placeholder-emerald-900/20 focus:outline-none focus:bg-white focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none"
                                     placeholder="000.000...-00">
+                                <p th:if="${#fields.hasErrors('documento')}" th:errors="*{documento}"
+                                    class="text-rose-500 text-[10px] mt-1 ml-1 font-bold"></p>
                             </div>
                         </div>
 
@@ -121,18 +116,37 @@
                                 Senha de Acesso
                             </label>
                             <div class="relative">
-                                <input type="password" id="senha" th:field="*{senha}" required minlength="6"
+                                <input type="password" id="senha" th:field="*{senha}" required
                                     class="w-full bg-emerald-50/50 border-2 border-emerald-50/50 rounded-2xl px-6 py-4 text-slate-700 font-bold placeholder-emerald-900/20 focus:outline-none focus:bg-white focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none pr-14"
                                     placeholder="••••••••">
                                 <button type="button" onclick="togglePassword('senha')"
-                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-emerald-600 transition px-2">
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-emerald-600 transition-all cursor-pointer px-2">
                                     <i id="toggleIconSenha" class="far fa-eye"></i>
+                                </button>
+                            </div>
+                            <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"
+                                class="text-rose-500 text-[10px] mt-1 ml-1 font-bold"></p>
+                        </div>
+
+                        <!-- Confirmar Senha -->
+                        <div class="relative group">
+                            <label for="confirmarSenha"
+                                class="block text-[10px] font-black text-emerald-800/40 uppercase tracking-widest mb-3 ml-1 transition group-focus-within:text-emerald-600">
+                                Confirmar Senha
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="confirmarSenha" th:field="*{confirmarSenha}" required
+                                    class="w-full bg-emerald-50/50 border-2 border-emerald-50/50 rounded-2xl px-6 py-4 text-slate-700 font-bold placeholder-emerald-900/20 focus:outline-none focus:bg-white focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none pr-14"
+                                    placeholder="••••••••">
+                                <button type="button" onclick="togglePassword('confirmarSenha')"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-emerald-600 transition-all cursor-pointer px-2">
+                                    <i id="toggleIconConfirmarSenha" class="far fa-eye"></i>
                                 </button>
                             </div>
                         </div>
 
                         <button type="submit"
-                            class="w-full bg-[#0A3D2E] text-white font-black uppercase tracking-[0.2em] py-5 rounded-2xl shadow-lg shadow-emerald-900/20 hover:bg-[#042116] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center group">
+                            class="w-full bg-[#0A3D2E] text-white font-black uppercase tracking-[0.2em] py-5 rounded-2xl shadow-lg shadow-emerald-900/20 hover:bg-[#042116] hover:scale-[1.02] active:scale-95 cursor-pointer transition-all duration-300 flex items-center justify-center group">
                             <span>Finalizar Cadastro</span>
                             <i
                                 class="fas fa-check-circle ml-3 text-emerald-400 group-hover:scale-110 transition-transform"></i>
@@ -144,7 +158,7 @@
                             conta?
                         </p>
                         <a href="/login"
-                            class="inline-flex items-center justify-center w-full py-4 border-2 border-emerald-100 rounded-2xl text-[#0A3D2E] font-black text-[11px] uppercase tracking-widest hover:bg-emerald-50 hover:border-emerald-200 transition-all font-outfit">
+                            class="inline-flex items-center justify-center w-full py-4 border-2 border-emerald-100 rounded-2xl text-[#0A3D2E] font-black text-[11px] uppercase tracking-widest hover:bg-emerald-50 hover:border-emerald-200 transition-all active:scale-95 cursor-pointer font-outfit">
                             Voltar para o Login
                         </a>
                     </div>

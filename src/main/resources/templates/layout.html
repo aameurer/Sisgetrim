@@ -9,33 +9,8 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Custom CSS -->
+    <!-- Custom Style Sheet -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
-
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.7) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        }
-
-        .dark .glass {
-            background: rgba(15, 23, 42, 0.8) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.05) !important;
-        }
-    </style>
 </head>
 
 <body class="bg-soft-cyan dark:bg-[#0F172A] transition-colors duration-500 min-h-screen flex flex-col antialiased">
@@ -52,8 +27,8 @@
     <div th:replace="~{fragments/footer :: footer}"></div>
 
     <!-- Scripts -->
-    <script th:src="@{/js/darkmode.js}"></script>
-    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/darkmode.js}" defer></script>
+    <script th:src="@{/js/main.js}" defer></script>
 </body>
 
 </html>
