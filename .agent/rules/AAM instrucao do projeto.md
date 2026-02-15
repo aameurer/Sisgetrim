@@ -122,3 +122,16 @@ trigger: always_on
 - Cache quando aplicável.
 - Paginação obrigatória em listagens grandes.
 
+---
+
+## 🛠️ Manutenção do Toolkit (.agent)
+O repositório de referência para o toolkit é `https://github.com/vudovn/antigravity-kit.git`.
+
+### Procedimento de Atualização
+Para atualizar a pasta `.agent` sem perder as customizações deste projeto (como este arquivo de regras e a skill de performance):
+1. **Backup:** Salve as regras e skills customizadas em uma pasta temporária.
+2. **Download:** Baixe a versão mais recente do repositório oficial.
+3. **Substituição:** Substitua a pasta `.agent` local pela nova versão.
+4. **Restauração:** Copie as customizações de volta para as pastas `rules/` e `skills/skills/`.
+5. **Comando Rápido:** Utilize o workflow `/update-agent` para automatizar este processo (Passo a passo detalhado em `.agent/workflows/update-agent.md`).
+
