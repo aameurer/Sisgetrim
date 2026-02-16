@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+    <!-- Sidebar Fragment -->
+    <aside th:fragment="sidebar"
+        class="fixed left-0 top-0 h-screen w-72 bg-amazon-sidebar/80 backdrop-blur-2xl border-r border-emerald-500/10 z-50 transition-all duration-500 flex flex-col overflow-hidden group/sidebar"
+        sec:authorize="isAuthenticated()">
+
+        <!-- Topo: Branding -->
+        <div class="p-8 pb-4">
+            <div class="flex items-center space-x-3 mb-10">
+                <div
+                    class="bg-white p-2.5 rounded-2xl shadow-sm border border-emerald-500/10 transition-transform group-hover/sidebar:scale-110 duration-500">
+                    <img th:src="@{/img/logo.svg}" alt="Logo" class="h-8">
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-lg font-black text-amazon-text tracking-wider">SISgetrim</span>
+                    <span
+                        class="text-[9px] font-bold text-amazon-primary opacity-60 uppercase tracking-[0.3em] -mt-1">Auditoria
+                        Global</span>
+                </div>
+            </div>
+
+            <!-- Prefeitura Info -->
+            <div
+                class="p-4 rounded-2xl bg-white/40 border border-emerald-500/10 shadow-sm transition-all hover:bg-white/60">
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="h-10 w-10 flex-shrink-0 bg-white rounded-xl border border-emerald-500/5 flex items-center justify-center p-1.5 overflow-hidden shadow-inner">
+                        <img th:if="${entidadePrincipal != null and entidadePrincipal.logoUrl != null}"
+                            th:src="@{/uploads/entidades/{url}(url=${entidadePrincipal.logoUrl})}"
+                            class="max-h-full max-w-full object-contain">
+                        <i th:unless="${entidadePrincipal != null and entidadePrincipal.logoUrl != null}"
+                            class="fas fa-shield-halved text-amazon-primary text-base opacity-40"></i>
+                    </div>
+                    <div class="flex flex-col overflow-hidden">
+                        <span class="text-[10px] font-black text-amazon-text uppercase truncate"
+                            th:text="${entidadePrincipal != null ? entidadePrincipal.nomeEmpresarial : 'SISgetrim'}">
+                            Prefeitura Municipal
+                        </span>
+                        <span class="text-[8px] font-bold text-amazon-primary/60 uppercase tracking-widest truncate"
+                            th:text="${entidadePrincipal != null ? (entidadePrincipal.municipio + ' - ' + entidadePrincipal.uf) : 'Unidade de Auditoria'}">
+                            Unidade Pará
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegação -->
+        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto" x-data="{ active: window.location.pathname }">
+            <p class="px-4 text-[9px] font-black text-amazon-primary/40 uppercase tracking-[0.2em] mb-4">Principal</p>
+
+            <a href="/dashboard"
+                :class="active === '/dashboard' ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center space-x-3 px-4 py-3.5 rounded-xl text-xs font-bold transition-all group">
+                <i class="fas fa-home text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Dashboard Principal</span>
+            </a>
+
+            <a href="/entidades"
+                :class="active.startsWith('/entidades') ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center space-x-3 px-4 py-3.5 rounded-xl text-xs font-bold transition-all group">
+                <i class="fas fa-landmark text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Gestão de Entidades</span>
+            </a>
+
+            <a href="/cartorios"
+                :class="active.startsWith('/cartorios') ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center space-x-3 px-4 py-3.5 rounded-xl text-xs font-bold transition-all group">
+                <i class="fas fa-stamp text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Gestão de Cartórios</span>
+            </a>
+
+            <div class="pt-4 pb-2">
+                <p class="px-4 text-[9px] font-black text-amazon-primary/40 uppercase tracking-[0.2em] mb-4">Ferramentas
+                </p>
+            </div>
+
+            <a href="/malha/importar"
+                :class="active.startsWith('/malha') ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center justify-between px-4 py-3.5 rounded-xl text-xs font-bold transition-all group">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-folder text-base opacity-40 group-hover:opacity-100 transition"></i>
+                    <span>Gestão de Arquivos</span>
+                </div>
+                <i class="fas fa-chevron-right text-[10px] opacity-20"></i>
+            </a>
+
+            <a href="/configuracoes"
+                :class="active === '/configuracoes' ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center justify-between px-4 py-3.5 rounded-xl text-xs font-bold transition-all group">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-cog text-base opacity-40 group-hover:opacity-100 transition"></i>
+                    <span>Configurações</span>
+                </div>
+                <i class="fas fa-chevron-right text-[10px] opacity-20"></i>
+            </a>
+
+
+            <a href="#"
+                class="flex items-center space-x-3 px-4 py-3.5 rounded-xl text-xs font-bold text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5 transition-all group">
+                <i class="fas fa-chart-line text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Relatórios Analíticos</span>
+            </a>
+        </nav>
+
+        <!-- Rodapé Sidebar: Perfil e Logout -->
+        <div class="p-4 border-t border-emerald-500/10 bg-white/40">
+            <div class="flex flex-col space-y-1">
+                <div class="flex items-center space-x-3 overflow-hidden group/user">
+                    <div
+                        class="h-9 w-9 flex-shrink-0 bg-amazon-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 overflow-hidden border border-white">
+                        <i class="fas fa-user text-xs" th:if="${#authentication.principal.fotoUrl == null}"></i>
+                        <img th:src="@{'/uploads/usuarios/' + ${#authentication.principal.fotoUrl}}"
+                            th:if="${#authentication.principal.fotoUrl != null}" class="h-full w-full object-cover">
+                    </div>
+                    <div class="flex flex-col overflow-hidden leading-tight">
+                        <span class="text-xs font-black text-amazon-text truncate"
+                            sec:authentication="principal.nome">Usuário</span>
+                        <span class="text-[8px] font-bold text-amazon-primary/60 uppercase tracking-widest -mt-0.5"
+                            th:text="${#authentication.principal.role == 'ROLE_MASTER' ? 'MASTER' : (#authentication.principal.role == 'ROLE_ADMIN' ? 'ADMIN' : 'USER')}">USER</span>
+                    </div>
+                </div>
+
+                <form th:action="@{/logout}" method="post" id="logoutFormSidebar" class="m-0">
+                    <button type="submit"
+                        class="w-full flex items-center justify-center space-x-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 text-[10px] font-black uppercase tracking-widest border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all duration-300 group">
+                        <i class="fas fa-power-off text-xs opacity-60 group-hover:opacity-100"></i>
+                        <span>Sair do Sistema</span>
+                    </button>
+                </form>
+
+                <!-- Copyright Sidebar -->
+                <div class="text-center pt-1">
+                    <p class="text-[8px] font-bold text-amazon-primary/40 uppercase tracking-[0.1em]">
+                        &copy; 2026 <span class="text-amazon-text font-black">SISgetrim.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </aside>
+</body>
+
+</html>

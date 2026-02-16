@@ -14,6 +14,10 @@ trigger: always_on
   - `cursor-pointer`
 - Evite CSS inline.
 - Componentes reutilizáveis devem ser extraídos para fragments (Thymeleaf).
+- **Tabelas:** Devem seguir o padrão ultra-compacto (densidade máxima):
+  - Células `<td>`: padding vertical `py-1` ou `py-1.5`.
+  - Cabeçalho `<th>`: padding inferior `pb-2`.
+  - Títulos de seção/card: margem inferior reduzida (`mb-4`).
 
 ---
 

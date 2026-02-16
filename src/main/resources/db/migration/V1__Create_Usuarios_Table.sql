@@ -1,4 +1,4 @@
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(255),
     email VARCHAR(255) UNIQUE NOT NULL,
@@ -10,5 +10,5 @@ CREATE TABLE usuarios (
     updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX idx_usuarios_documento ON usuarios(documento);
-CREATE INDEX idx_usuarios_email ON usuarios(email);
+CREATE INDEX IF NOT EXISTS idx_usuarios_documento ON usuarios(documento);
+CREATE INDEX IF NOT EXISTS idx_usuarios_email ON usuarios(email);

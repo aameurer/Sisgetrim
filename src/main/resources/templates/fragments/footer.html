@@ -3,17 +3,22 @@
 
 <body>
     <footer th:fragment="footer"
-        class="bg-white dark:bg-gray-800 border-t border-slate-200 dark:border-gray-700 py-6 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-center text-sm text-[#94A3B8]">
+        class="bg-amazon-sidebar/80 backdrop-blur-2xl border-t border-emerald-500/10 py-2 mt-8">
+        <div class="max-w-7xl mx-auto px-8 lg:px-12">
+            <div
+                class="flex flex-col md:flex-row justify-between items-center text-[11px] font-bold text-amazon-primary/60 uppercase tracking-[0.2em]">
                 <div class="mb-4 md:mb-0">
-                    &copy; 2026 Sisgetrim. Todos os direitos reservados.
+                    &copy; 2026 <span class="text-amazon-text">Sisgetrim</span>. Todos os direitos reservados.
                 </div>
-                <div class="flex items-center space-x-4">
-                    <span>Versão 1.1.0</span>
-                    <span class="hidden md:inline text-slate-300">|</span>
-                    <a href="#" class="hover:text-slate-600 dark:hover:text-slate-300 transition">Privacidade</a>
-                    <a href="#" class="hover:text-slate-600 dark:hover:text-slate-300 transition">Termos</a>
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <span class="h-1.5 w-1.5 rounded-full bg-amazon-primary shadow-sm"></span>
+                        <span class="text-amazon-text">Sisgetrim <span class="text-amazon-primary">Lumina
+                                v2.5</span></span>
+                    </div>
+                    <span class="opacity-20">|</span>
+                    <a href="#" class="hover:text-amazon-primary transition-colors">Segurança</a>
+                    <a href="#" class="hover:text-amazon-primary transition-colors">Infraestrutura</a>
                 </div>
             </div>
         </div>

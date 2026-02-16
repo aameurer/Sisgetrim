@@ -1,89 +1,88 @@
-/* Estilos customizados para Sisgetrim */
+/* Estilos Amazônia Suave e Clara */
 
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --success-color: #10b981;
-    --danger-color: #ef4444;
-    --warning-color: #f59e0b;
+    --amazon-bg: #F0F9F6;
+    --amazon-sidebar: #E6F4EF;
+    --amazon-primary: #059669;
+    --amazon-accent: #34D399;
+    --amazon-text: #064E3B;
+    --glass-bg-light: rgba(255, 255, 255, 0.7);
+    --glass-border-light: rgba(16, 185, 129, 0.1);
 }
 
-/* Transições suaves */
+/* Base */
 * {
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Scrollbar customizada */
+body {
+    background-color: var(--amazon-bg);
+    color: var(--amazon-text);
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Suave (Claro) */
+.glass-panel {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border-light);
+    box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.05);
+}
+
+.glass-card {
+    background: white;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(16, 185, 129, 0.1);
+    box-shadow: 0 10px 40px -10px rgba(6, 78, 59, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.glass-card:hover {
+    border-color: var(--amazon-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px -15px rgba(6, 78, 59, 0.12);
+}
+
+/* Navegação Lateral Clara */
+.sidebar-active-link {
+    background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0) 100%);
+    border-left: 4px solid var(--amazon-primary);
+    color: var(--amazon-primary) !important;
+}
+
+/* Scrollbar Suave */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--amazon-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
+    background: rgba(16, 185, 129, 0.2);
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: var(--amazon-primary);
 }
 
-/* Dark mode scrollbar */
-.dark ::-webkit-scrollbar-track {
-    background: #1f2937;
-}
+/* Animações Ambientais Claras */
+@keyframes ambientGlowLight {
 
-.dark ::-webkit-scrollbar-thumb {
-    background: #4b5563;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
-}
-
-/* Animações */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
+    0%,
+    100% {
+        opacity: 0.3;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    50% {
+        opacity: 0.5;
     }
 }
 
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Botões customizados */
-.btn-primary {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    transition: all 0.2s;
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-color);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Cards */
-.card {
-    background: white;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.dark .card {
-    background: #1f2937;
+.glow-soft {
+    animation: ambientGlowLight 6s infinite ease-in-out;
 }

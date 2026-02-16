@@ -13,20 +13,33 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public String handleIllegalArgumentException(IllegalArgumentException ex, RedirectAttributes redirectAttributes) {
+        logger.warn("Erro de validação (IAE): {}", ex.getMessage());
         redirectAttributes.addFlashAttribute("erro", ex.getMessage());
         return "redirect:/cadastro";
     }
 
     @ExceptionHandler(IllegalStateException.class)
     public String handleIllegalStateException(IllegalStateException ex, RedirectAttributes redirectAttributes) {
+        logger.warn("Erro de estado (ISE): {}", ex.getMessage());
         redirectAttributes.addFlashAttribute("erro", ex.getMessage());
         return "redirect:/cadastro";
     }
 
     @ExceptionHandler(Exception.class)
     public String handleGenericException(Exception ex, RedirectAttributes redirectAttributes) {
-        logger.error("Erro não tratado detectado", ex);
-        redirectAttributes.addFlashAttribute("erro", "Ocorreu um erro interno no servidor.");
-        return "redirect:/login";
+        // Log critico para console visível
+        System.err.println("=== ERRO GLOBAL CAPTURADO ===");
+        ex.printStackTrace();
+
+        logger.error("ERRO GLOBAL NÃO TRATADO: ", ex);
+
+        // Se for erro de acesso (Security), relançar para o Spring Security tratar
+        if (ex instanceof org.springframework.security.access.AccessDeniedException) {
+            throw (RuntimeException) ex;
+        }
+
+        redirectAttributes.addFlashAttribute("erro",
+                "Ocorreu um erro interno no servidor: " + ex.getMessage());
+        return "redirect:/cartorios/cadastro"; // Redireciona para onde o usuário estava (ou lista)
     }
 }

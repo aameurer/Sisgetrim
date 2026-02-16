@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements UserDetails {
@@ -26,6 +28,15 @@ public class Usuario implements UserDetails {
 
     @Column(nullable = false)
     private String senha;
+
+    private String tipoUsuario;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "entidade_id")
+    @JsonIgnoreProperties("usuarios")
+    private Entidade entidade;
+
+    private String fotoUrl;
 
     private String role = "ROLE_USER";
 
@@ -117,6 +128,30 @@ public class Usuario implements UserDetails {
         this.ativo = ativo;
     }
 
+    public String getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(String tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public Entidade getEntidade() {
+        return entidade;
+    }
+
+    public void setEntidade(Entidade entidade) {
+        this.entidade = entidade;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
+    }
+
     public java.time.LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -167,5 +202,20 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Usuario usuario = (Usuario) o;
+        return java.util.Objects.equals(id, usuario.id) && java.util.Objects.equals(documento, usuario.documento);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(id, documento);
     }
 }
