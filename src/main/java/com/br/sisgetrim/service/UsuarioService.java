@@ -250,6 +250,20 @@ public class UsuarioService implements UserDetailsService {
         usuarioRepository.delete(usuario);
     }
 
+    public java.util.List<UsuarioResponseDTO> listarUsuariosRecentes() {
+        return usuarioRepository.findTop10ByOrderByCreatedAtDesc().stream()
+                .map(usuarioMapper::toResponseDTO)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    @Transactional
+    public void aprovarUsuario(Long id) {
+        Usuario usuario = buscarPorId(id);
+        usuario.setStatus("VERIFICADO");
+        usuarioRepository.save(usuario);
+        logger.info("Usuário aprovado com sucesso: ID {}", id);
+    }
+
     private boolean isDocumentoValido(String documento) {
         if (documento == null)
             return false;

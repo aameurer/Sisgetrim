@@ -48,6 +48,9 @@ public class Usuario implements UserDetails {
 
     private boolean ativo = true;
 
+    @Column(length = 20, nullable = false)
+    private String status = "PENDENTE";
+
     @Column(name = "created_at", updatable = false)
     private java.time.LocalDateTime createdAt;
 
@@ -140,6 +143,14 @@ public class Usuario implements UserDetails {
 
     public void setTipoUsuario(String tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Set<Entidade> getEntidades() {

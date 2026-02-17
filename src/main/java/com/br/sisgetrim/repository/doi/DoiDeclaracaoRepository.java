@@ -11,4 +11,6 @@ public interface DoiDeclaracaoRepository extends JpaRepository<DoiDeclaracao, Lo
     List<DoiDeclaracao> findByEntidade(Entidade entidade);
 
     List<DoiDeclaracao> findByImportacaoId(Long importacaoId);
+
+    java.util.Optional<DoiDeclaracao> findByMatricula(String matricula);
 }

@@ -101,8 +101,73 @@
             </div>
         </div>
 
-        <!-- Tabelas de Importação Side-by-Side -->
+        <!-- Grid de Tabelas (Novos Usuários + Importações) -->
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+            <!-- Novos Usuários (Visível apenas para Admin/Master) -->
+            <div sec:authorize="hasAnyRole('ADMIN', 'MASTER')" th:if="${usuariosRecentes != null}"
+                class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden border-amazon-primary/5">
+                <div class="flex items-center justify-between mb-8 px-4">
+                    <h2
+                        class="text-xl font-black text-amazon-text uppercase tracking-tight font-opensans flex items-center">
+                        <i class="fas fa-user-plus mr-3 text-amazon-primary"></i>
+                        Novos Usuários
+                    </h2>
+                    <a href="/admin/usuarios"
+                        class="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-2xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
+                        Ver Todos
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto px-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-100">
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">ID</th>
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Data
+                                </th>
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Usuário
+                                </th>
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr th:each="user : ${usuariosRecentes}"
+                                class="hover:bg-slate-50/50 transition-colors group">
+                                <td class="py-1.5 text-[11px] font-bold text-slate-400 font-opensans"
+                                    th:text="'#' + ${user.id}">#14</td>
+                                <td class="py-1.5 text-[11px] font-semibold text-slate-500"
+                                    th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy')}">30/12/2025</td>
+                                <td class="py-1.5">
+                                    <span class="text-[12px] font-black text-amazon-dark font-opensans"
+                                        th:text="${user.nome}">Maria Luísa</span>
+                                </td>
+                                <td class="py-1.5">
+                                    <div class="flex items-center space-x-2">
+                                        <span th:if="${user.status == 'PENDENTE'}"
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-orange-100 text-orange-600 border border-orange-200">
+                                            Pendente
+                                        </span>
+                                        <span th:if="${user.status == 'VERIFICADO'}"
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-600 border border-emerald-200">
+                                            Verificado
+                                        </span>
+                                        <!-- Botão de Aprovação Rápida discreto -->
+                                        <form th:if="${user.status == 'PENDENTE'}"
+                                            th:action="@{/admin/usuarios/aprovar/{id}(id=${user.id})}" method="POST">
+                                            <button type="submit" title="Aprovar Usuário"
+                                                class="p-1 text-amazon-primary hover:text-amazon-dark transition-all">
+                                                <i class="fas fa-check-circle"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             <!-- Tabela Fiscais (ITBI) -->
             <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">

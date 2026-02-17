@@ -94,6 +94,11 @@ public class AuthController {
         model.addAttribute("totalUsuarios", usuarioService.contarTotalUsuarios());
         model.addAttribute("usuariosOnline", usuarioService.contarUsuariosOnline());
 
+        // Se for Admin ou Master, carregar usuários recentes para o card de aprovação
+        if (usuario.getRole().equals("ROLE_ADMIN") || usuario.getRole().equals("ROLE_MASTER")) {
+            model.addAttribute("usuariosRecentes", usuarioService.listarUsuariosRecentes());
+        }
+
         return "dashboard";
     }
 }

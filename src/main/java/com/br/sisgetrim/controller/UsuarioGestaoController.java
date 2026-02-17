@@ -1,83 +1,105 @@
 package com.br.sisgetrim.controller;
 
-import com.br.sisgetrim.dto.UsuarioUpdateDTO;
-import com.br.sisgetrim.model.Usuario;
-import com.br.sisgetrim.service.EntidadeService;
-import com.br.sisgetrim.service.CartorioService;
 import com.br.sisgetrim.service.UsuarioService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/usuarios")
-@PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+@RequestMapping("/admin/usuarios")
 public class UsuarioGestaoController {
 
     private final UsuarioService usuarioService;
-    private final EntidadeService entidadeService;
-    private final CartorioService cartorioService;
+    private final com.br.sisgetrim.service.EntidadeService entidadeService;
+    private final com.br.sisgetrim.service.CartorioService cartorioService;
 
     @Autowired
-    public UsuarioGestaoController(UsuarioService usuarioService, EntidadeService entidadeService,
-            CartorioService cartorioService) {
+    public UsuarioGestaoController(UsuarioService usuarioService,
+            com.br.sisgetrim.service.EntidadeService entidadeService,
+            com.br.sisgetrim.service.CartorioService cartorioService) {
         this.usuarioService = usuarioService;
         this.entidadeService = entidadeService;
         this.cartorioService = cartorioService;
     }
 
     @GetMapping
-    public String listarUsuarios(Model model) {
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+    public String listarUsuarios(org.springframework.ui.Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
         return "usuarios/lista";
     }
 
-    @GetMapping("/editar/{id}")
+    @GetMapping("/novo")
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
-    public String editarUsuario(@PathVariable Long id, Model model) {
-        UsuarioUpdateDTO usuarioUpdate = usuarioService.buscarUpdateDTO(id);
-        model.addAttribute("usuarioUpdate", usuarioUpdate);
-        model.addAttribute("usuarioId", id);
+    public String novoUsuarioForm(org.springframework.ui.Model model) {
+        model.addAttribute("usuarioRequest",
+                new com.br.sisgetrim.dto.UsuarioRequestDTO(null, null, null, null, null, null, null, null, null));
         model.addAttribute("entidades", entidadeService.listarTodas());
         model.addAttribute("cartorios", cartorioService.listarTodos());
+        return "usuarios/novo";
+    }
 
-        Usuario usuarioEntity = usuarioService.buscarPorId(id);
-        model.addAttribute("usuarioEditado", usuarioEntity);
+    @PostMapping("/novo")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+    public String salvarUsuario(
+            @jakarta.validation.Valid @org.springframework.web.bind.annotation.ModelAttribute("usuarioRequest") com.br.sisgetrim.dto.UsuarioRequestDTO dto,
+            org.springframework.validation.BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            org.springframework.ui.Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("entidades", entidadeService.listarTodas());
+            model.addAttribute("cartorios", cartorioService.listarTodos());
+            return "usuarios/novo";
+        }
+        try {
+            usuarioService.cadastrarUsuario(dto);
+            redirectAttributes.addFlashAttribute("sucesso", "Usuário criado com sucesso!");
+            return "redirect:/admin/usuarios";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro ao criar usuário: " + e.getMessage());
+            model.addAttribute("entidades", entidadeService.listarTodas());
+            model.addAttribute("cartorios", cartorioService.listarTodos());
+            return "usuarios/novo";
+        }
+    }
 
-        return "usuarios/editar";
+    @GetMapping("/editar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+    public String editarUsuarioForm(@PathVariable Long id, org.springframework.ui.Model model) {
+        try {
+            com.br.sisgetrim.model.Usuario usuario = usuarioService.buscarPorId(id);
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuarioEditado", usuario); // Alias for template compatibility
+            model.addAttribute("usuarioUpdate", usuarioService.buscarUpdateDTO(id));
+            model.addAttribute("entidades", entidadeService.listarTodas());
+            model.addAttribute("cartorios", cartorioService.listarTodos());
+            return "usuarios/editar";
+        } catch (Exception e) {
+            return "redirect:/admin/usuarios";
+        }
     }
 
     @PostMapping("/editar/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
-    public String salvarEdicao(@PathVariable Long id,
-            @Valid @ModelAttribute("usuarioUpdate") UsuarioUpdateDTO dto,
-            BindingResult bindingResult,
-            Model model,
+    public String atualizarUsuario(@PathVariable Long id,
+            @jakarta.validation.Valid @org.springframework.web.bind.annotation.ModelAttribute("usuarioUpdate") com.br.sisgetrim.dto.UsuarioUpdateDTO dto,
+            org.springframework.validation.BindingResult bindingResult,
             RedirectAttributes redirectAttributes) {
-
         if (bindingResult.hasErrors()) {
-            model.addAttribute("usuarioId", id);
-            model.addAttribute("entidades", entidadeService.listarTodas());
-            model.addAttribute("cartorios", cartorioService.listarTodos());
             return "usuarios/editar";
         }
-
         try {
             usuarioService.atualizarUsuarioPorAdmin(id, dto);
             redirectAttributes.addFlashAttribute("sucesso", "Usuário atualizado com sucesso!");
-            return "redirect:/usuarios";
         } catch (Exception e) {
-            model.addAttribute("erro", e.getMessage());
-            model.addAttribute("usuarioId", id);
-            model.addAttribute("entidades", entidadeService.listarTodas());
-            model.addAttribute("cartorios", cartorioService.listarTodos());
-            return "usuarios/editar";
+            redirectAttributes.addFlashAttribute("erro", "Erro ao atualizar usuário: " + e.getMessage());
         }
+        return "redirect:/admin/usuarios";
     }
 
     @PostMapping("/deletar/{id}")
@@ -87,8 +109,21 @@ public class UsuarioGestaoController {
             usuarioService.deletarUsuario(id);
             redirectAttributes.addFlashAttribute("sucesso", "Usuário removido com sucesso!");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("erro", "Erro ao deletar usuário: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("erro", "Erro ao remover usuário: " + e.getMessage());
         }
-        return "redirect:/usuarios";
+        return "redirect:/admin/usuarios";
+    }
+
+    @PostMapping("/aprovar/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'MASTER')")
+    public String aprovarUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            usuarioService.aprovarUsuario(id);
+            redirectAttributes.addFlashAttribute("sucesso",
+                    "Usuário aprovado com sucesso! O acesso ao sistema foi liberado.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("erro", "Erro ao aprovar usuário: " + e.getMessage());
+        }
+        return "redirect:/dashboard";
     }
 }

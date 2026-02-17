@@ -156,3 +156,169 @@ mvn spring-boot:run
 ```
 
 A aplicação estará disponível em: [http://localhost:8080/login](http://localhost:8080/login)
+
+---
+
+## 7. Estrutura Oficial DOI (Tabelas de Registro)
+
+#### 1. Declarações (`doi_declaracoes`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGINT | PK (Auto Increment) |
+| entidade_id | BIGINT | FK (Entidade) |
+| importacao_id | BIGINT | FK (DoiImportacao) |
+| tipo_declaracao | VARCHAR(20) | NOT NULL |
+| tipo_servico | VARCHAR(50) | NOT NULL |
+| data_lavratura | DATE | NOT NULL |
+| tipo_ato | VARCHAR(100) | NOT NULL |
+| tipo_livro | VARCHAR(50) | |
+| numero_livro | VARCHAR(7) | |
+| folha | VARCHAR(7) | NOT NULL |
+| mne_eletronica | VARCHAR(24) | |
+| matricula | VARCHAR(15) | UNIQUE |
+| transcricao | INT | |
+| cnm_codigo_nacional | VARCHAR(20) | |
+| num_registro_averbacao | VARCHAR(7) | |
+| natureza_titulo | VARCHAR(100) | |
+| numero_registro_td | VARCHAR(30) | |
+| existe_doi_anterior | BOOLEAN | DEFAULT FALSE |
+| data_cadastro | TIMESTAMP | |
+
+#### 2. Operações Imobiliárias (`doi_operacao_imobiliaria`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGINT | PK |
+| doi_declaracao_id | BIGINT | FK (doi_declaracoes) |
+| data_negocio_juridico | DATE | NOT NULL |
+| tipo_operacao_imobiliaria | VARCHAR(100) | NOT NULL |
+| descricao_outras_operacoes | VARCHAR(30) | |
+| valor_operacao_imobiliaria | NUMERIC(20,2) | |
+| indicador_nao_consta_valor_operacao | BOOLEAN | |
+| valor_base_calculo_itbi_itcmd | NUMERIC(20,2) | |
+| indicador_nao_consta_base_calculo | BOOLEAN | |
+| forma_pagamento | VARCHAR(50) | NOT NULL |
+| indicador_alienacao_fiduciaria | BOOLEAN | |
+| mes_ano_ultima_parcela | DATE | |
+| valor_pago_ate_data_ato | NUMERIC(20,2) | |
+| indicador_permuta_bens | BOOLEAN | NOT NULL |
+| indicador_pagamento_dinheiro | BOOLEAN | NOT NULL |
+| valor_pago_moeda_corrente_data_ato | NUMERIC(20,2) | |
+| tipo_parte_transacionada | VARCHAR(50) | NOT NULL |
+| valor_parte_transacionada | NUMERIC(20,2) | NOT NULL |
+
+#### 3. Imóveis (`doi_imoveis`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGINT | PK |
+| declaracao_id | BIGINT | FK (doi_declaracoes) |
+| cib | VARCHAR(8) | Indexado |
+| destinacao | VARCHAR(20) | NOT NULL |
+| indicador_imovel_publico_uniao | BOOLEAN | NOT NULL |
+| registro_imobiliario_patrimonial_rip | VARCHAR(13) | |
+| certidao_autorizacao_transferencia_cat | VARCHAR(11) | |
+| matricula | VARCHAR(15) | |
+| transcricao | INTEGER | |
+| inscricao_municipal | VARCHAR(45) | |
+| codigo_ibge_municipio | VARCHAR(7) | NOT NULL |
+| area_imovel | NUMERIC(15, 4) | NOT NULL |
+| indicador_area_lote_nao_consta | BOOLEAN | NOT NULL |
+| area_construida | NUMERIC(16, 4) | |
+| indicador_area_construida_nao_consta | BOOLEAN | |
+| tipo_imovel | VARCHAR(50) | NOT NULL |
+| tipo_logradouro | VARCHAR(30) | NOT NULL |
+| nome_logradouro | VARCHAR(255) | NOT NULL |
+| numero_imovel | VARCHAR(10) | NOT NULL |
+| complemento_numero | VARCHAR(10) | |
+| complemento_endereco | VARCHAR(100) | |
+| bairro | VARCHAR(150) | NOT NULL |
+| cep | VARCHAR(8) | NOT NULL |
+| codigo_incra | VARCHAR(13) | Indexado |
+| denominacao_rural | VARCHAR(200) | |
+| localizacao_detalhada | VARCHAR(200) | |
+| municipios_uf_lista | TEXT | |
+| data_criacao | TIMESTAMP | |
+
+#### 4. Alienantes (`doi_alienantes`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGINT | PK |
+| doi_declaracao_id | BIGINT | FK (doi_declaracoes) |
+| entidade_id | BIGINT | FK (entidades) |
+| indicador_ni_identificado | BOOLEAN | NOT NULL |
+| motivo_nao_identificacao_ni | VARCHAR(2) | |
+| ni | VARCHAR(14) | CPF ou CNPJ |
+| participacao | NUMERIC(7,4) | |
+| indicador_nao_consta_participacao | BOOLEAN | DEFAULT FALSE |
+| indicador_estrangeiro | BOOLEAN | DEFAULT FALSE |
+| indicador_espolio | BOOLEAN | DEFAULT FALSE |
+| cpf_inventariante | VARCHAR(11) | |
+| indicador_conjuge | BOOLEAN | DEFAULT FALSE |
+| indicador_conjuge_participa | BOOLEAN | |
+| regime_bens | VARCHAR(50) | |
+| indicador_cpf_conjuge_identificado | BOOLEAN | |
+| cpf_conjuge | VARCHAR(11) | |
+| indicador_representante | BOOLEAN | DEFAULT FALSE |
+| representantes | JSONB | Lista de CPFs/CNPJs |
+| data_criacao | TIMESTAMP | |
+
+#### 5. Adquirentes (`doi_adquirentes`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGSERIAL | PK |
+| doi_declaracao_id | BIGINT | FK (doi_declaracoes) |
+| entidade_id | BIGINT | FK (entidades) |
+| indicador_ni_identificado | BOOLEAN | NOT NULL |
+| motivo_nao_identificacao_ni | VARCHAR(2) | |
+| ni | VARCHAR(14) | CPF ou CNPJ |
+| participacao | NUMERIC(7,4) | |
+| indicador_nao_consta_participacao | BOOLEAN | DEFAULT FALSE |
+| indicador_estrangeiro | BOOLEAN | DEFAULT FALSE |
+| indicador_espolio | BOOLEAN | DEFAULT FALSE |
+| cpf_inventariante | VARCHAR(11) | |
+| indicador_conjuge | BOOLEAN | DEFAULT FALSE |
+| indicador_conjuge_participa | BOOLEAN | |
+| regime_bens | VARCHAR(50) | |
+| indicador_cpf_conjuge_identificado | BOOLEAN | |
+| cpf_conjuge | VARCHAR(11) | |
+| indicador_representante | BOOLEAN | DEFAULT FALSE |
+| representantes | JSONB | Lista de Objetos |
+| data_criacao | TIMESTAMP | |
+
+#### 6. Importações (`doi_importacoes`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGINT | PK |
+| entidade_id | BIGINT | FK (entidades) |
+| usuario_id | BIGINT | FK (usuarios) |
+| nome_arquivo | VARCHAR(255) | |
+| data_importacao | TIMESTAMP | |
+| status | VARCHAR(20) | PROCESSANDO, CONCLUIDO, ERRO |
+| total_registros | INTEGER | |
+| created_at | TIMESTAMP | |
+| updated_at | TIMESTAMP | |
+
+#### 7. Erros de Importação (`doi_importacao_erros`)
+| Coluna | Tipo | Detalhes |
+| :--- | :--- | :--- |
+| id | BIGINT | PK |
+| importacao_id | BIGINT | FK (doi_importacoes) |
+| linha_json | INTEGER | |
+| campo_chave | VARCHAR(100) | |
+| mensagem_erro | TEXT | |
+| created_at | TIMESTAMP | |
+
+#### 8. Tabelas de Domínio (Lookup)
+Todas as tabelas abaixo possuem a estrutura: `codigo (INT, PK)` e `descricao (VARCHAR)`.
+
+1.  `dom_tipo_declaracao`
+2.  `dom_tipo_servico`
+3.  `dom_tipo_ato`
+4.  `dom_tipo_livro`
+5.  `dom_natureza_titulo`
+6.  `dom_tipo_operacao`
+7.  `dom_forma_pagamento`
+8.  `dom_medida_parte`
+9.  `dom_destinacao`
+10. `dom_motivo_nao_ni`
+11. `dom_regime_bens`
+12. `dom_tipo_imovel`

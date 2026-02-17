@@ -90,7 +90,7 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="/cadastro"
+                <a href="/admin/usuarios/novo"
                     class="bg-amazon-primary text-white font-black text-[11px] uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all">
                     <i class="fas fa-plus mr-2"></i> Novo Usuário
                 </a>
@@ -181,12 +181,12 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="flex items-center justify-center space-x-2">
-                                        <a th:href="@{/usuarios/editar/{id}(id=${user.id})}"
+                                        <a th:href="@{/admin/usuarios/editar/{id}(id=${user.id})}"
                                             class="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
                                             <i class="fas fa-edit text-[10px]"></i>
                                         </a>
 
-                                        <form th:action="@{/usuarios/deletar/{id}(id=${user.id})}" method="post"
+                                        <form th:action="@{/admin/usuarios/deletar/{id}(id=${user.id})}" method="post"
                                             onsubmit="return confirm('Tem certeza que deseja remover este usuário?')"
                                             class="m-0">
                                             <button type="submit"
