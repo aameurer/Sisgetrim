@@ -32,7 +32,7 @@ public class MalhaFiscalWebController {
     @GetMapping("/importar")
     public String importarPage(@AuthenticationPrincipal Usuario usuarioLogado, Model model) {
         Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-        Entidade entidade = usuario.getEntidade();
+        Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
 
         if (entidade != null) {
             model.addAttribute("importacoes", importacaoRepository.findByEntidade(entidade));

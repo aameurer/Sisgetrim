@@ -18,21 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.br.sisgetrim.service.EntidadeService;
-import com.br.sisgetrim.dto.EntidadeResponseDTO;
-import java.util.List;
-
 @Controller
 @RequestMapping("/configuracoes")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
-    private final EntidadeService entidadeService;
 
     @Autowired
-    public UsuarioController(UsuarioService usuarioService, EntidadeService entidadeService) {
+    public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-        this.entidadeService = entidadeService;
     }
 
     @GetMapping
@@ -42,14 +36,9 @@ public class UsuarioController {
 
         model.addAttribute("usuario", usuario);
 
-        // Buscar todas as entidades para o dropdown
-        List<EntidadeResponseDTO> entidades = entidadeService.listarTodas();
-        model.addAttribute("entidades", entidades);
-
         if (!model.containsAttribute("usuarioUpdate")) {
-            Long entidadeId = (usuario.getEntidade() != null) ? usuario.getEntidade().getId() : null;
             model.addAttribute("usuarioUpdate", new UsuarioUpdateDTO(usuario.getNome(), usuario.getEmail(),
-                    entidadeId, usuario.getTipoUsuario(), usuario.getRole()));
+                    java.util.Collections.emptyList(), java.util.Collections.emptyList(), null, null));
         }
 
         if (!model.containsAttribute("senhaUpdate")) {
@@ -75,8 +64,7 @@ public class UsuarioController {
         }
 
         try {
-            boolean isMaster = usuarioLogado.getRole().equals("ROLE_MASTER");
-            usuarioService.atualizarPerfil(usuarioLogado.getDocumento(), dto, foto, isMaster);
+            usuarioService.atualizarPerfil(usuarioLogado.getDocumento(), dto, foto);
             redirectAttributes.addFlashAttribute("sucessoPerfil", "Perfil atualizado com sucesso!");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erroPerfil", e.getMessage());

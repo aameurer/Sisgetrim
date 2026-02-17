@@ -41,7 +41,8 @@ public class AuthController {
 
     @GetMapping("/cadastro")
     public String cadastro(Model model) {
-        model.addAttribute("usuarioRequest", new UsuarioRequestDTO("", "", "", null, "", ""));
+        model.addAttribute("usuarioRequest", new UsuarioRequestDTO("", "", "", java.util.Collections.emptyList(),
+                java.util.Collections.emptyList(), "", "", "", "ROLE_USER"));
         model.addAttribute("entidades", entidadeService.listarTodas());
         return "cadastro";
     }
@@ -82,7 +83,7 @@ public class AuthController {
             @org.springframework.security.core.annotation.AuthenticationPrincipal com.br.sisgetrim.model.Usuario usuarioLogado,
             Model model) {
         com.br.sisgetrim.model.Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-        com.br.sisgetrim.model.Entidade entidade = usuario.getEntidade();
+        com.br.sisgetrim.model.Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
 
         if (entidade != null) {
             model.addAttribute("importacoes", importacaoRepository.findByEntidade(entidade));

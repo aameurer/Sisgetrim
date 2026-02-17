@@ -9,6 +9,7 @@ import com.br.sisgetrim.model.Usuario;
 import com.br.sisgetrim.model.Entidade;
 import com.br.sisgetrim.repository.UsuarioRepository;
 import com.br.sisgetrim.repository.EntidadeRepository;
+import com.br.sisgetrim.repository.CartorioRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class UsuarioService implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
     private final EntidadeRepository entidadeRepository;
+    private final CartorioRepository cartorioRepository;
     private final PasswordEncoder passwordEncoder;
     private final UsuarioMapper usuarioMapper;
     private final FileService fileService;
@@ -37,11 +39,13 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository,
             EntidadeRepository entidadeRepository,
+            CartorioRepository cartorioRepository,
             PasswordEncoder passwordEncoder,
             UsuarioMapper usuarioMapper, FileService fileService,
             org.springframework.security.core.session.SessionRegistry sessionRegistry) {
         this.usuarioRepository = usuarioRepository;
         this.entidadeRepository = entidadeRepository;
+        this.cartorioRepository = cartorioRepository;
         this.passwordEncoder = passwordEncoder;
         this.usuarioMapper = usuarioMapper;
         this.fileService = fileService;
@@ -56,6 +60,29 @@ public class UsuarioService implements UserDetailsService {
         return sessionRegistry.getAllPrincipals().stream()
                 .filter(principal -> !sessionRegistry.getAllSessions(principal, false).isEmpty())
                 .count();
+    }
+
+    public java.util.List<UsuarioResponseDTO> listarTodos() {
+        return usuarioRepository.findAll().stream()
+                .map(usuarioMapper::toResponseDTO)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
+    public Usuario buscarPorId(Long id) {
+        return usuarioRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com ID: " + id));
+    }
+
+    public UsuarioUpdateDTO buscarUpdateDTO(Long id) {
+        Usuario usuario = buscarPorId(id);
+        java.util.List<Long> entidadeIds = usuario.getEntidades().stream()
+                .map(com.br.sisgetrim.model.Entidade::getId)
+                .collect(java.util.stream.Collectors.toList());
+        java.util.List<Long> cartorioIds = usuario.getCartorios().stream()
+                .map(com.br.sisgetrim.model.Cartorio::getId)
+                .collect(java.util.stream.Collectors.toList());
+        return new UsuarioUpdateDTO(usuario.getNome(), usuario.getEmail(), entidadeIds, cartorioIds,
+                usuario.getTipoUsuario(), usuario.getRole());
     }
 
     @Override
@@ -74,7 +101,7 @@ public class UsuarioService implements UserDetailsService {
 
     @Transactional
     public UsuarioResponseDTO atualizarPerfil(String documento, UsuarioUpdateDTO dto,
-            org.springframework.web.multipart.MultipartFile foto, boolean isMaster) {
+            org.springframework.web.multipart.MultipartFile foto) {
         Usuario usuario = buscarPorDocumento(documento);
 
         // Verificar se novo e-mail já existe em outro usuário
@@ -84,21 +111,6 @@ public class UsuarioService implements UserDetailsService {
 
         usuario.setNome(dto.nome());
         usuario.setEmail(dto.email());
-        usuario.setTipoUsuario(dto.tipoUsuario());
-
-        // Atualizar Entidade por Link
-        if (dto.entidadeId() != null) {
-            Entidade entidadeId = entidadeRepository.findById(dto.entidadeId())
-                    .orElseThrow(() -> new IllegalArgumentException("Entidade não encontrada"));
-            usuario.setEntidade(entidadeId);
-        } else {
-            usuario.setEntidade(null);
-        }
-
-        // Apenas MASTER pode alterar PRIVILÉGIO (Role)
-        if (isMaster && dto.role() != null) {
-            usuario.setRole(dto.role());
-        }
 
         // Upload de Foto
         if (foto != null && !foto.isEmpty()) {
@@ -122,6 +134,38 @@ public class UsuarioService implements UserDetailsService {
         }
 
         return usuarioMapper.toResponseDTO(salvo);
+    }
+
+    @Transactional
+    public void atualizarUsuarioPorAdmin(Long id, UsuarioUpdateDTO dto) {
+        Usuario usuario = buscarPorId(id);
+
+        // Verificar e-mail duplicado
+        if (!usuario.getEmail().equals(dto.email()) && usuarioRepository.existsByEmail(dto.email())) {
+            throw new IllegalStateException("E-mail já cadastrado por outro usuário");
+        }
+
+        usuario.setNome(dto.nome());
+        usuario.setEmail(dto.email());
+        usuario.setTipoUsuario(dto.tipoUsuario());
+        usuario.setRole(dto.role());
+
+        // Atualizar Entidades
+        usuario.getEntidades().clear();
+        if (dto.entidadeIds() != null && !dto.entidadeIds().isEmpty()) {
+            java.util.List<Entidade> entidades = entidadeRepository.findAllById(dto.entidadeIds());
+            usuario.getEntidades().addAll(entidades);
+        }
+
+        // Atualizar Cartórios
+        usuario.getCartorios().clear();
+        if (dto.cartorioIds() != null && !dto.cartorioIds().isEmpty()) {
+            java.util.List<com.br.sisgetrim.model.Cartorio> cartorios = cartorioRepository
+                    .findAllById(dto.cartorioIds());
+            usuario.getCartorios().addAll(cartorios);
+        }
+
+        usuarioRepository.save(usuario);
     }
 
     @Transactional
@@ -172,11 +216,17 @@ public class UsuarioService implements UserDetailsService {
         usuario.setDocumento(documentoLimpo);
         usuario.setSenha(passwordEncoder.encode(dto.senha()));
 
-        // Associar Entidade
-        if (dto.entidadeId() != null) {
-            Entidade entidade = entidadeRepository.findById(dto.entidadeId())
-                    .orElseThrow(() -> new IllegalArgumentException("Entidade não encontrada"));
-            usuario.setEntidade(entidade);
+        // Associar Entidades
+        if (dto.entidadeIds() != null && !dto.entidadeIds().isEmpty()) {
+            java.util.List<Entidade> entidades = entidadeRepository.findAllById(dto.entidadeIds());
+            usuario.getEntidades().addAll(entidades);
+        }
+
+        // Associar Cartórios
+        if (dto.cartorioIds() != null && !dto.cartorioIds().isEmpty()) {
+            java.util.List<com.br.sisgetrim.model.Cartorio> cartorios = cartorioRepository
+                    .findAllById(dto.cartorioIds());
+            usuario.getCartorios().addAll(cartorios);
         }
 
         Usuario salvo = usuarioRepository.save(usuario);

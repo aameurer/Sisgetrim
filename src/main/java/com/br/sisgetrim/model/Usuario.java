@@ -6,9 +6,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -31,10 +32,15 @@ public class Usuario implements UserDetails {
 
     private String tipoUsuario;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "entidade_id")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuario_entidades", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "entidade_id"))
     @JsonIgnoreProperties("usuarios")
-    private Entidade entidade;
+    private Set<Entidade> entidades = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "usuario_cartorios", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "cartorio_id"))
+    @JsonIgnoreProperties("usuarios")
+    private Set<Cartorio> cartorios = new HashSet<>();
 
     private String fotoUrl;
 
@@ -136,12 +142,20 @@ public class Usuario implements UserDetails {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public Entidade getEntidade() {
-        return entidade;
+    public Set<Entidade> getEntidades() {
+        return entidades;
     }
 
-    public void setEntidade(Entidade entidade) {
-        this.entidade = entidade;
+    public void setEntidades(Set<Entidade> entidades) {
+        this.entidades = entidades;
+    }
+
+    public Set<Cartorio> getCartorios() {
+        return cartorios;
+    }
+
+    public void setCartorios(Set<Cartorio> cartorios) {
+        this.cartorios = cartorios;
     }
 
     public String getFotoUrl() {

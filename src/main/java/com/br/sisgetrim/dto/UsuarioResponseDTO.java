@@ -8,7 +8,10 @@ public record UsuarioResponseDTO(
         String email,
         String documento,
         String role,
+        String tipoUsuario,
         boolean ativo,
+        java.util.List<String> entidades,
+        java.util.List<String> cartorios,
         LocalDateTime createdAt,
         LocalDateTime updatedAt) {
 }

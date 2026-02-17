@@ -82,34 +82,6 @@
                                     <span
                                         class="px-3 py-1 bg-emerald-500/10 text-amazon-primary text-[9px] font-black uppercase rounded-lg border border-emerald-500/10 shadow-sm">Ativo</span>
                                 </div>
-                                <div class="flex items-center justify-between px-2">
-                                    <span
-                                        class="text-[10px] font-black text-amazon-primary/40 uppercase tracking-widest flex items-center">
-                                        <i class="fas fa-user-shield mr-2"></i>Tipo
-                                    </span>
-                                    <span
-                                        class="px-3 py-1 bg-amazon-primary text-white text-[9px] font-black uppercase rounded-lg shadow-md"
-                                        th:text="${usuario.tipoUsuario ?: 'Não Informado'}">Fiscal</span>
-                                </div>
-                                <div class="flex items-center justify-between px-2">
-                                    <span
-                                        class="text-[10px] font-black text-amazon-primary/40 uppercase tracking-widest flex items-center">
-                                        <i class="fas fa-award mr-2"></i>Privilégio
-                                    </span>
-                                    <span
-                                        class="px-3 py-1 bg-emerald-600/10 text-emerald-700 text-[9px] font-black uppercase rounded-lg border border-emerald-600/10"
-                                        th:text="${usuario.role == 'ROLE_MASTER' ? 'MASTER' : (usuario.role == 'ROLE_ADMIN' ? 'ADMIN' : 'USER')}">USER</span>
-                                </div>
-                            </div>
-
-                            <div class="pt-4 mt-4 border-t border-emerald-500/5">
-                                <div class="flex items-center space-x-3 text-amazon-primary/40 mb-2">
-                                    <i class="fas fa-building text-xs"></i>
-                                    <p class="text-[9px] font-black uppercase tracking-widest">Entidade</p>
-                                </div>
-                                <p class="text-xs font-black text-amazon-text uppercase tracking-wider leading-relaxed"
-                                    th:text="${usuario.entidade != null ? usuario.entidade.nomeEmpresarial : 'Não Informada'}">
-                                    PREFEITURA MUNICIPAL</p>
                             </div>
                         </div>
                     </div>
@@ -224,39 +196,6 @@
                                         class="w-full bg-white border border-slate-200 focus:border-[#0061E0] rounded-xl px-5 py-4 text-slate-700 font-bold outline-none transition-all placeholder-slate-300 shadow-sm"
                                         placeholder="email@exemplo.com">
                                 </div>
-
-                                <!-- Só MASTER pode ver/editar o campo Privilégio e Entidade -->
-                                <div class="space-y-2" sec:authorize="hasRole('MASTER')">
-                                    <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
-                                        <i class="fas fa-building opacity-60"></i>
-                                        <span>Entidade Vinculada</span>
-                                    </label>
-                                    <select th:field="*{entidadeId}"
-                                        class="w-full bg-white border border-slate-200 focus:border-[#0061E0] rounded-xl px-5 py-4 text-slate-700 font-bold outline-none transition-all shadow-sm">
-                                        <option value="">Nenhuma Entidade</option>
-                                        <option th:each="ent : ${entidades}" th:value="${ent.id}"
-                                            th:text="${ent.nomeEmpresarial}">
-                                            Prefeitura
-                                        </option>
-                                    </select>
-                                </div>
-                                <input type="hidden" th:field="*{entidadeId}" sec:authorize="!hasRole('MASTER')">
-
-                                <div class="space-y-2" sec:authorize="hasRole('MASTER')">
-                                    <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
-                                        <i class="fas fa-user-shield opacity-60"></i>
-                                        <span>Nível de Privilégio (Role)</span>
-                                    </label>
-                                    <select th:field="*{role}"
-                                        class="w-full bg-white border border-slate-200 focus:border-[#0061E0] rounded-xl px-5 py-4 text-slate-700 font-bold outline-none transition-all shadow-sm">
-                                        <option value="ROLE_USER">USER</option>
-                                        <option value="ROLE_ADMIN">ADMIN</option>
-                                        <option value="ROLE_MASTER">MASTER</option>
-                                    </select>
-                                </div>
-                                <input type="hidden" th:field="*{role}" sec:authorize="!hasRole('MASTER')">
-
-                                <input type="hidden" th:field="*{tipoUsuario}">
                             </div>
 
                             <div class="pt-6 flex justify-end">

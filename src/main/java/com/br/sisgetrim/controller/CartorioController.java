@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.br.sisgetrim.dto.CartorioResponseDTO;
-import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -37,7 +36,7 @@ public class CartorioController {
     @GetMapping
     public String listar(@AuthenticationPrincipal Usuario usuarioLogado, Model model) {
         Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-        Entidade entidade = usuario.getEntidade();
+        Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
 
         if (entidade != null) {
             model.addAttribute("cartorios", cartorioService.listarPorEntidade(entidade));
@@ -62,7 +61,7 @@ public class CartorioController {
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, @AuthenticationPrincipal Usuario usuarioLogado, Model model) {
         Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-        Entidade entidade = usuario.getEntidade();
+        Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
 
         try {
             CartorioResponseDTO cartorio = cartorioService.buscarPorIdEEntidade(id, entidade);
@@ -79,7 +78,7 @@ public class CartorioController {
     public String excluir(@PathVariable Long id, @AuthenticationPrincipal Usuario usuarioLogado,
             RedirectAttributes redirectAttributes) {
         Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-        Entidade entidade = usuario.getEntidade();
+        Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
 
         try {
             cartorioService.excluir(id, entidade);
@@ -118,7 +117,7 @@ public class CartorioController {
 
         try {
             Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-            Entidade entidade = usuario.getEntidade();
+            Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
 
             if (entidade == null) {
                 throw new IllegalStateException("Usuário não possui uma entidade vinculada.");

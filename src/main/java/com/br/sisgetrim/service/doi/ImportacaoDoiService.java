@@ -50,16 +50,17 @@ public class ImportacaoDoiService {
         Usuario usuarioAuth = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Usuario usuario = usuarioService.buscarPorDocumento(usuarioAuth.getDocumento());
 
-        if (usuario.getEntidade() == null) {
+        com.br.sisgetrim.model.Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
+        if (entidade == null) {
             throw new IllegalStateException("Usuário não está vinculado a nenhuma entidade (prefeitura).");
         }
 
         logger.info("Iniciando importação DOI para entidade: {} (Arquivo: {})",
-                usuario.getEntidade().getNomeEmpresarial(), dto.nomeArquivo());
+                entidade.getNomeEmpresarial(), dto.nomeArquivo());
 
         // 2. Criar cabeçalho da importação
         DoiImportacao importacao = new DoiImportacao();
-        importacao.setEntidade(usuario.getEntidade());
+        importacao.setEntidade(entidade);
         importacao.setUsuario(usuario);
         importacao.setNomeArquivo(dto.nomeArquivo() != null ? dto.nomeArquivo() : "Arquivo Desconhecido");
         importacao.setTotalRegistros(0);
@@ -67,7 +68,7 @@ public class ImportacaoDoiService {
         importacao.setDataImportacao(LocalDateTime.now());
         importacao = importacaoRepository.save(importacao);
 
-        progressService.setProgress(usuario.getEntidade().getId(), 0);
+        progressService.setProgress(entidade.getId(), 0);
 
         if (dto.declaracoes() == null || dto.declaracoes().isEmpty()) {
             logger.warn(
@@ -83,7 +84,7 @@ public class ImportacaoDoiService {
         for (var declDto : dto.declaracoes()) {
             DoiDeclaracao declaracao = new DoiDeclaracao();
             declaracao.setImportacao(importacao);
-            declaracao.setEntidade(usuario.getEntidade());
+            declaracao.setEntidade(entidade);
             declaracao.setNumeroDeclaracao(declDto.numeroDeclaracao());
             declaracao.setDataOperacao(declDto.dataLavraturaRegistroAverbacao());
             declaracao.setValorOperacao(declDto.valorOperacaoImobiliaria());
@@ -116,7 +117,7 @@ public class ImportacaoDoiService {
 
             if (count % 100 == 0) {
                 logger.debug("Progresso DOI: {} registros...", count);
-                progressService.setProgress(usuario.getEntidade().getId(), count);
+                progressService.setProgress(entidade.getId(), count);
                 entityManager.flush();
                 entityManager.clear();
             }
@@ -124,7 +125,7 @@ public class ImportacaoDoiService {
 
         importacao.setTotalRegistros(count);
         importacao.setStatus("CONCLUIDO");
-        progressService.setProgress(usuario.getEntidade().getId(), count);
+        progressService.setProgress(entidade.getId(), count);
         return importacaoRepository.save(importacao);
     }
 

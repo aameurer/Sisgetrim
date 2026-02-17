@@ -37,6 +37,13 @@ public class CartorioService {
     }
 
     @Transactional(readOnly = true)
+    public List<CartorioResponseDTO> listarTodos() {
+        return cartorioRepository.findAll().stream()
+                .map(this::mapToResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public List<CartorioResponseDTO> listarPorEntidade(Entidade entidade) {
         if (entidade == null)
             return List.of();

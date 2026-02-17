@@ -39,14 +39,14 @@
                 <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                     <i class="fas fa-users text-6xl text-amazon-primary"></i>
                 </div>
-                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-exo">
+                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-opensans">
                     Quantidade de Usuários</p>
                 <div class="flex flex-col items-center space-y-2">
                     <h3 th:text="${totalUsuarios}"
-                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-exo">
+                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-opensans">
                         0</h3>
                     <span
-                        class="text-emerald-500 text-[10px] font-black px-2 py-1 bg-emerald-500/10 rounded-lg border border-emerald-500/20 font-exo"
+                        class="text-emerald-500 text-[10px] font-black px-2 py-1 bg-emerald-500/10 rounded-lg border border-emerald-500/20 font-opensans"
                         th:text="${usuariosOnline} + ' Online'">+0%</span>
                 </div>
                 <div class="mt-8 w-full flex justify-center">
@@ -62,13 +62,13 @@
                 <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                     <i class="fas fa-file-invoice text-6xl text-amazon-primary"></i>
                 </div>
-                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-exo">
+                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-opensans">
                     Arquivos Importados</p>
                 <div class="flex flex-col items-center space-y-2">
                     <h3
-                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-exo">
+                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-opensans">
                         10</h3>
-                    <span class="text-amazon-primary text-[10px] font-black font-exo uppercase tracking-widest">+5
+                    <span class="text-amazon-primary text-[10px] font-black font-opensans uppercase tracking-widest">+5
                         hoje</span>
                 </div>
                 <div class="mt-8 w-full flex justify-center">
@@ -84,14 +84,14 @@
                 <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                     <i class="fas fa-clock text-6xl text-amazon-primary"></i>
                 </div>
-                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-exo">
+                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-opensans">
                     Processos Pendentes</p>
                 <div class="flex flex-col items-center space-y-2">
                     <h3
-                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-exo">
+                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-opensans">
                         0</h3>
                     <span
-                        class="text-slate-400 text-[10px] font-black font-exo uppercase tracking-widest italic">Estável</span>
+                        class="text-slate-400 text-[10px] font-black font-opensans uppercase tracking-widest italic">Estável</span>
                 </div>
                 <div class="mt-8 w-full flex justify-center">
                     <div class="w-full max-w-[150px] h-1.5 bg-emerald-500/5 rounded-full overflow-hidden">
@@ -107,7 +107,8 @@
             <!-- Tabela Fiscais (ITBI) -->
             <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">
                 <div class="flex items-center justify-between mb-4 px-4">
-                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-exo">Importações
+                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-opensans">
+                        Importações
                         Recentes
                         dos Fiscais</h2>
                     <a href="/malha"
@@ -134,12 +135,12 @@
                         </thead>
                         <tbody class="divide-y divide-slate-50">
                             <tr th:each="imp : ${importacoesItbi}" class="hover:bg-slate-50/50 transition-colors">
-                                <td class="py-1 text-[11px] font-bold text-slate-400 font-exo"
+                                <td class="py-1 text-[11px] font-bold text-slate-400 font-opensans"
                                     th:text="'#' + ${imp.id}">#622
                                 </td>
                                 <td class="py-1">
                                     <span
-                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-exo"
+                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-opensans"
                                         th:text="${imp.nomeArquivo}">ARRECADACAO.XLSX</span>
                                 </td>
                                 <td class="py-1 text-[11px] font-bold text-slate-500" th:text="${imp.usuario.nome}">User
@@ -165,7 +166,8 @@
             <!-- Tabela Cartórios (DOI) -->
             <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">
                 <div class="flex items-center justify-between mb-4 px-4">
-                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-exo">Importações
+                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-opensans">
+                        Importações
                         Recentes
                         dos Cartórios</h2>
                     <a href="/malha"
@@ -192,11 +194,11 @@
                         </thead>
                         <tbody class="divide-y divide-slate-50">
                             <tr th:each="imp : ${importacoes}" class="hover:bg-slate-50/50 transition-colors">
-                                <td class="py-1 text-[11px] font-bold text-slate-400 font-exo"
+                                <td class="py-1 text-[11px] font-bold text-slate-400 font-opensans"
                                     th:text="'#' + ${imp.id}">#7</td>
                                 <td class="py-1">
                                     <span
-                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-exo"
+                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-inter"
                                         th:text="${imp.nomeArquivo}">DOI_DADOS.JSON</span>
                                 </td>
                                 <td class="py-1 text-[11px] font-bold text-slate-500" th:text="${imp.usuario.nome}">User

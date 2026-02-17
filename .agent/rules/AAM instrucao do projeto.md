@@ -14,6 +14,7 @@ trigger: always_on
   - `cursor-pointer`
 - Evite CSS inline.
 - Componentes reutilizáveis devem ser extraídos para fragments (Thymeleaf).
+- **Máscaras de Campo:** Sempre que houver campos de **CNPJ, CPF, Telefone ou CEP**, deve-se aplicar máscara de formatação (via JavaScript no frontend e validação no DTO).
 - **Tabelas:** Devem seguir o padrão ultra-compacto (densidade máxima):
   - Células `<td>`: padding vertical `py-1` ou `py-1.5`.
   - Cabeçalho `<th>`: padding inferior `pb-2`.

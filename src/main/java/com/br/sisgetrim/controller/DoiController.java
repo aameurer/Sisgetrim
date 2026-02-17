@@ -94,7 +94,11 @@ public class DoiController {
             @AuthenticationPrincipal Usuario usuarioLogado) {
         try {
             Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-            int total = fiscalItbiImportService.importarExcel(file, usuario.getEntidade().getId());
+            Long entidadeId = usuario.getEntidades().stream()
+                    .map(com.br.sisgetrim.model.Entidade::getId)
+                    .findFirst()
+                    .orElse(null);
+            int total = fiscalItbiImportService.importarExcel(file, entidadeId);
 
             Map<String, Object> response = new HashMap<>();
             response.put("status", "success");

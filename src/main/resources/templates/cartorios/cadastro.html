@@ -191,12 +191,12 @@
 
                         <div class="space-y-2 flex-1 overflow-y-auto pr-2 custom-scrollbar">
                             <div th:each="a : ${atribuicoes}"
-                                class="flex items-center space-x-3 p-2 rounded-xl hover:bg-slate-50 transition-all cursor-pointer group">
+                                class="flex items-start space-x-3 p-2 rounded-xl hover:bg-slate-50 transition-all cursor-pointer group">
                                 <input type="checkbox" th:value="${a}" name="atribuicoes" th:id="${'atrib_' + a}"
                                     th:checked="${cartorio != null and cartorio.atribuicoes.contains(a)}"
-                                    class="h-5 w-5 rounded border-emerald-500/20 text-amazon-primary focus:ring-amazon-primary transition-all cursor-pointer">
+                                    class="h-5 w-5 flex-shrink-0 rounded border-emerald-500/20 text-amazon-primary focus:ring-amazon-primary transition-all cursor-pointer mt-0.5">
                                 <label th:for="${'atrib_' + a}"
-                                    class="text-xs font-bold text-slate-600 group-hover:text-amazon-primary transition-colors cursor-pointer"
+                                    class="text-xs font-bold text-slate-600 group-hover:text-amazon-primary transition-colors cursor-pointer leading-tight"
                                     th:text="${a}">Notas</label>
                             </div>
                         </div>

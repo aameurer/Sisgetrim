@@ -35,12 +35,12 @@ public class GlobalEntityAdvice {
                 // Recarregar para pegar a relação JPA
                 Usuario usuario = usuarioService.buscarPorDocumento(usuarioAuth.getDocumento());
 
-                if (usuario.getEntidade() != null) {
-                    entidadePrincipal = entidadeService.buscarPorId(usuario.getEntidade().getId()) != null
-                            ? entidadeService.listarTodas().stream()
-                                    .filter(e -> e.id().equals(usuario.getEntidade().getId()))
-                                    .findFirst().orElse(null)
-                            : null;
+                com.br.sisgetrim.model.Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
+                if (entidade != null) {
+                    entidadePrincipal = entidadeService.listarTodas().stream()
+                            .filter(e -> e.id().equals(entidade.getId()))
+                            .findFirst()
+                            .orElse(null);
                 }
             } catch (Exception e) {
                 // Silencioso se der erro no cast ou busca

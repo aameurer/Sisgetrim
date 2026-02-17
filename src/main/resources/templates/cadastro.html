@@ -57,7 +57,7 @@
                         <h2 class="text-3xl font-black text-[#0A3D2E] mb-1 font-outfit tracking-tight">Cadastro</h2>
                         <p class="text-[#0A3D2E]/70 text-[10px] font-black uppercase tracking-[0.2em]">Preencha seus
                             dados
-                            de fiscal</p>
+                        </p>
                     </div>
 
                     <!-- Mensagens -->
@@ -107,24 +107,6 @@
                                 class="text-rose-500 text-[10px] mt-1 ml-1 font-bold"></p>
                         </div>
 
-                        <!-- Entidade -->
-                        <div class="relative group">
-                            <label for="entidadeId"
-                                class="block text-[11px] font-black text-[#0A3D2E] uppercase tracking-widest mb-1.5 ml-1 transition group-focus-within:text-emerald-600">
-                                Prefeitura / Entidade
-                            </label>
-                            <select id="entidadeId" th:field="*{entidadeId}"
-                                class="w-full bg-emerald-50 border-2 border-emerald-100 rounded-2xl px-6 py-3 text-[#0A3D2E] font-bold placeholder-[#0A3D2E]/40 focus:outline-none focus:bg-white focus:border-emerald-400 focus:ring-4 focus:ring-emerald-500/10 transition-all outline-none appearance-none">
-                                <option value="">Não Vincular a Entidade</option>
-                                <option th:each="ent : ${entidades}" th:value="${ent.id}"
-                                    th:text="${ent.nomeEmpresarial}">
-                                    Prefeitura
-                                </option>
-                            </select>
-                            <div class="absolute right-4 bottom-4 pointer-events-none text-[#0A3D2E]/40">
-                                <i class="fas fa-chevron-down text-[10px]"></i>
-                            </div>
-                        </div>
 
                         <!-- Senha -->
                         <div class="relative group">
