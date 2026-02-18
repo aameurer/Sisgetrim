@@ -21,6 +21,10 @@ public class DoiImportacao {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cartorio_id")
+    private com.br.sisgetrim.model.Cartorio cartorio;
+
     @Column(name = "nome_arquivo", nullable = false)
     private String nomeArquivo;
 
@@ -77,6 +81,14 @@ public class DoiImportacao {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public com.br.sisgetrim.model.Cartorio getCartorio() {
+        return cartorio;
+    }
+
+    public void setCartorio(com.br.sisgetrim.model.Cartorio cartorio) {
+        this.cartorio = cartorio;
     }
 
     public String getNomeArquivo() {

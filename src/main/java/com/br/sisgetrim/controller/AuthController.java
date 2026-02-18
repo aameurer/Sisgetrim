@@ -81,9 +81,25 @@ public class AuthController {
     @GetMapping("/dashboard")
     public String dashboard(
             @org.springframework.security.core.annotation.AuthenticationPrincipal com.br.sisgetrim.model.Usuario usuarioLogado,
+            jakarta.servlet.http.HttpSession session,
             Model model) {
         com.br.sisgetrim.model.Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
-        com.br.sisgetrim.model.Entidade entidade = usuario.getEntidades().stream().findFirst().orElse(null);
+        com.br.sisgetrim.model.Entidade entidade = null;
+
+        // 1. Tentar pegar entidade selecionada na sessão
+        Long entidadeSelecionadaId = (Long) session.getAttribute("entidadeSelecionadaId");
+
+        if (entidadeSelecionadaId != null) {
+            entidade = usuario.getEntidades().stream()
+                    .filter(e -> e.getId().equals(entidadeSelecionadaId))
+                    .findFirst()
+                    .orElse(null);
+        }
+
+        // 2. Fallback: Pegar a primeira se não houver vínculo ou seleção
+        if (entidade == null) {
+            entidade = usuario.getEntidades().stream().findFirst().orElse(null);
+        }
 
         if (entidade != null) {
             model.addAttribute("importacoes", importacaoRepository.findByEntidade(entidade));

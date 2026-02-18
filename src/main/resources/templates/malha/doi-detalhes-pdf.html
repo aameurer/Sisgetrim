@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalhes da DOI</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 10pt;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #2c3e50;
+            margin-bottom: 5mm;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 2mm;
+        }
+
+        h2 {
+            font-size: 12pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #34495e;
+            margin-top: 5mm;
+            margin-bottom: 3mm;
+            background-color: #ecf0f1;
+            padding: 2mm;
+            border-left: 5px solid #34495e;
+        }
+
+        .info-grid {
+            width: 100%;
+            margin-bottom: 5mm;
+        }
+
+        .info-item {
+            display: inline-block;
+            width: 32%;
+            margin-bottom: 3mm;
+            vertical-align: top;
+        }
+
+        .label {
+            font-size: 7pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            display: block;
+        }
+
+        .value {
+            font-size: 9pt;
+            font-weight: bold;
+            color: #2c3e50;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5mm;
+            font-size: 9pt;
+        }
+
+        th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-weight: bold;
+            text-align: left;
+            padding: 2mm;
+            border-bottom: 1px solid #bdc3c7;
+            text-transform: uppercase;
+            font-size: 8pt;
+        }
+
+        td {
+            padding: 2mm;
+            border-bottom: 1px solid #ecf0f1;
+            color: #34495e;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 8pt;
+            color: #95a5a6;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 2mm;
+        }
+
+        .indicator {
+            display: inline-block;
+            padding: 1px 4px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 7pt;
+            margin-right: 2px;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Detalhes do Registro DOI #<span th:text="${declaracao.id}">421</span></h1>
+
+    <div style="margin-bottom: 5mm; font-size: 9pt;">
+        <strong>Gerado em:</strong> <span
+            th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}"></span> |
+        <strong>Matrícula:</strong> <span th:text="${declaracao.matricula}"></span>
+    </div>
+
+    <!-- Informações Gerais -->
+    <h2>Informações Gerais</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">ID</span>
+            <span class="value" th:text="${declaracao.id}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Matrícula (ADIMM)</span>
+            <span class="value" th:text="${declaracao.matricula}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo de Declaração</span>
+            <span class="value" th:text="${declaracao.tipoDeclaracao}">Original</span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo de Serviço</span>
+            <span class="value" th:text="${declaracao.tipoServico}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo de Ato</span>
+            <span class="value" th:text="${declaracao.tipoAto}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Data ITBI</span>
+            <span class="value" th:text="${#temporals.format(declaracao.dataItbi, 'dd/MM/yyyy')}"></span>
+        </div>
+    </div>
+
+    <!-- Alienantes -->
+    <h2>Alienantes (Vendedores)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CPF/CNPJ (NI)</th>
+                <th>Participação</th>
+                <th>Indicadores</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(declaracao.alienantes)}">
+                <td colspan="3" style="text-align: center; font-style: italic;">Nenhum alienante cadastrado</td>
+            </tr>
+            <tr th:each="alienante : ${declaracao.alienantes}">
+                <td class="value" th:text="${alienante.ni}"></td>
+                <td th:text="${alienante.participacao != null ? alienante.participacao + '%' : '-'}"></td>
+                <td>
+                    <span th:if="${alienante.indicadorEstrangeiro}" class="indicator">ESTRANGEIRO</span>
+                    <span th:if="${alienante.indicadorEspolio}" class="indicator">ESPÓLIO</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Adquirentes -->
+    <h2>Adquirentes (Compradores)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CPF/CNPJ (NI)</th>
+                <th>Participação</th>
+                <th>Indicadores</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${#lists.isEmpty(declaracao.adquirentes)}">
+                <td colspan="3" style="text-align: center; font-style: italic;">Nenhum adquirente cadastrado</td>
+            </tr>
+            <tr th:each="adquirente : ${declaracao.adquirentes}">
+                <td class="value" th:text="${adquirente.ni}"></td>
+                <td th:text="${adquirente.participacao != null ? adquirente.participacao + '%' : '-'}"></td>
+                <td>
+                    <span th:if="${adquirente.indicadorEstrangeiro}" class="indicator">ESTRANGEIRO</span>
+                    <span th:if="${adquirente.indicadorEspolio}" class="indicator">ESPÓLIO</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Dados do Imóvel -->
+    <div th:if="${declaracao.dadosImovel != null}">
+        <h2>Dados do Imóvel</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">Inscrição Municipal</span>
+                <span class="value" th:text="${declaracao.dadosImovel.inscricaoMunicipal}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">CIB / NIRF</span>
+                <span class="value" th:text="${declaracao.dadosImovel.cib}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Tipo de Imóvel</span>
+                <span class="value" th:text="${declaracao.dadosImovel.tipoImovel}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Destinação</span>
+                <span class="value" th:text="${declaracao.dadosImovel.destinacao}"></span>
+            </div>
+            <div class="info-item" style="width: 65%;">
+                <span class="label">Endereço Completo</span>
+                <span class="value"
+                    th:text="${declaracao.dadosImovel.tipoLogradouro + ' ' + declaracao.dadosImovel.nomeLogradouro + ', ' + declaracao.dadosImovel.numeroImovel + ' - ' + declaracao.dadosImovel.bairro}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Área do Imóvel</span>
+                <span class="value" th:text="${declaracao.dadosImovel.areaImovel + ' m²'}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Área Construída</span>
+                <span class="value"
+                    th:text="${declaracao.dadosImovel.areaConstruida != null ? declaracao.dadosImovel.areaConstruida + ' m²' : '-'}"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operação Imobiliária -->
+    <div th:if="${declaracao.operacao != null}">
+        <h2>Operação Imobiliária</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <span class="label">Valor da Operação</span>
+                <span class="value" style="color: #27ae60;"
+                    th:text="${'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorOperacaoImobiliaria, 1, 'POINT', 2, 'COMMA')}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Base de Cálculo ITBI/ITCMD</span>
+                <span class="value"
+                    th:text="${declaracao.operacao.valorBaseCalculoItbiItcmd != null ? 'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorBaseCalculoItbiItcmd, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Forma de Pagamento</span>
+                <span class="value" th:text="${declaracao.operacao.formaPagamento}"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Data do Negócio</span>
+                <span class="value"
+                    th:text="${#temporals.format(declaracao.operacao.dataNegocioJuridico, 'dd/MM/yyyy')}"></span>
+            </div>
+            <div class="info-item" style="width: 65%;">
+                <span class="label">Tipo da Operação</span>
+                <span class="value" th:text="${declaracao.operacao.tipoOperacaoImobiliaria}"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        SISGETRIM - Sistema de Gestão Tributária Municipal - Documento gerado automaticamente.
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Detalhes DOI</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <div class="p-8">
+            <!-- Breadcrumb -->
+            <nav class="mb-6 text-sm">
+                <a href="/dashboard" class="text-slate-400 hover:text-emerald-600 transition-colors">Dashboard</a>
+                <span class="text-slate-300 mx-2">→</span>
+                <a href="/malha/analise-importacoes"
+                    class="text-slate-400 hover:text-emerald-600 transition-colors">Análise de Importações</a>
+                <span class="text-slate-300 mx-2">→</span>
+                <span class="text-slate-700 font-bold">Detalhes #<span th:text="${declaracao.id}">421</span></span>
+            </nav>
+
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-2xl font-black text-amazon-text uppercase tracking-tight">
+                        Detalhes do Registro
+                    </h1>
+                </div>
+                <div class="flex space-x-3">
+                    <a href="/malha/analise-importacoes"
+                        class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-xl transition-all active:scale-95 flex items-center space-x-2">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Voltar</span>
+                    </a>
+                    <a th:href="@{/malha/doi/{id}/pdf(id=${declaracao.id})}" target="_blank"
+                        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition-all active:scale-95 flex items-center space-x-2">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Exportar PDF</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card: Informações Gerais -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="h-12 w-12 rounded-xl bg-emerald-100 flex items-center justify-center">
+                        <i class="fas fa-file-alt text-emerald-600 text-lg"></i>
+                    </div>
+                    <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Informações Gerais</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">ID</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono" th:text="${declaracao.id}">421</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Matrícula
+                            (ADIMM)</label>
+                        <p class="text-sm font-bold text-emerald-700 mt-1 font-mono" th:text="${declaracao.matricula}">
+                            52398</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo de
+                            Declaração</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1" th:text="${declaracao.tipoDeclaracao}">Original
+                        </p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo de
+                            Serviço</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.tipoServico != null ? declaracao.tipoServico : 'Não informado'}">
+                            Registro de Imóveis</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo de
+                            Ato</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.tipoAto != null ? declaracao.tipoAto : 'Não informado'}">Registro</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Data ITBI</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dataLavratura != null ? #temporals.format(declaracao.dataLavratura, 'dd/MM/yyyy') : 'Não informado'}">
+                            19/07/2024</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Número de
+                            Registro/Averbação</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.numRegistroAverbacao != null ? declaracao.numRegistroAverbacao : 'Não informado'}">
+                            0000003</p>
+                    </div>
+                    <div>
+                        <label
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Transcrição</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.transcricao != null ? declaracao.transcricao : 'Não informado'}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">MNE (Matrícula
+                            Notarial Eletrônica)</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.mneEletronica != null ? declaracao.mneEletronica : 'Não informado'}">-
+                        </p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">CNM (Código
+                            Nacional de Matrícula)</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.cnmCodigoNacional != null ? declaracao.cnmCodigoNacional : 'Não informado'}">
+                            0799052005241097</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Natureza do
+                            Título</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.naturezaTitulo != null ? declaracao.naturezaTitulo : 'Não informado'}">
+                            Escritura Pública</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo de
+                            Livro</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.tipoLivro != null ? declaracao.tipoLivro : 'Não informado'}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Número do
+                            Livro</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.numeroLivro != null ? declaracao.numeroLivro : 'Não informado'}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Folha</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.folha != null ? declaracao.folha : 'Não informado'}">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Alienantes -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="h-12 w-12 rounded-xl bg-rose-100 flex items-center justify-center">
+                        <i class="fas fa-user-minus text-rose-600 text-lg"></i>
+                    </div>
+                    <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Alienantes (Vendedores)
+                    </h2>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th class="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                    CPF/CNPJ (NI)</th>
+                                <th class="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                    Participação</th>
+                                <th class="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                    Indicadores</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr th:if="${#lists.isEmpty(declaracao.alienantes)}">
+                                <td colspan="3" class="px-4 py-3 text-sm text-slate-500 text-center italic">Nenhum
+                                    alienante cadastrado</td>
+                            </tr>
+                            <tr th:each="alienante : ${declaracao.alienantes}"
+                                class="hover:bg-slate-50/80 transition-colors">
+                                <td class="px-4 py-1.5 text-sm font-bold text-slate-700 font-mono"
+                                    th:text="${alienante.ni}">000.000.000-00</td>
+                                <td class="px-4 py-1.5 text-sm font-medium text-slate-600"
+                                    th:text="${alienante.participacao != null ? alienante.participacao + '%' : '-'}">
+                                    100%</td>
+                                <td class="px-4 py-1.5 text-sm font-medium text-slate-600">
+                                    <span th:if="${alienante.indicadorEstrangeiro}"
+                                        class="px-2 py-0.5 rounded text-[10px] bg-indigo-100 text-indigo-700 font-bold">ESTRANGEIRO</span>
+                                    <span th:if="${alienante.indicadorEspolio}"
+                                        class="px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-700 font-bold">ESPÓLIO</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Card: Adquirentes -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="h-12 w-12 rounded-xl bg-cyan-100 flex items-center justify-center">
+                        <i class="fas fa-user-plus text-cyan-600 text-lg"></i>
+                    </div>
+                    <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Adquirentes (Compradores)
+                    </h2>
+                </div>
+
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th class="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                    CPF/CNPJ (NI)</th>
+                                <th class="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                    Participação</th>
+                                <th class="px-4 py-2 text-[10px] font-black text-slate-400 uppercase tracking-wider">
+                                    Indicadores</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr th:if="${#lists.isEmpty(declaracao.adquirentes)}">
+                                <td colspan="3" class="px-4 py-3 text-sm text-slate-500 text-center italic">Nenhum
+                                    adquirente cadastrado</td>
+                            </tr>
+                            <tr th:each="adquirente : ${declaracao.adquirentes}"
+                                class="hover:bg-slate-50/80 transition-colors">
+                                <td class="px-4 py-1.5 text-sm font-bold text-slate-700 font-mono"
+                                    th:text="${adquirente.ni}">000.000.000-00</td>
+                                <td class="px-4 py-1.5 text-sm font-medium text-slate-600"
+                                    th:text="${adquirente.participacao != null ? adquirente.participacao + '%' : '-'}">
+                                    100%</td>
+                                <td class="px-4 py-1.5 text-sm font-medium text-slate-600">
+                                    <span th:if="${adquirente.indicadorEstrangeiro}"
+                                        class="px-2 py-0.5 rounded text-[10px] bg-indigo-100 text-indigo-700 font-bold">ESTRANGEIRO</span>
+                                    <span th:if="${adquirente.indicadorEspolio}"
+                                        class="px-2 py-0.5 rounded text-[10px] bg-amber-100 text-amber-700 font-bold">ESPÓLIO</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Card: Dados do Imóvel -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="h-12 w-12 rounded-xl bg-orange-100 flex items-center justify-center">
+                        <i class="fas fa-home text-orange-600 text-lg"></i>
+                    </div>
+                    <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Dados do Imóvel</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5"
+                    th:if="${declaracao.dadosImovel != null}">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Inscrição
+                            Municipal</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.dadosImovel.inscricaoMunicipal}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">CIB / NIRF</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.dadosImovel.cib}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Destinação</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1" th:text="${declaracao.dadosImovel.destinacao}">
+                            URBANO</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo de
+                            Imóvel</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1" th:text="${declaracao.dadosImovel.tipoImovel}">
+                            CASA</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Logradouro</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dadosImovel.tipoLogradouro + ' ' + declaracao.dadosImovel.nomeLogradouro}">
+                            Rua Exemplo</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Número</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dadosImovel.numeroImovel}">123</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Complemento
+                            Número</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dadosImovel.complementoNumero}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Complemento
+                            Endereço</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dadosImovel.complementoEndereco}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Bairro</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1" th:text="${declaracao.dadosImovel.bairro}">
+                            Centro</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">CEP</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.dadosImovel.cep}">00000-000</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Área do
+                            Imóvel</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.dadosImovel.areaImovel + ' m²'}">0 m²</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Área
+                            Construída</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.dadosImovel.areaConstruida != null ? declaracao.dadosImovel.areaConstruida + ' m²' : '-'}">
+                            -</p>
+                    </div>
+                    <!-- Campos Extras -->
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Código
+                            INCRA/RIP</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.dadosImovel.codigoIncra != null ? declaracao.dadosImovel.codigoIncra : (declaracao.dadosImovel.registroImobiliarioPatrimonialRip != null ? declaracao.dadosImovel.registroImobiliarioPatrimonialRip : '-')}">
+                            -</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Denominação
+                            Rural</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dadosImovel.denominacaoRural}">-</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Localização
+                            Detalhada</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.dadosImovel.localizacaoDetalhada}">-</p>
+                    </div>
+                    <div class="col-span-full">
+                        <label
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2 block">Indicadores
+                            do Imóvel</label>
+                        <div class="flex flex-wrap gap-2">
+                            <span th:if="${declaracao.dadosImovel.indicadorImovelPublicoUniao}"
+                                class="px-2 py-1 rounded text-xs bg-indigo-50 text-indigo-700 font-bold border border-indigo-100">IMÓVEL
+                                PÚBLICO DA UNIÃO</span>
+                            <span th:if="${declaracao.dadosImovel.indicadorAreaLoteNaoConsta}"
+                                class="px-2 py-1 rounded text-xs bg-amber-50 text-amber-700 font-bold border border-amber-100">ÁREA
+                                DO LOTE NÃO CONSTA</span>
+                            <span th:if="${declaracao.dadosImovel.indicadorAreaConstruidaNaoConsta}"
+                                class="px-2 py-1 rounded text-xs bg-amber-50 text-amber-700 font-bold border border-amber-100">ÁREA
+                                CONSTRUÍDA NÃO CONSTA</span>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${declaracao.dadosImovel == null}" class="text-center py-4 text-slate-500 italic">
+                    Dados do imóvel não disponíveis.
+                </div>
+            </div>
+
+            <!-- Card: Operação Imobiliária -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
+                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
+                    <div class="h-12 w-12 rounded-xl bg-violet-100 flex items-center justify-center">
+                        <i class="fas fa-hand-holding-usd text-violet-600 text-lg"></i>
+                    </div>
+                    <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Operação Imobiliária</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5"
+                    th:if="${declaracao.operacao != null}">
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Valor da
+                            Operação</label>
+                        <p class="text-sm font-bold text-emerald-700 mt-1 font-mono"
+                            th:text="${'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorOperacaoImobiliaria, 1, 'POINT', 2, 'COMMA')}">
+                            R$ 0,00</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Base de Cálculo
+                            ITBI/ITCMD</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.operacao.valorBaseCalculoItbiItcmd != null ? 'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorBaseCalculoItbiItcmd, 1, 'POINT', 2, 'COMMA') : '-'}">
+                            R$ 0,00</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Forma de
+                            Pagamento</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.operacao.formaPagamento}">À Vista</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Data do
+                            Negócio</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${#temporals.format(declaracao.operacao.dataNegocioJuridico, 'dd/MM/yyyy')}">
+                            01/01/2024</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Valor Pago até a
+                            Data</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.operacao.valorPagoAteDataAto != null ? 'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorPagoAteDataAto, 1, 'POINT', 2, 'COMMA') : '-'}">
+                            -</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Valor em Moeda
+                            Corrente</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
+                            th:text="${declaracao.operacao.valorPagoMoedaCorrenteDataAto != null ? 'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorPagoMoedaCorrenteDataAto, 1, 'POINT', 2, 'COMMA') : '-'}">
+                            -</p>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Parte
+                            Transacionada</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.operacao.tipoParteTransacionada + ' (' + declaracao.operacao.valorParteTransacionada + '%)'}">
+                            INTEIRA (100%)</p>
+                    </div>
+                    <!-- Mês/Ano Última Parcela -->
+                    <div>
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Última
+                            Parcela</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.operacao.mesAnoUltimaParcela != null ? #temporals.format(declaracao.operacao.mesAnoUltimaParcela, 'MM/yyyy') : '-'}">
+                            -</p>
+                    </div>
+                    <div class="col-span-full">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo da
+                            Operação</label>
+                        <p class="text-sm font-bold text-slate-700 mt-1"
+                            th:text="${declaracao.operacao.tipoOperacaoImobiliaria}">Compra e Venda</p>
+                        <p class="text-xs text-slate-500 mt-1"
+                            th:if="${declaracao.operacao.descricaoOutrasOperacoes != null}"
+                            th:text="${'Detalhe: ' + declaracao.operacao.descricaoOutrasOperacoes}"></p>
+                    </div>
+                    <div class="col-span-full">
+                        <label
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider mb-2 block">Indicadores
+                            da Operação</label>
+                        <div class="flex flex-wrap gap-2">
+                            <span th:if="${declaracao.operacao.indicadorNaoConstaValorOperacao}"
+                                class="px-2 py-1 rounded text-xs bg-rose-50 text-rose-700 font-bold border border-rose-100">VALOR
+                                NÃO CONSTA</span>
+                            <span th:if="${declaracao.operacao.indicadorNaoConstaBaseCalculo}"
+                                class="px-2 py-1 rounded text-xs bg-rose-50 text-rose-700 font-bold border border-rose-100">BASE
+                                CÁLCULO NÃO CONSTA</span>
+                            <span th:if="${declaracao.operacao.indicadorAlienacaoFiduciaria}"
+                                class="px-2 py-1 rounded text-xs bg-indigo-50 text-indigo-700 font-bold border border-indigo-100">ALIENAÇÃO
+                                FIDUCIÁRIA</span>
+                            <span th:if="${declaracao.operacao.indicadorPermutaBens}"
+                                class="px-2 py-1 rounded text-xs bg-teal-50 text-teal-700 font-bold border border-teal-100">PERMUTA
+                                DE BENS</span>
+                            <span th:if="${declaracao.operacao.indicadorPagamentoDinheiro}"
+                                class="px-2 py-1 rounded text-xs bg-emerald-50 text-emerald-700 font-bold border border-emerald-100">PAGAMENTO
+                                EM DINHEIRO</span>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${declaracao.operacao == null}" class="text-center py-4 text-slate-500 italic">
+                    Dados da operação não disponíveis.
+                </div>
+            </div>
+
+        </div>
+    </section>
+</body>
+
+</html>

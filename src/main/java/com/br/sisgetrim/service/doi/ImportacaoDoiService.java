@@ -31,6 +31,7 @@ public class ImportacaoDoiService {
     private final UsuarioService usuarioService;
     private final ImportProgressService progressService;
     private final DoiLookupService lookupService;
+    private final com.br.sisgetrim.repository.CartorioRepository cartorioRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -41,13 +42,15 @@ public class ImportacaoDoiService {
             DoiImportacaoErrosRepository errosRepository,
             UsuarioService usuarioService,
             ImportProgressService progressService,
-            DoiLookupService lookupService) {
+            DoiLookupService lookupService,
+            com.br.sisgetrim.repository.CartorioRepository cartorioRepository) {
         this.importacaoRepository = importacaoRepository;
         this.declaracaoRepository = declaracaoRepository;
         this.errosRepository = errosRepository;
         this.usuarioService = usuarioService;
         this.progressService = progressService;
         this.lookupService = lookupService;
+        this.cartorioRepository = cartorioRepository;
     }
 
     @Transactional
@@ -66,6 +69,32 @@ public class ImportacaoDoiService {
         importacao.setNomeArquivo(
                 dto.nomeArquivo() != null ? dto.nomeArquivo() : "Arquivo_Exportado_" + LocalDateTime.now());
         importacao.setStatus("PROCESSANDO");
+
+        // Lógica de Vínculo de Cartório
+        com.br.sisgetrim.model.Cartorio cartorioSelecionado = null;
+
+        // 1. Se o usuário for de Cartório, pega o primeiro vinculado
+        if (!usuario.getCartorios().isEmpty()) {
+            cartorioSelecionado = usuario.getCartorios().stream().findFirst().orElse(null);
+        }
+        // 2. Se não for de Cartório (Admin/Prefeitura) e informou ID no DTO
+        else if (dto.cartorioId() != null) {
+            cartorioSelecionado = cartorioRepository.findById(dto.cartorioId())
+                    .orElseThrow(
+                            () -> new IllegalArgumentException("Cartório não encontrado com ID: " + dto.cartorioId()));
+        }
+
+        if (cartorioSelecionado != null) {
+            // Valida se o cartório pertence à mesma entidade da importação
+            if (!cartorioSelecionado.getEntidade().getId().equals(entidade.getId())) {
+                throw new IllegalArgumentException("O Cartório selecionado não pertence à Entidade atual.");
+            }
+            importacao.setCartorio(cartorioSelecionado);
+        } else {
+            // Opcional: Bloquear se for obrigatório ter cartório
+            // throw new IllegalArgumentException("É obrigatório selecionar um Cartório.");
+        }
+
         importacao = importacaoRepository.save(importacao);
 
         if (dto.declaracoes() == null || dto.declaracoes().isEmpty()) {
@@ -409,5 +438,10 @@ public class ImportacaoDoiService {
                 log.append("Valor não numérico para ").append(nomeAmigavel).append(": ").append(valorStr).append("; ");
             }
         }
+    }
+
+    @Transactional(readOnly = true)
+    public java.util.Optional<DoiDeclaracao> findByIdWithDetails(Long id) {
+        return declaracaoRepository.findByIdWithDetails(id);
     }
 }
