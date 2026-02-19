@@ -7,87 +7,120 @@
     <style>
         @page {
             size: A4;
-            margin: 20mm;
+            margin: 15mm;
         }
 
         body {
-            font-family: Helvetica, Arial, sans-serif;
-            font-size: 10pt;
-            color: #333;
-            line-height: 1.4;
+            font-family: "Helvetica", "Arial", sans-serif;
+            font-size: 9pt;
+            color: #18181b;
+            /* Zinc 900 */
+            line-height: 1.5;
+            background: #ffffff;
+        }
+
+        .header {
+            border-bottom: 2px solid #18181b;
+            padding-bottom: 4mm;
+            margin-bottom: 6mm;
         }
 
         h1 {
-            font-size: 16pt;
-            font-weight: bold;
+            font-size: 18pt;
+            font-weight: 900;
             text-transform: uppercase;
-            color: #2c3e50;
-            margin-bottom: 5mm;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 2mm;
+            letter-spacing: -0.5px;
+            margin: 0;
+            color: #09090b;
+        }
+
+        .header-meta {
+            font-size: 8pt;
+            color: #71717a;
+            /* Zinc 500 */
+            margin-top: 2mm;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
         }
 
         h2 {
-            font-size: 12pt;
-            font-weight: bold;
+            font-size: 11pt;
+            font-weight: 900;
             text-transform: uppercase;
-            color: #34495e;
-            margin-top: 5mm;
-            margin-bottom: 3mm;
-            background-color: #ecf0f1;
-            padding: 2mm;
-            border-left: 5px solid #34495e;
+            color: #18181b;
+            margin-top: 8mm;
+            margin-bottom: 4mm;
+            background-color: #f4f4f5;
+            /* Zinc 100 */
+            padding: 3mm 4mm;
+            border-left: 4px solid #18181b;
+            letter-spacing: 0.5px;
         }
 
         .info-grid {
             width: 100%;
-            margin-bottom: 5mm;
+            margin-bottom: 4mm;
         }
 
         .info-item {
             display: inline-block;
-            width: 32%;
-            margin-bottom: 3mm;
+            width: 31%;
+            margin-bottom: 4mm;
             vertical-align: top;
+            padding-right: 2%;
         }
 
         .label {
             font-size: 7pt;
-            font-weight: bold;
+            font-weight: 800;
             text-transform: uppercase;
-            color: #7f8c8d;
+            color: #71717a;
+            /* Zinc 500 */
             display: block;
+            margin-bottom: 1mm;
+            letter-spacing: 0.5px;
         }
 
         .value {
             font-size: 9pt;
             font-weight: bold;
-            color: #2c3e50;
+            color: #18181b;
+            display: block;
+            word-wrap: break-word;
+        }
+
+        .value-mono {
             font-family: "Courier New", Courier, monospace;
+            background: #f8fafc;
+            padding: 2px 4px;
+            border: 1px solid #e2e8f0;
+            border-radius: 2px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5mm;
-            font-size: 9pt;
+            margin-bottom: 6mm;
         }
 
         th {
-            background-color: #ecf0f1;
-            color: #2c3e50;
-            font-weight: bold;
+            background-color: #f4f4f5;
+            color: #71717a;
+            font-weight: 800;
             text-align: left;
-            padding: 2mm;
-            border-bottom: 1px solid #bdc3c7;
+            padding: 3mm 4mm;
+            border-bottom: 1px solid #e4e4e7;
             text-transform: uppercase;
-            font-size: 8pt;
+            font-size: 7pt;
+            letter-spacing: 1px;
         }
 
         td {
-            padding: 2mm;
-            border-bottom: 1px solid #ecf0f1;
-            color: #34495e;
+            padding: 3mm 4mm;
+            border-bottom: 1px solid #f4f4f5;
+            color: #27272a;
+            font-size: 8.5pt;
         }
 
         .footer {
@@ -95,44 +128,57 @@
             bottom: 0;
             width: 100%;
             text-align: center;
-            font-size: 8pt;
-            color: #95a5a6;
-            border-top: 1px solid #ecf0f1;
-            padding-top: 2mm;
+            font-size: 7pt;
+            color: #a1a1aa;
+            /* Zinc 400 */
+            border-top: 1px solid #f4f4f5;
+            padding-top: 3mm;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .indicator {
             display: inline-block;
-            padding: 1px 4px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 7pt;
-            margin-right: 2px;
-            background: #f9f9f9;
+            padding: 2px 6px;
+            background: #18181b;
+            color: #ffffff;
+            font-size: 6pt;
+            font-weight: 900;
+            border-radius: 2px;
+            margin-right: 4px;
+            text-transform: uppercase;
+        }
+
+        .price-value {
+            color: #166534;
+            /* Emerald 800 */
+            font-weight: 900;
+            font-size: 10pt;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Detalhes do Registro DOI #<span th:text="${declaracao.id}">421</span></h1>
-
-    <div style="margin-bottom: 5mm; font-size: 9pt;">
-        <strong>Gerado em:</strong> <span
-            th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}"></span> |
-        <strong>Matrícula:</strong> <span th:text="${declaracao.matricula}"></span>
+    <div class="header">
+        <h1>
+            REGISTRO DOI #<span th:text="${declaracao.id}">568</span>
+            <span style="font-weight: normal; color: #d4d4d8; margin: 0 4mm;">|</span>
+            MATRÍCULA: <span th:text="${declaracao.matricula ?: 'NÃO CONSTA'}"></span>
+        </h1>
     </div>
 
     <!-- Informações Gerais -->
     <h2>Informações Gerais</h2>
     <div class="info-grid">
         <div class="info-item">
-            <span class="label">ID</span>
+            <span class="label">ID Sistema</span>
             <span class="value" th:text="${declaracao.id}"></span>
         </div>
         <div class="info-item">
             <span class="label">Matrícula (ADIMM)</span>
-            <span class="value" th:text="${declaracao.matricula}"></span>
+            <span class="value" th:text="${declaracao.matricula ?: '-'}"></span>
         </div>
         <div class="info-item">
             <span class="label">Tipo de Declaração</span>
@@ -140,15 +186,15 @@
         </div>
         <div class="info-item">
             <span class="label">Tipo de Serviço</span>
-            <span class="value" th:text="${declaracao.tipoServico}"></span>
+            <span class="value" th:text="${declaracao.tipoServico ?: '-'}"></span>
         </div>
         <div class="info-item">
             <span class="label">Tipo de Ato</span>
-            <span class="value" th:text="${declaracao.tipoAto}"></span>
+            <span class="value" th:text="${declaracao.tipoAto ?: '-'}"></span>
         </div>
         <div class="info-item">
-            <span class="label">Data ITBI</span>
-            <span class="value" th:text="${#temporals.format(declaracao.dataItbi, 'dd/MM/yyyy')}"></span>
+            <span class="label">Data Lavratura</span>
+            <span class="value" th:text="${#temporals.format(declaracao.dataLavratura, 'dd/MM/yyyy') ?: '-'}"></span>
         </div>
     </div>
 
@@ -167,7 +213,7 @@
                 <td colspan="3" style="text-align: center; font-style: italic;">Nenhum alienante cadastrado</td>
             </tr>
             <tr th:each="alienante : ${declaracao.alienantes}">
-                <td class="value" th:text="${alienante.ni}"></td>
+                <td><span class="value-mono" th:text="${alienante.ni}"></span></td>
                 <td th:text="${alienante.participacao != null ? alienante.participacao + '%' : '-'}"></td>
                 <td>
                     <span th:if="${alienante.indicadorEstrangeiro}" class="indicator">ESTRANGEIRO</span>
@@ -192,7 +238,7 @@
                 <td colspan="3" style="text-align: center; font-style: italic;">Nenhum adquirente cadastrado</td>
             </tr>
             <tr th:each="adquirente : ${declaracao.adquirentes}">
-                <td class="value" th:text="${adquirente.ni}"></td>
+                <td><span class="value-mono" th:text="${adquirente.ni}"></span></td>
                 <td th:text="${adquirente.participacao != null ? adquirente.participacao + '%' : '-'}"></td>
                 <td>
                     <span th:if="${adquirente.indicadorEstrangeiro}" class="indicator">ESTRANGEIRO</span>
@@ -208,33 +254,34 @@
         <div class="info-grid">
             <div class="info-item">
                 <span class="label">Inscrição Municipal</span>
-                <span class="value" th:text="${declaracao.dadosImovel.inscricaoMunicipal}"></span>
+                <span class="value" th:text="${declaracao.dadosImovel.inscricaoMunicipal ?: '-'}"></span>
             </div>
             <div class="info-item">
                 <span class="label">CIB / NIRF</span>
-                <span class="value" th:text="${declaracao.dadosImovel.cib}"></span>
+                <span class="value" th:text="${declaracao.dadosImovel.cib ?: '-'}"></span>
             </div>
             <div class="info-item">
                 <span class="label">Tipo de Imóvel</span>
-                <span class="value" th:text="${declaracao.dadosImovel.tipoImovel}"></span>
+                <span class="value" th:text="${declaracao.dadosImovel.tipoImovel ?: '-'}"></span>
             </div>
             <div class="info-item">
                 <span class="label">Destinação</span>
-                <span class="value" th:text="${declaracao.dadosImovel.destinacao}"></span>
+                <span class="value" th:text="${declaracao.dadosImovel.destinacao ?: '-'}"></span>
             </div>
-            <div class="info-item" style="width: 65%;">
+            <div class="info-item" style="width: 63%;">
                 <span class="label">Endereço Completo</span>
                 <span class="value"
-                    th:text="${declaracao.dadosImovel.tipoLogradouro + ' ' + declaracao.dadosImovel.nomeLogradouro + ', ' + declaracao.dadosImovel.numeroImovel + ' - ' + declaracao.dadosImovel.bairro}"></span>
+                    th:text="${(declaracao.dadosImovel.tipoLogradouro ?: '') + ' ' + (declaracao.dadosImovel.nomeLogradouro ?: '') + ', ' + (declaracao.dadosImovel.numeroImovel ?: 'S/N') + ' - ' + (declaracao.dadosImovel.bairro ?: '')}"></span>
             </div>
             <div class="info-item">
                 <span class="label">Área do Imóvel</span>
-                <span class="value" th:text="${declaracao.dadosImovel.areaImovel + ' m²'}"></span>
+                <span class="value"
+                    th:text="${declaracao.dadosImovel.areaImovel != null ? #numbers.formatDecimal(declaracao.dadosImovel.areaImovel, 1, 'POINT', 2, 'COMMA') + ' m²' : '-'}"></span>
             </div>
             <div class="info-item">
                 <span class="label">Área Construída</span>
                 <span class="value"
-                    th:text="${declaracao.dadosImovel.areaConstruida != null ? declaracao.dadosImovel.areaConstruida + ' m²' : '-'}"></span>
+                    th:text="${declaracao.dadosImovel.areaConstruida != null ? #numbers.formatDecimal(declaracao.dadosImovel.areaConstruida, 1, 'POINT', 2, 'COMMA') + ' m²' : '-'}"></span>
             </div>
         </div>
     </div>
@@ -245,32 +292,33 @@
         <div class="info-grid">
             <div class="info-item">
                 <span class="label">Valor da Operação</span>
-                <span class="value" style="color: #27ae60;"
-                    th:text="${'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorOperacaoImobiliaria, 1, 'POINT', 2, 'COMMA')}"></span>
+                <span class="value price-value"
+                    th:text="${declaracao.operacao.valorOperacaoImobiliaria != null ? 'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorOperacaoImobiliaria, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
             </div>
             <div class="info-item">
-                <span class="label">Base de Cálculo ITBI/ITCMD</span>
+                <span class="label">Base ITBI/ITCMD</span>
                 <span class="value"
                     th:text="${declaracao.operacao.valorBaseCalculoItbiItcmd != null ? 'R$ ' + #numbers.formatDecimal(declaracao.operacao.valorBaseCalculoItbiItcmd, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
             </div>
             <div class="info-item">
                 <span class="label">Forma de Pagamento</span>
-                <span class="value" th:text="${declaracao.operacao.formaPagamento}"></span>
+                <span class="value" th:text="${declaracao.operacao.formaPagamento ?: '-'}"></span>
             </div>
             <div class="info-item">
                 <span class="label">Data do Negócio</span>
                 <span class="value"
-                    th:text="${#temporals.format(declaracao.operacao.dataNegocioJuridico, 'dd/MM/yyyy')}"></span>
+                    th:text="${#temporals.format(declaracao.operacao.dataNegocioJuridico, 'dd/MM/yyyy') ?: '-'}"></span>
             </div>
-            <div class="info-item" style="width: 65%;">
+            <div class="info-item" style="width: 63%;">
                 <span class="label">Tipo da Operação</span>
-                <span class="value" th:text="${declaracao.operacao.tipoOperacaoImobiliaria}"></span>
+                <span class="value" th:text="${declaracao.operacao.tipoOperacaoImobiliaria ?: '-'}"></span>
             </div>
         </div>
     </div>
 
     <div class="footer">
-        SISGETRIM - Sistema de Gestão Tributária Municipal - Documento gerado automaticamente.
+        SISGETRIM - Sistema de Gestão Tributária Municipal - Documento Oficinal Gerado em <span
+            th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
     </div>
 
 </body>

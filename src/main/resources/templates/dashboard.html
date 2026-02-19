@@ -271,7 +271,7 @@
                                 <td class="py-1 text-[11px] font-bold text-slate-500"
                                     th:text="${#temporals.format(imp.dataImportacao, 'dd/MM/yy')}">16/02/26</td>
                                 <td class="py-1 text-right">
-                                    <a th:href="@{/malha/detalhes/{id}(id=${imp.id})}"
+                                    <a th:href="@{/malha/analise-importacoes(ano=${imp.dataImportacao.year})}"
                                         class="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors">Visualizar</a>
                                 </td>
                             </tr>
