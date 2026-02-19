@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Usuário | SISgetrim</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'amazon-bg': '#F0F9F6',
+                        'amazon-sidebar': '#E6F4EF',
+                        'amazon-primary': '#059669',
+                        'amazon-accent': '#34D399',
+                        'amazon-text': '#064E3B',
+                    },
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        exo: ['"Exo 2"', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                        opensans: ['"Open Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Open+Sans:wght@300..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+    </style>
+    <!-- Injeção de Dados para Alpine.js -->
+    <script th:inline="javascript">
+            /*<![CDATA[*/
+            (function () {
+                const rawEntidades = /*[[${entidades}]]*/[];
+                const rawCartorios = /*[[${cartorios}]]*/[];
+
+                window.dataEntidades = rawEntidades.map(e => ({ id: e.id, nome: e.nomeEmpresarial }));
+                window.dataCartorios = rawCartorios.map(c => ({ id: c.id, nome: c.denominacao }));
+
+                window.initialEntidadeIds = [];
+                window.initialCartorioIds = [];
+            })();
+        /*]]>*/
+    </script>
+</head>
+
+<body class="bg-[#F8FAFC] min-h-screen">
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="lg:ml-72 min-h-screen transition-all duration-300">
+        <!-- Header Superior -->
+        <header
+            class="bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-10 py-6 sticky top-0 z-40">
+            <div class="flex items-center space-x-4">
+                <a href="/admin/usuarios"
+                    class="h-10 w-10 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 hover:text-amazon-primary hover:bg-emerald-50 transition-all">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-black text-slate-800 font-outfit tracking-tight">Novo Usuário</h1>
+                    <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">
+                        Cadastrando novo acesso ao sistema
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-10 max-w-4xl mx-auto">
+            <!-- Mensagens de Erro -->
+            <div th:if="${erro}" class="mb-6 animate-fade-in">
+                <div
+                    class="bg-rose-50 border border-rose-200 text-rose-700 px-6 py-4 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="text-sm font-bold" th:text="${erro}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8">
+                <form th:action="@{/admin/usuarios/novo}" method="post" th:object="${usuarioRequest}" class="space-y-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-4">
+                        <!-- Nome -->
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
+                                <i class="fas fa-user-circle opacity-60"></i>
+                                <span>Nome Completo</span>
+                            </label>
+                            <input type="text" th:field="*{nome}" required
+                                class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm">
+                            <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"
+                                class="text-rose-500 text-[10px] mt-1 font-bold"></p>
+                        </div>
+
+                        <!-- E-mail -->
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
+                                <i class="fas fa-envelope opacity-60"></i>
+                                <span>E-mail</span>
+                            </label>
+                            <input type="email" th:field="*{email}" required
+                                class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm">
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                class="text-rose-500 text-[10px] mt-1 font-bold"></p>
+                        </div>
+
+                        <!-- Documento (CPF/CNPJ) -->
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
+                                <i class="fas fa-id-card opacity-60"></i>
+                                <span>Documento (CPF/CNPJ)</span>
+                            </label>
+                            <input type="text" th:field="*{documento}" required
+                                class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm">
+                            <p th:if="${#fields.hasErrors('documento')}" th:errors="*{documento}"
+                                class="text-rose-500 text-[10px] mt-1 font-bold"></p>
+                        </div>
+
+                        <!-- Spacer para alinhar grid se necessário, ou campo extra -->
+                        <div class="hidden md:block"></div>
+
+                        <!-- Senha -->
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
+                                <i class="fas fa-lock opacity-60"></i>
+                                <span>Senha</span>
+                            </label>
+                            <input type="password" th:field="*{senha}" required
+                                class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm">
+                            <p th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"
+                                class="text-rose-500 text-[10px] mt-1 font-bold"></p>
+                        </div>
+
+                        <!-- Confirmar Senha -->
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 text-sm font-black text-slate-600">
+                                <i class="fas fa-lock opacity-60"></i>
+                                <span>Confirmar Senha</span>
+                            </label>
+                            <input type="password" th:field="*{confirmarSenha}" required
+                                class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm">
+                            <p th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}"
+                                class="text-rose-500 text-[10px] mt-1 font-bold"></p>
+                        </div>
+
+                        <div class="col-span-1 md:col-span-2 space-y-4 pt-2">
+                            <!-- Seção de Entidades Vinculadas -->
+                            <div class="space-y-6" x-data="{
+                            search: '',
+                            selected: window.initialEntidadeIds || [],
+                            all: window.dataEntidades || [],
+                            get filtered() {
+                                return this.all.filter(i => !this.selected.includes(i.id) && i.nome.toLowerCase().includes(this.search.toLowerCase()))
+                            },
+                            get selectedItems() {
+                                return this.all.filter(i => this.selected.includes(i.id))
+                            },
+                            add(id) {
+                                if(!this.selected.includes(id)) this.selected.push(id);
+                                this.search = '';
+                            },
+                            remove(id) {
+                                this.selected = this.selected.filter(i => i !== id);
+                            }
+                        }">
+                                <div class="flex items-center justify-between pb-1.5 border-b border-slate-50">
+                                    <label class="flex items-center space-x-2 text-sm font-black text-slate-600">
+                                        <i class="fas fa-building text-amazon-primary text-xs"></i>
+                                        <span class="uppercase tracking-widest text-[10px]">Entidades Vinculadas</span>
+                                    </label>
+                                    <span
+                                        class="text-[9px] font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full"
+                                        x-text="selected.length + ' vinculada(s)'"></span>
+                                </div>
+
+                                <!-- Badges de Selecionados -->
+                                <div
+                                    class="flex flex-wrap gap-2 min-h-[40px] p-2 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+                                    <template x-for="item in selectedItems" :key="item.id">
+                                        <div
+                                            class="bg-white border border-slate-100 pl-3 pr-1 py-1 rounded-xl flex items-center space-x-2 shadow-sm animate-fade-in">
+                                            <span class="text-[10px] font-bold text-slate-700 font-inter"
+                                                x-text="item.nome"></span>
+                                            <button type="button" @click="remove(item.id)"
+                                                class="h-6 w-6 rounded-lg hover:bg-rose-50 hover:text-rose-500 transition-all flex items-center justify-center">
+                                                <i class="fas fa-times text-[10px]"></i>
+                                            </button>
+                                            <input type="hidden" name="entidadeIds" :value="item.id">
+                                        </div>
+                                    </template>
+                                    <div x-show="selected.length === 0"
+                                        class="w-full flex items-center justify-center py-4 opacity-40">
+                                        <p
+                                            class="text-[10px] font-bold uppercase tracking-widest text-slate-400 italic">
+                                            Nenhuma entidade vinculada</p>
+                                    </div>
+                                </div>
+
+                                <!-- Busca e Seleção -->
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                                        <i class="fas fa-search text-slate-300 text-xs"></i>
+                                    </div>
+                                    <input type="text" x-model="search" @keydown.enter.prevent
+                                        placeholder="Pesquisar entidade para vincular..."
+                                        class="w-full bg-white border border-slate-100 focus:border-amazon-primary rounded-xl pl-11 pr-5 py-3 text-slate-600 font-bold text-[13px] outline-none transition-all shadow-sm">
+
+                                    <div x-show="search.length > 1"
+                                        class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden max-h-60 overflow-y-auto animate-fade-in">
+                                        <template x-for="item in filtered" :key="item.id">
+                                            <button type="button" @click="add(item.id)"
+                                                class="w-full px-6 py-4 text-left hover:bg-emerald-50 text-slate-600 font-bold text-xs border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors">
+                                                <span x-text="item.nome"></span>
+                                                <i class="fas fa-plus text-[10px] opacity-20"></i>
+                                            </button>
+                                        </template>
+                                        <div x-show="filtered.length === 0"
+                                            class="px-6 py-4 text-slate-400 text-[10px] font-bold uppercase text-center italic">
+                                            Nenhum resultado encontrado
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seção de Cartórios Vinculados -->
+                            <div class="space-y-6" x-data="{
+                            search: '',
+                            selected: window.initialCartorioIds || [],
+                            all: window.dataCartorios || [],
+                            get filtered() {
+                                return this.all.filter(i => !this.selected.includes(i.id) && i.nome.toLowerCase().includes(this.search.toLowerCase()))
+                            },
+                            get selectedItems() {
+                                return this.all.filter(i => this.selected.includes(i.id))
+                            },
+                            add(id) {
+                                if(!this.selected.includes(id)) this.selected.push(id);
+                                this.search = '';
+                            },
+                            remove(id) {
+                                this.selected = this.selected.filter(i => i !== id);
+                            }
+                        }">
+                                <div class="flex items-center justify-between pb-1.5 border-b border-slate-50">
+                                    <label class="flex items-center space-x-2 text-sm font-black text-slate-600">
+                                        <i class="fas fa-stamp text-amazon-primary text-xs"></i>
+                                        <span class="uppercase tracking-widest text-[10px]">Cartórios Vinculados</span>
+                                    </label>
+                                    <span
+                                        class="text-[9px] font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full"
+                                        x-text="selected.length + ' vinculado(s)'"></span>
+                                </div>
+
+                                <!-- Badges de Selecionados -->
+                                <div
+                                    class="flex flex-wrap gap-2 min-h-[40px] p-2 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
+                                    <template x-for="item in selectedItems" :key="item.id">
+                                        <div
+                                            class="bg-white border border-slate-100 pl-3 pr-1 py-1 rounded-xl flex items-center space-x-2 shadow-sm animate-fade-in">
+                                            <span class="text-[10px] font-bold text-slate-700 font-inter"
+                                                x-text="item.nome"></span>
+                                            <button type="button" @click="remove(item.id)"
+                                                class="h-6 w-6 rounded-lg hover:bg-rose-50 hover:text-rose-500 transition-all flex items-center justify-center">
+                                                <i class="fas fa-times text-[10px]"></i>
+                                            </button>
+                                            <input type="hidden" name="cartorioIds" :value="item.id">
+                                        </div>
+                                    </template>
+                                    <div x-show="selected.length === 0"
+                                        class="w-full flex items-center justify-center py-4 opacity-40">
+                                        <p
+                                            class="text-[10px] font-bold uppercase tracking-widest text-slate-400 italic">
+                                            Nenhum cartório vinculado</p>
+                                    </div>
+                                </div>
+
+                                <!-- Busca e Seleção -->
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+                                        <i class="fas fa-search text-slate-300 text-xs"></i>
+                                    </div>
+                                    <input type="text" x-model="search" @keydown.enter.prevent
+                                        placeholder="Pesquisar cartório para vincular..."
+                                        class="w-full bg-white border border-slate-100 focus:border-amazon-primary rounded-xl pl-11 pr-5 py-3 text-slate-600 font-bold text-[13px] outline-none transition-all shadow-sm">
+
+                                    <div x-show="search.length > 1"
+                                        class="absolute z-50 w-full mt-2 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden max-h-60 overflow-y-auto animate-fade-in">
+                                        <template x-for="item in filtered" :key="item.id">
+                                            <button type="button" @click="add(item.id)"
+                                                class="w-full px-6 py-4 text-left hover:bg-emerald-50 text-slate-600 font-bold text-xs border-b border-slate-50 last:border-0 flex items-center justify-between transition-colors">
+                                                <span x-text="item.nome"></span>
+                                                <i class="fas fa-plus text-[10px] opacity-20"></i>
+                                            </button>
+                                        </template>
+                                        <div x-show="filtered.length === 0"
+                                            class="px-6 py-4 text-slate-400 text-[10px] font-bold uppercase text-center italic">
+                                            Nenhum resultado encontrado
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 pt-4 border-t border-slate-50">
+                                <!-- Tipo de Usuário -->
+                                <div class="space-y-2">
+                                    <label
+                                        class="flex items-center space-x-2 text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                                        <i class="fas fa-id-badge opacity-40"></i>
+                                        <span>Tipo de Usuário</span>
+                                    </label>
+                                    <select th:field="*{tipoUsuario}"
+                                        class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm cursor-pointer">
+                                        <option value="Cartório">Cartório</option>
+                                        <option value="Fiscal">Fiscal</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                </div>
+
+                                <!-- Privilégio -->
+                                <div class="space-y-2">
+                                    <label
+                                        class="flex items-center space-x-2 text-[11px] font-black text-slate-500 uppercase tracking-wider">
+                                        <i class="fas fa-user-shield opacity-40"></i>
+                                        <span>Privilégio de Acesso</span>
+                                    </label>
+                                    <select th:field="*{role}"
+                                        class="w-full bg-slate-50 border border-slate-100 focus:border-amazon-primary rounded-xl px-4 py-3 text-slate-700 font-bold text-sm outline-none transition-all shadow-sm cursor-pointer">
+                                        <option value="ROLE_USER">User (Acesso Limitado)</option>
+                                        <option value="ROLE_ADMIN">Admin (Acesso Total)</option>
+                                        <option value="ROLE_MASTER">Master (Acesso Global)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-10 flex justify-end space-x-4 border-t border-slate-50">
+                        <a href="/admin/usuarios"
+                            class="px-8 py-4 text-slate-400 font-black text-[11px] uppercase tracking-widest hover:text-slate-600 transition-all">
+                            Cancelar
+                        </a>
+                        <button type="submit"
+                            class="bg-amazon-primary text-white font-black text-[11px] uppercase tracking-widest px-10 py-4 rounded-xl shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center space-x-3">
+                            <i class="fas fa-save"></i>
+                            <span>Criar Usuário</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    </div>
+</body>
+
+</html>

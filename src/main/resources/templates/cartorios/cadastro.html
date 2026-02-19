@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Novo Cartório | SISgetrim</title>
+</head>
+
+<body class="bg-slate-50">
+    <div layout:fragment="content" class="p-6 lg:p-10 space-y-8 max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <a href="/cartorios"
+                    class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-emerald-500/10 text-amazon-primary hover:bg-amazon-primary hover:text-white transition-all shadow-sm">
+                    <i class="fas fa-arrow-left text-sm"></i>
+                </a>
+                <div>
+                    <h1 class="text-2xl font-black text-amazon-text tracking-tight">Novo Cartório</h1>
+                    <p class="text-xs text-slate-500 font-medium italic">Complete as informações para vincular o
+                        cartório à malha fiscal.</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span
+                    class="px-3 py-1 bg-emerald-500/10 text-amazon-primary text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/20">Modo
+                    de Cadastro</span>
+            </div>
+        </div>
+
+        <form th:action="@{/cartorios/salvar}" method="post" class="space-y-8" th:object="${cartorio}">
+            <!-- Campo oculto para ID em caso de edição -->
+            <input type="hidden" name="id" th:value="*{id}">
+
+            <!-- Grid Principal -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Coluna Esquerda: Dados Principais e Localização -->
+                <div class="lg:col-span-2 flex flex-col space-y-8">
+                    <!-- Section: Identificação -->
+                    <div class="bg-white rounded-3xl border border-emerald-500/10 shadow-sm p-8 space-y-6">
+                        <div class="flex items-center space-x-3 border-b border-emerald-500/5 pb-4">
+                            <div
+                                class="h-8 w-8 rounded-lg bg-amazon-primary/10 flex items-center justify-center text-amazon-primary">
+                                <i class="fas fa-id-card"></i>
+                            </div>
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Identificação do
+                                Cartório</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Código
+                                    CNS <span class="text-rose-500">*</span></label>
+                                <input type="text" name="codigoCns" required placeholder="00.000-0"
+                                    th:value="*{codigoCns}" th:readonly="${cartorio != null and cartorio.id != null}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none cns-mask">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Denominação
+                                    <span class="text-rose-500">*</span></label>
+                                <input type="text" name="denominacao" required
+                                    placeholder="Ex: Cartório de Registro de Imóveis" th:value="*{denominacao}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Data
+                                    de Criação <span class="text-rose-500">*</span></label>
+                                <input type="date" name="dataCriacao" required th:value="*{dataCriacao}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Situação
+                                    <span class="text-rose-500">*</span></label>
+                                <select name="situacao" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none appearance-none">
+                                    <option th:each="s : ${situacoes}" th:value="${s}" th:text="${s}"
+                                        th:selected="${cartorio != null and s == cartorio.situacao}">ATIVO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Localização e Contato -->
+                    <div
+                        class="bg-white rounded-3xl border border-emerald-500/10 shadow-sm p-8 space-y-6 flex-1 flex flex-col">
+                        <div class="flex items-center space-x-3 border-b border-emerald-500/5 pb-4">
+                            <div
+                                class="h-8 w-8 rounded-lg bg-amazon-primary/10 flex items-center justify-center text-amazon-primary">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Localização e
+                                Contato</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">CNPJ</label>
+                                <input type="text" name="cnpj" placeholder="00.000.000/0000-00" th:value="*{cnpj}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none cnpj-mask">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">CEP</label>
+                                <input type="text" name="cep" placeholder="00.000-000" th:value="*{cep}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none cep-mask">
+                            </div>
+                            <div class="md:col-span-2 space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Endereço</label>
+                                <input type="text" name="endereco" placeholder="Rua, Avenida, etc."
+                                    th:value="*{endereco}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Número</label>
+                                <input type="text" name="numero" placeholder="S/N" th:value="*{numero}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none">
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Bairro</label>
+                                <input type="text" name="bairro" placeholder="Centro" th:value="*{bairro}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none">
+                            </div>
+                            <div class="md:col-span-2 space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">E-mail</label>
+                                <input type="email" name="email" placeholder="contato@cartorio.com.br"
+                                    th:value="*{email}"
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Seleções e Faturamento -->
+                <div class="lg:col-span-1 flex flex-col space-y-8">
+                    <!-- Section: Tipo e Regras -->
+                    <div class="bg-white rounded-3xl border border-emerald-500/10 shadow-sm p-8 space-y-6">
+                        <div class="flex items-center space-x-3 border-b border-emerald-500/5 pb-4">
+                            <div
+                                class="h-8 w-8 rounded-lg bg-amazon-primary/10 flex items-center justify-center text-amazon-primary">
+                                <i class="fas fa-gavel"></i>
+                            </div>
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Classificação
+                                Jurídica</h2>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Tipo
+                                    de Cartório <span class="text-rose-500">*</span></label>
+                                <select name="tipo" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none appearance-none">
+                                    <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}"
+                                        th:selected="${cartorio != null and t == cartorio.tipo}">PRIVATIZADA</option>
+                                </select>
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="text-[10px] font-black text-amazon-primary uppercase tracking-widest ml-1">Situação
+                                    do Responsável <span class="text-rose-500">*</span></label>
+                                <select name="situacaoJuridicaResponsavel" required
+                                    class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none appearance-none">
+                                    <option th:each="sj : ${situacoesJuridicas}" th:value="${sj}" th:text="${sj}"
+                                        th:selected="${cartorio != null and sj == cartorio.situacaoJuridicaResponsavel}">
+                                        PROVIDO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section: Atribuições (Seleção Múltipla) -->
+                    <div
+                        class="bg-white rounded-3xl border border-emerald-500/10 shadow-sm p-8 space-y-6 flex-1 flex flex-col">
+                        <div class="flex items-center space-x-3 border-b border-emerald-500/5 pb-4">
+                            <div
+                                class="h-8 w-8 rounded-lg bg-amazon-primary/10 flex items-center justify-center text-amazon-primary">
+                                <i class="fas fa-list-check"></i>
+                            </div>
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Atribuições</h2>
+                        </div>
+
+                        <div class="space-y-2 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+                            <div th:each="a : ${atribuicoes}"
+                                class="flex items-start space-x-3 p-2 rounded-xl hover:bg-slate-50 transition-all cursor-pointer group">
+                                <input type="checkbox" th:value="${a}" name="atribuicoes" th:id="${'atrib_' + a}"
+                                    th:checked="${cartorio != null and cartorio.atribuicoes.contains(a)}"
+                                    class="h-5 w-5 flex-shrink-0 rounded border-emerald-500/20 text-amazon-primary focus:ring-amazon-primary transition-all cursor-pointer mt-0.5">
+                                <label th:for="${'atrib_' + a}"
+                                    class="text-xs font-bold text-slate-600 group-hover:text-amazon-primary transition-colors cursor-pointer leading-tight"
+                                    th:text="${a}">Notas</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Responsáveis (Novo - Dinâmico) -->
+            <div class="bg-white rounded-3xl border border-emerald-500/10 shadow-sm p-8 space-y-8">
+                <div class="flex items-center justify-between border-b border-emerald-500/5 pb-6">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="h-10 w-10 rounded-xl bg-amazon-primary/10 flex items-center justify-center text-amazon-primary shadow-sm">
+                            <i class="fas fa-user-tie text-lg"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Gestão de
+                                Responsáveis</h2>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Titulares,
+                                Interinos e Interventores</p>
+                        </div>
+                    </div>
+                    <button type="button" id="btn_add_responsavel"
+                        class="inline-flex items-center px-5 py-2.5 rounded-xl border-2 border-amazon-primary text-amazon-primary hover:bg-amazon-primary hover:text-white transition-all text-[10px] font-black uppercase tracking-widest active:scale-95 shadow-sm">
+                        <i class="fas fa-plus mr-2"></i> Adicionar Responsável
+                    </button>
+                </div>
+
+                <div id="responsaveisContainer" class="space-y-6">
+                    <!-- Itens existentes (Edição) -->
+                    <th:block th:if="${cartorio != null and cartorio.responsaveis != null}">
+                        <div th:each="resp, iter : ${cartorio.responsaveis}"
+                            class="responsavel-item bg-slate-50 border border-emerald-500/5 p-6 rounded-2xl relative group transition-all hover:bg-slate-100/50">
+                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-8 gap-3">
+                                <div class="space-y-2 md:col-span-2">
+                                    <label
+                                        class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Nome
+                                        Completo</label>
+                                    <input type="text" th:name="${'responsaveis[' + iter.index + '].nome'}"
+                                        th:value="${resp.nome}" placeholder="Nome do responsável"
+                                        class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all">
+                                    <span class="text-rose-500 text-[9px] font-bold"
+                                        th:if="${#fields.hasErrors('responsaveis[__${iter.index}__].nome')}"
+                                        th:errors="*{responsaveis[__${iter.index}__].nome}"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">CPF</label>
+                                    <input type="text" th:name="${'responsaveis[' + iter.index + '].cpf'}"
+                                        th:value="${resp.cpf}" placeholder="000.000.000-00"
+                                        class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all cpf-mask">
+                                    <span class="text-rose-500 text-[9px] font-bold"
+                                        th:if="${#fields.hasErrors('responsaveis[__${iter.index}__].cpf')}"
+                                        th:errors="*{responsaveis[__${iter.index}__].cpf}"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Tipo</label>
+                                    <select th:name="${'responsaveis[' + iter.index + '].tipo'}"
+                                        class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none appearance-none transition-all">
+                                        <option th:each="tr : ${tiposResponsavel}" th:value="${tr}" th:text="${tr}"
+                                            th:selected="${tr == resp.tipo}">TITULAR_SERVENTIA</option>
+                                    </select>
+                                    <span class="text-rose-500 text-[9px] font-bold"
+                                        th:if="${#fields.hasErrors('responsaveis[__${iter.index}__].tipo')}"
+                                        th:errors="*{responsaveis[__${iter.index}__].tipo}"></span>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Nomeação</label>
+                                    <input type="date" th:name="${'responsaveis[' + iter.index + '].dataNomeacao'}"
+                                        th:value="${resp.dataNomeacao}"
+                                        class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all">
+                                    <span class="text-rose-500 text-[9px] font-bold"
+                                        th:if="${#fields.hasErrors('responsaveis[__${iter.index}__].dataNomeacao')}"
+                                        th:errors="*{responsaveis[__${iter.index}__].dataNomeacao}"></span>
+                                </div>
+                                <div class="space-y-2 lg:col-span-2">
+                                    <label
+                                        class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Substituto</label>
+                                    <select th:name="${'responsaveis[' + iter.index + '].substituto'}"
+                                        class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none appearance-none transition-all">
+                                        <option th:each="ss : ${statusSubstituto}" th:value="${ss}" th:text="${ss}"
+                                            th:selected="${ss == resp.substituto}">NAO_POSSUI</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label
+                                        class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Ingresso</label>
+                                    <input type="date" th:name="${'responsaveis[' + iter.index + '].dataIngresso'}"
+                                        th:value="${resp.dataIngresso}"
+                                        class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all">
+                                </div>
+                            </div>
+
+                            <button type="button" onclick="this.parentElement.remove()"
+                                class="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-rose-500 text-white shadow-lg shadow-rose-500/20 opacity-0 group-hover:opacity-100 transition-all active:scale-90 flex items-center justify-center">
+                                <i class="fas fa-times text-xs"></i>
+                            </button>
+                        </div>
+                    </th:block>
+
+                </div>
+            </div>
+
+            <!-- Footer: Ações -->
+            <div
+                class="flex items-center justify-end space-x-4 bg-white/50 backdrop-blur-md p-6 rounded-3xl border border-white/20 sticky bottom-8 shadow-xl shadow-emerald-900/10">
+                <a href="/cartorios"
+                    class="px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest text-slate-500 hover:text-rose-500 transition-all">Cancelar</a>
+                <button type="submit"
+                    class="px-10 py-4 rounded-2xl bg-amazon-primary text-white font-black text-xs uppercase tracking-[0.2em] hover:bg-amazon-secondary transition-all active:scale-95 shadow-lg shadow-emerald-500/30 flex items-center">
+                    <i class="fas fa-save mr-3 opacity-60"></i>
+                    Salvar Cartório
+                </button>
+            </div>
+        </form>
+
+        <!-- Script Dinâmico para Responsáveis -->
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            (function () {
+                var backendTipos = [[${ tiposResponsavel }]] || [];
+                var backendStatus = [[${ statusSubstituto }]] || [];
+
+                function getNextIndex() {
+                    return document.querySelectorAll('.responsavel-item').length;
+                }
+
+                function addResponsavel() {
+                    try {
+                        var respIndex = getNextIndex();
+                        var container = document.getElementById('responsaveisContainer');
+                        if (!container) return;
+
+                        var optionsTipos = backendTipos.map(function (t) {
+                            return '<option value="' + t + '">' + t + '</option>';
+                        }).join('');
+
+                        var optionsStatus = backendStatus.map(function (s) {
+                            return '<option value="' + s + '">' + s + '</option>';
+                        }).join('');
+
+                        var html = '<div class="responsavel-item bg-slate-50 border border-emerald-500/5 p-6 rounded-2xl relative group transition-all hover:bg-slate-100/50 animate-in fade-in slide-in-from-top-4 duration-500">' +
+                            '<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-8 gap-3">' +
+                            '<div class="space-y-2 md:col-span-2">' +
+                            '<label class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Nome Completo</label>' +
+                            '<input type="text" name="responsaveis[' + respIndex + '].nome" placeholder="Nome do responsável" class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all">' +
+                            '</div>' +
+                            '<div class="space-y-2">' +
+                            '<label class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">CPF</label>' +
+                            '<input type="text" name="responsaveis[' + respIndex + '].cpf" placeholder="000.000.000-00" class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all cpf-mask">' +
+                            '</div>' +
+                            '<div class="space-y-2">' +
+                            '<label class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Tipo</label>' +
+                            '<select name="responsaveis[' + respIndex + '].tipo" class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none appearance-none transition-all">' +
+                            optionsTipos +
+                            '</select>' +
+                            '</div>' +
+                            '<div class="space-y-2">' +
+                            '<label class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Nomeação</label>' +
+                            '<input type="date" name="responsaveis[' + respIndex + '].dataNomeacao" class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all">' +
+                            '</div>' +
+                            '<div class="space-y-2 lg:col-span-2">' +
+                            '<label class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Substituto</label>' +
+                            '<select name="responsaveis[' + respIndex + '].substituto" class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none appearance-none transition-all">' +
+                            optionsStatus +
+                            '</select>' +
+                            '</div>' +
+                            '<div class="space-y-2">' +
+                            '<label class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Ingresso</label>' +
+                            '<input type="date" name="responsaveis[' + respIndex + '].dataIngresso" class="w-full px-4 py-2.5 rounded-lg bg-white border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-xs font-bold text-amazon-text outline-none transition-all">' +
+                            '</div>' +
+                            '</div>' +
+                            '<button type="button" onclick="this.parentElement.remove()" class="absolute -top-3 -right-3 h-8 w-8 rounded-full bg-rose-500 text-white shadow-lg shadow-rose-500/20 opacity-0 group-hover:opacity-100 transition-all active:scale-90 flex items-center justify-center">' +
+                            '<i class="fas fa-times text-xs"></i>' +
+                            '</button>' +
+                            '</div>';
+
+                        container.insertAdjacentHTML('beforeend', html);
+                    } catch (err) {
+                        console.error('SISgetrim: Erro ao adicionar item:', err);
+                    }
+                }
+
+                document.getElementById('btn_add_responsavel')?.addEventListener('click', addResponsavel);
+
+                function applyMasks() {
+                    var formatCPF = function (v) {
+                        var x = v.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})/);
+                        return !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '.' + x[3] : '') + (x[4] ? '-' + x[4] : '');
+                    };
+
+                    var formatCNPJ = function (v) {
+                        var x = v.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})/);
+                        return !x[2] ? x[1] : x[1] + '.' + x[2] + '.' + x[3] + '/' + x[4] + (x[5] ? '-' + x[5] : '');
+                    };
+
+                    var formatCEP = function (v) {
+                        var x = v.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})/);
+                        return !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '-' + x[3] : '');
+                    };
+
+                    var formatCNS = function (v) {
+                        var x = v.replace(/\D/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,1})/);
+                        return !x[2] ? x[1] : x[1] + '.' + x[2] + (x[3] ? '-' + x[3] : '');
+                    };
+
+                    document.querySelectorAll('.cpf-mask').forEach(function (el) {
+                        el.value = formatCPF(el.value);
+                        el.addEventListener('input', function (e) {
+                            e.target.value = formatCPF(e.target.value);
+                        });
+                    });
+
+                    document.querySelectorAll('.cnpj-mask').forEach(function (el) {
+                        el.value = formatCNPJ(el.value);
+                        el.addEventListener('input', function (e) {
+                            e.target.value = formatCNPJ(e.target.value);
+                        });
+                    });
+
+                    document.querySelectorAll('.cep-mask').forEach(function (el) {
+                        el.value = formatCEP(el.value);
+                        el.addEventListener('input', function (e) {
+                            e.target.value = formatCEP(e.target.value);
+                        });
+                    });
+
+                    document.querySelectorAll('.cns-mask').forEach(function (el) {
+                        el.value = formatCNS(el.value);
+                        el.addEventListener('input', function (e) {
+                            e.target.value = formatCNS(e.target.value);
+                        });
+                    });
+                }
+                applyMasks();
+            })();
+            /*]]>*/
+        </script>
+    </div>
+</body>
+
+</html>

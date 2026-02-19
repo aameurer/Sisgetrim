@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Usuários | SISgetrim</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'amazon-bg': '#F0F9F6',
+                        'amazon-sidebar': '#E6F4EF',
+                        'amazon-primary': '#059669',
+                        'amazon-accent': '#34D399',
+                        'amazon-text': '#064E3B',
+                    },
+                    fontFamily: {
+                        outfit: ['Outfit', 'sans-serif'],
+                        exo: ['"Exo 2"', 'sans-serif'],
+                        inter: ['Inter', 'sans-serif'],
+                        opensans: ['"Open Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Open+Sans:wght@300..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .font-outfit {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .tab-active {
+            @apply bg-white shadow-sm text-amazon-primary border-emerald-500/10;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+
+        .table-compact td {
+            padding: 0.5rem 1rem;
+        }
+
+        .table-compact th {
+            padding: 0.75rem 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F8FAFC] min-h-screen">
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="lg:ml-72 min-h-screen transition-all duration-300">
+        <!-- Header Superior -->
+        <header
+            class="bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-10 py-6 sticky top-0 z-40">
+            <div>
+                <h1 class="text-2xl font-black text-slate-800 font-outfit tracking-tight">Gestão de Usuários</h1>
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">Administração Geral do
+                    Sistema</p>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="/admin/usuarios/novo"
+                    class="bg-amazon-primary text-white font-black text-[11px] uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95 transition-all">
+                    <i class="fas fa-plus mr-2"></i> Novo Usuário
+                </a>
+            </div>
+        </header>
+
+        <div class="p-10">
+            <!-- Mensagens de Feedback -->
+            <div th:if="${sucesso}" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
+                class="mb-6 animate-fade-in">
+                <div
+                    class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-6 py-4 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="text-sm font-bold" th:text="${sucesso}"></span>
+                    </div>
+                    <button @click="show = false" class="text-emerald-400 hover:text-emerald-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div th:if="${erro}" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
+                class="mb-6 animate-fade-in">
+                <div
+                    class="bg-rose-50 border border-rose-200 text-rose-700 px-6 py-4 rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span class="text-sm font-bold" th:text="${erro}"></span>
+                    </div>
+                    <button @click="show = false" class="text-rose-400 hover:text-rose-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabela de Usuários -->
+            <div class="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left table-compact">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100">
+                                <th class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Informações
+                                    do Usuário</th>
+                                <th class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Documento
+                                </th>
+                                <th class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tipo</th>
+                                <th class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Privilégio
+                                </th>
+                                <th class="text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
+                                    Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr th:each="user : ${usuarios}" class="hover:bg-slate-50/50 transition-colors group">
+                                <td>
+                                    <div class="flex items-center space-x-3 py-1">
+                                        <div
+                                            class="h-10 w-10 flex-shrink-0 bg-emerald-50 rounded-xl flex items-center justify-center border border-emerald-100/50">
+                                            <i class="fas fa-user text-amazon-primary opacity-40"></i>
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <span class="text-sm font-black text-slate-700"
+                                                th:text="${user.nome}"></span>
+                                            <span class="text-[10px] font-bold text-slate-400"
+                                                th:text="${user.email}"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="text-xs font-bold text-slate-600 tracking-tight doc-mask"
+                                        th:text="${user.documento}"></span>
+                                </td>
+                                <td>
+                                    <span
+                                        class="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-[9px] font-black uppercase tracking-widest"
+                                        th:text="${user.tipoUsuario ?: 'Não Definido'}"></span>
+                                </td>
+                                <td>
+                                    <span th:if="${user.role == 'ROLE_ADMIN' or user.role == 'ROLE_MASTER'}"
+                                        class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-[9px] font-black uppercase tracking-widest">
+                                        Admin
+                                    </span>
+                                    <span th:unless="${user.role == 'ROLE_ADMIN' or user.role == 'ROLE_MASTER'}"
+                                        class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-[9px] font-black uppercase tracking-widest">
+                                        User
+                                    </span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="flex items-center justify-center space-x-2">
+                                        <a th:href="@{/admin/usuarios/editar/{id}(id=${user.id})}"
+                                            class="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all">
+                                            <i class="fas fa-edit text-[10px]"></i>
+                                        </a>
+
+                                        <form th:action="@{/admin/usuarios/deletar/{id}(id=${user.id})}" method="post"
+                                            onsubmit="return confirm('Tem certeza que deseja remover este usuário?')"
+                                            class="m-0">
+                                            <button type="submit"
+                                                class="h-8 w-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center hover:bg-rose-600 hover:text-white transition-all">
+                                                <i class="fas fa-trash-alt text-[10px]"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Aplicar máscara em todos os documentos na tabela
+            document.querySelectorAll('.doc-mask').forEach(el => {
+                let value = el.textContent.replace(/\D/g, "");
+                if (value.length <= 11) {
+                    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+                    value = value.replace(/(\d{3})(\d)/, "$1.$2");
+                    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+                } else {
+                    value = value.replace(/^(\d{2})(\d)/, "$1.$2");
+                    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+                    value = value.replace(/\.(\d{3})(\d)/, ".$1/$2");
+                    value = value.replace(/(\d{4})(\d)/, "$1-$2");
+                }
+                el.textContent = value;
+            });
+        });
+    </script>
+</body>
+
+</html>

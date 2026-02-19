@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{dashboard}">
+
+<head>
+    <title>Gestão de Importações - Sisgetrim</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <!-- Cabeçalho da Página -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-black text-amazon-text font-outfit uppercase tracking-tight">Gestão de Importações
+            </h1>
+            <p class="text-[10px] font-black text-amazon-primary/60 uppercase tracking-[0.2em] mt-1">
+                Processamento e histórico de malha fiscal (DOI e Arrecadação)
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" x-data="fileImport()">
+            <!-- Coluna 1: DOI -->
+            <div class="space-y-6">
+                <!-- Card de Upload DOI -->
+                <div
+                    class="bg-white rounded-[2rem] border border-slate-200 shadow-sm p-8 flex flex-col items-center text-center h-fit relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-emerald-500/10 transition-all duration-500">
+                    </div>
+
+                    <!-- Logo JSON Moderno (SVG + CSS) -->
+                    <div class="relative mb-6">
+                        <div
+                            class="h-24 w-24 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-emerald-200 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                            </svg>
+                        </div>
+                        <div
+                            class="absolute -bottom-2 -right-2 bg-white px-3 py-1 rounded-full shadow-lg border border-slate-100">
+                            <span class="text-[9px] font-black text-emerald-600 uppercase tracking-tighter">JSON</span>
+                        </div>
+                    </div>
+
+                    <!-- Manual Link Icon -->
+                    <a href="/manual/manual-doi.pdf" target="_blank" title="Manual de Orientação DOI"
+                        class="absolute top-4 right-4 text-emerald-600 hover:text-emerald-800 transition-colors p-2 bg-emerald-50 rounded-full hover:bg-emerald-100">
+                        <i class="fas fa-book text-lg"></i>
+                    </a>
+
+                    <h3 class="text-xl font-black text-amazon-text uppercase tracking-tight mb-2">Importação DOI</h3>
+                    <p class="text-[11px] font-medium text-slate-400 mb-8 max-w-[240px]">Base de Cruzamento: Receita
+                        Federal (Arquivo JSON)</p>
+
+                    <!-- Seleção de Cartório -->
+                    <!-- Seleção de Cartório (Apenas para Admin/Prefeitura) -->
+                    <div class="w-full mb-6 text-left"
+                        th:if="${cartorioVinculado == null and listaCartorios != null and !listaCartorios.isEmpty()}">
+                        <label for="cartorioSelect"
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">
+                            Selecione o Cartório *
+                        </label>
+                        <select id="cartorioSelect" x-model="selectedCartorioId"
+                            class="w-full bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-2.5 font-bold">
+                            <option value="">Selecione um cartório</option>
+                            <option th:each="cartorio : ${listaCartorios}" th:value="${cartorio.id}"
+                                th:text="${cartorio.denominacao + ' - CNS: ' + cartorio.codigoCns}">
+                            </option>
+                        </select>
+                        <p class="mt-1 text-[9px] text-slate-400">Escolha o cartório que está importando o arquivo DOI.
+                        </p>
+                    </div>
+
+                    <!-- Informação de Cartório Vinculado (Apenas para Usuários de Cartório) -->
+                    <div class="w-full mb-8 text-left bg-emerald-50 rounded-xl p-4 border border-emerald-100"
+                        th:if="${cartorioVinculado != null}">
+                        <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">
+                            <i class="fas fa-building mr-1"></i> Cartório Vinculado
+                        </p>
+                        <p class="text-xs font-black text-amazon-text" th:text="${cartorioVinculado.denominacao}">
+                            Cartório de Registro de Imóveis
+                        </p>
+                        <p class="text-[9px] text-emerald-600/60 font-bold"
+                            th:text="'CNS: ' + ${cartorioVinculado.codigoCns}">
+                            CNS: 123456
+                        </p>
+                    </div>
+
+                    <!-- Área de Drop/Input DOI -->
+                    <div class="w-full relative group/area cursor-pointer" @click="$refs.fileInput.click()"
+                        @dragover.prevent="dragover = true" @dragleave.prevent="dragover = false"
+                        @drop.prevent="handleDrop($event)"
+                        :class="dragover ? 'border-amazon-primary bg-emerald-50/50 scale-[0.98]' : 'border-slate-100 bg-slate-50 shadow-inner'">
+
+                        <input type="file" x-ref="fileInput" class="hidden" accept=".json"
+                            @change="handleFileSelect($event)">
+
+                        <div class="border-2 border-dashed rounded-[2.5rem] p-10 transition-all duration-500 flex flex-col items-center justify-center space-y-4"
+                            :class="dragover ? 'border-amazon-primary' : 'border-slate-200'">
+
+                            <!-- Ilustração Upload DOI -->
+                            <div class="relative w-20 h-20 mb-2 transition-transform duration-500 group-hover/area:scale-110"
+                                :class="dragover ? 'animate-bounce' : ''">
+                                <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-emerald-200">
+                                    <path d="M12 15V3m0 0l-4 4m4-4l4 4" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M2 17l.621 2.485A2 2 0 004.561 21H19.439a2 2 0 001.94-1.515L22 17"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                <div class="absolute inset-0 bg-emerald-400/10 blur-xl rounded-full"></div>
+                            </div>
+
+                            <div class="text-center">
+                                <p class="text-[12px] font-black uppercase tracking-[0.1em] text-slate-600 mb-1"
+                                    x-text="doiFileName || 'Arraste o arquivo JSON'"></p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                                    x-show="!doiFileName">ou clique para procurar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button @click="processarDoi()" :disabled="!doiFile || processing"
+                        class="w-full mt-8 bg-[#0A3D2E] text-white font-black uppercase tracking-[0.2em] py-5 rounded-[1.5rem] shadow-lg shadow-emerald-900/20 hover:bg-[#042116] hover:scale-[1.02] active:scale-95 disabled:opacity-50 transition-all duration-300 flex items-center justify-center space-x-3">
+                        <i class="fas fa-cog animate-spin" x-show="processing && currentType === 'doi'"></i>
+                        <span
+                            x-text="processing && currentType === 'doi' ? 'Processando (' + progressCount + ')...' : 'Executar Importação'"></span>
+                    </button>
+                </div>
+
+                <!-- Histórico DOI -->
+                <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                        <h3 class="text-[11px] font-black text-amazon-text uppercase tracking-[0.2em]">Histórico DOI
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-slate-100">
+                                    <th
+                                        class="px-4 pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                        Arquivo</th>
+                                    <th
+                                        class="px-4 pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                        Data</th>
+                                    <th
+                                        class="px-4 pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">
+                                        Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50">
+                                <tr th:each="imp : ${importacoes}" class="hover:bg-slate-50/50 transition-colors group">
+                                    <td class="px-4 py-1.5">
+                                        <div class="flex flex-col">
+                                            <span class="text-[11px] font-black text-slate-700 truncate max-w-[200px]"
+                                                th:text="${imp.nomeArquivo}">arquivo.json</span>
+                                            <span
+                                                class="text-[8px] text-emerald-600 uppercase font-black tracking-tighter"
+                                                th:text="${(imp.totalRegistros ?: 0) + ' registros'}">0 registros</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-1.5">
+                                        <span class="text-[10px] font-bold text-slate-500"
+                                            th:text="${#temporals.format(imp.dataImportacao, 'dd/MM/yyyy')}">16/02/2026</span>
+                                    </td>
+                                    <td class="px-4 py-1.5 text-right">
+                                        <a th:href="@{/malha/detalhes/{id}(id=${imp.id})}"
+                                            class="text-[10px] font-black text-blue-500 hover:text-blue-700 uppercase tracking-tighter">Detalhes</a>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(importacoes)}">
+                                    <td colspan="3"
+                                        class="px-8 py-10 text-center text-[10px] uppercase font-black text-slate-300 tracking-widest opacity-50">
+                                        Sem registros</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna 2: ITBI -->
+            <div class="space-y-6">
+                <!-- Card de Upload ITBI -->
+                <div
+                    class="bg-white rounded-[2rem] border border-slate-200 shadow-sm p-8 flex flex-col items-center text-center h-fit relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-blue-500/10 transition-all duration-500">
+                    </div>
+
+                    <!-- Logo Excel Moderno (SVG + CSS) -->
+                    <div class="relative mb-6">
+                        <div
+                            class="h-24 w-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-[2rem] flex items-center justify-center text-white shadow-xl shadow-blue-200 group-hover:scale-110 transition-transform duration-500">
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7" />
+                            </svg>
+                        </div>
+                        <div
+                            class="absolute -bottom-2 -right-2 bg-white px-3 py-1 rounded-full shadow-lg border border-slate-100">
+                            <span class="text-[9px] font-black text-blue-600 uppercase tracking-tighter">XLSX</span>
+                        </div>
+                    </div>
+
+                    <!-- Manual Link Icon -->
+                    <a href="/malha/manual/importacao-arrecadacao" target="_blank"
+                        title="Manual de Importação Arrecadação"
+                        class="absolute top-4 right-4 text-blue-600 hover:text-blue-800 transition-colors p-2 bg-blue-50 rounded-full hover:bg-blue-100">
+                        <i class="fas fa-book text-lg"></i>
+                    </a>
+
+                    <h3 class="text-xl font-black text-amazon-text uppercase tracking-tight mb-2">Importação Arrecadação
+                    </h3>
+                    <p class="text-[11px] font-medium text-slate-400 mb-8 max-w-[240px]">Base Comparativa: Registro
+                        Municipal (Arquivo Excel)</p>
+
+                    <!-- Área de Drop/Input ITBI -->
+                    <div class="w-full relative group/area cursor-pointer" @click="$refs.fileInputExcel.click()"
+                        @dragover.prevent="dragoverExcel = true" @dragleave.prevent="dragoverExcel = false"
+                        @drop.prevent="handleDropExcel($event)"
+                        :class="dragoverExcel ? 'border-blue-600 bg-blue-50/50 scale-[0.98]' : 'border-slate-100 bg-slate-50 shadow-inner'">
+
+                        <input type="file" x-ref="fileInputExcel" class="hidden" accept=".xlsx"
+                            @change="handleFileSelectExcel($event)">
+
+                        <div class="border-2 border-dashed rounded-[2.5rem] p-10 transition-all duration-500 flex flex-col items-center justify-center space-y-4"
+                            :class="dragoverExcel ? 'border-blue-600' : 'border-slate-200'">
+
+                            <!-- Ilustração Upload Excel -->
+                            <div class="relative w-20 h-20 mb-2 transition-transform duration-500 group-hover/area:scale-110"
+                                :class="dragoverExcel ? 'animate-bounce' : ''">
+                                <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-blue-200">
+                                    <path d="M12 15V3m0 0l-4 4m4-4l4 4" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M4 17v1a2 2 0 002 2h12a2 2 0 002-2v-1M4 12V7a2 2 0 012-2h12a2 2 0 012 2v5"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M9 10h6M9 14h3" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <div class="absolute inset-0 bg-blue-400/10 blur-xl rounded-full"></div>
+                            </div>
+
+                            <div class="text-center">
+                                <p class="text-[12px] font-black uppercase tracking-[0.1em] text-slate-600 mb-1"
+                                    x-text="excelFileName || 'Arraste a planilha XLSX'"></p>
+                                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                                    x-show="!excelFileName">ou clique para procurar</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button @click="processarExcel()" :disabled="!excelFile || processing"
+                        class="w-full mt-8 bg-blue-600 text-white font-black uppercase tracking-[0.2em] py-5 rounded-[1.5rem] shadow-lg shadow-blue-900/20 hover:bg-blue-800 hover:scale-[1.02] active:scale-95 disabled:opacity-50 transition-all duration-300 flex items-center justify-center space-x-3">
+                        <i class="fas fa-cog animate-spin" x-show="processing && currentType === 'excel'"></i>
+                        <span
+                            x-text="processing && currentType === 'excel' ? 'Processando (' + progressCount + ')...' : 'Executar Importação'"></span>
+                    </button>
+                </div>
+
+                <!-- Histórico ITBI -->
+                <div class="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+                    <div class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                        <h3 class="text-[11px] font-black text-amazon-text uppercase tracking-[0.2em]">Histórico
+                            Arrecadação</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-slate-100">
+                                    <th
+                                        class="px-4 pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                        Arquivo</th>
+                                    <th
+                                        class="px-4 pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                        Data</th>
+                                    <th
+                                        class="px-4 pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest text-right">
+                                        Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-50">
+                                <tr th:each="imp : ${importacoesItbi}"
+                                    class="hover:bg-slate-50/50 transition-colors group">
+                                    <td class="px-4 py-1.5">
+                                        <div class="flex flex-col">
+                                            <span class="text-[11px] font-black text-slate-700 truncate max-w-[200px]"
+                                                th:text="${imp.nomeArquivo}">arquivo.xlsx</span>
+                                            <span class="text-[8px] text-blue-600 uppercase font-black tracking-tighter"
+                                                th:text="${(imp.totalRegistros ?: 0) + ' registros'}">0 registros</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-1.5">
+                                        <span class="text-[10px] font-bold text-slate-500"
+                                            th:text="${#temporals.format(imp.dataImportacao, 'dd/MM/yyyy')}">16/02/2026</span>
+                                    </td>
+                                    <td class="px-4 py-1.5 text-right">
+                                        <span
+                                            class="text-[8px] font-black uppercase tracking-[0.2em] px-3 py-0.5 rounded-xl border"
+                                            th:classappend="${imp.status == 'CONCLUIDO' ? 'text-emerald-500 border-emerald-100 bg-emerald-50' : 'text-amber-500 border-amber-100 bg-amber-50'}"
+                                            th:text="${imp.status}">OK</span>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(importacoesItbi)}">
+                                    <td colspan="3"
+                                        class="px-8 py-10 text-center text-[10px] uppercase font-black text-slate-300 tracking-widest opacity-50">
+                                        Sem registros</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script th:inline="javascript">
+            function fileImport() {
+                return {
+                    dragover: false,
+                    dragoverExcel: false,
+                    processing: false,
+                    currentType: '',
+                    progressCount: 0,
+                    progressInterval: null,
+                    entidadeId: null,
+                    selectedCartorioId: '',
+
+                    init() {
+                        this.entidadeId = /*[[${entidade != null ? entidade.id : null}]]*/ null;
+                        this.selectedCartorioId = /*[[${cartorioVinculado != null ? cartorioVinculado.id : ''}]]*/ '';
+                    },
+
+                    doiFile: null,
+                    doiFileName: '',
+
+                    excelFile: null,
+                    excelFileName: '',
+                    excelPreview: null,
+
+                    // ... (keep file handling methods same)
+
+                    handleFileSelect(e) {
+                        const file = e.target.files[0];
+                        if (file) this.setDoiFile(file);
+                    },
+
+                    handleDrop(e) {
+                        this.dragover = false;
+                        const file = e.dataTransfer.files[0];
+                        if (file) this.setDoiFile(file);
+                    },
+
+                    setDoiFile(file) {
+                        if (!file.name.endsWith('.json')) {
+                            alert('Apenas arquivos JSON são aceitos.');
+                            return;
+                        }
+                        this.doiFile = file;
+                        this.doiFileName = file.name;
+                    },
+
+                    handleFileSelectExcel(e) {
+                        const file = e.target.files[0];
+                        if (file) this.setExcelFile(file);
+                    },
+
+                    handleDropExcel(e) {
+                        this.dragoverExcel = false;
+                        const file = e.dataTransfer.files[0];
+                        if (file) this.setExcelFile(file);
+                    },
+
+                    async setExcelFile(file) {
+                        if (!file.name.endsWith('.xlsx')) {
+                            alert('Apenas arquivos .xlsx são aceitos.');
+                            return;
+                        }
+                        this.excelFile = file;
+                        this.excelFileName = file.name;
+                    },
+
+                    async processarDoi() {
+                        if (!this.doiFile) return;
+
+                        // Validação de Cartório
+                        // Se existir a lista no DOM (th:if), exige seleção. 
+                        // Verificação simplificada: se o select existir e estiver vazio
+                        const selectElement = document.getElementById('cartorioSelect');
+                        if (selectElement && !this.selectedCartorioId) {
+                            alert('Por favor, selecione um Cartório.');
+                            return;
+                        }
+
+                        this.processing = true;
+                        this.currentType = 'doi';
+                        this.progressCount = 0;
+                        this.startPollingProgress();
+
+                        try {
+                            const reader = new FileReader();
+                            reader.onload = async (e) => {
+                                try {
+                                    const fileContent = JSON.parse(e.target.result);
+                                    const payload = {
+                                        nomeArquivo: this.doiFileName,
+                                        cartorioId: this.selectedCartorioId ? parseInt(this.selectedCartorioId) : null,
+                                        declaracoes: fileContent.declaracoes || (Array.isArray(fileContent) ? fileContent : [])
+                                    };
+
+                                    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                                    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+                                    const response = await fetch('/api/malha/importar', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            [csrfHeader]: csrfToken
+                                        },
+                                        body: JSON.stringify(payload)
+                                    });
+
+                                    const result = await response.json();
+                                    if (result.status === 'success') {
+                                        window.location.reload();
+                                    } else {
+                                        alert('Erro: ' + result.message);
+                                    }
+                                } catch (err) {
+                                    alert('Erro ao processar JSON: ' + err.message);
+                                } finally {
+                                    this.processing = false;
+                                    this.stopPollingProgress();
+                                }
+                            };
+                            reader.readAsText(this.doiFile);
+                        } catch (err) {
+                            alert('Erro na leitura do arquivo.');
+                            this.processing = false;
+                            this.stopPollingProgress();
+                        }
+                    },
+
+                    async processarExcel() {
+                        if (!this.excelFile) return;
+                        this.processing = true;
+                        this.currentType = 'excel';
+                        this.progressCount = 0;
+                        this.startPollingProgress();
+
+                        const formData = new FormData();
+                        formData.append('file', this.excelFile);
+                        formData.append('entidadeId', this.entidadeId);
+
+                        try {
+                            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                            const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+                            const response = await fetch('/api/malha/importar-excel', {
+                                method: 'POST',
+                                headers: {
+                                    [csrfHeader]: csrfToken
+                                },
+                                body: formData
+                            });
+
+                            const result = await response.json();
+                            if (result.status === 'success') {
+                                alert(result.message);
+                                window.location.reload();
+                            } else {
+                                alert('Erro: ' + result.message);
+                            }
+                        } catch (err) {
+                            alert('Erro na conexão com o servidor.');
+                        } finally {
+                            this.processing = false;
+                            this.stopPollingProgress();
+                        }
+                    },
+
+                    startPollingProgress() {
+                        if (this.progressInterval) clearInterval(this.progressInterval);
+                        this.progressInterval = setInterval(async () => {
+                            try {
+                                const response = await fetch(`/api/malha/import-progress?entidadeId=${this.entidadeId}`);
+                                const data = await response.json();
+                                if (data && data.count !== undefined) {
+                                    this.progressCount = data.count;
+                                }
+                            } catch (e) {
+                                console.error('Erro ao buscar progresso:', e);
+                            }
+                        }, 500);
+                    },
+
+                    stopPollingProgress() {
+                        if (this.progressInterval) {
+                            clearInterval(this.progressInterval);
+                            this.progressInterval = null;
+                        }
+                    }
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>

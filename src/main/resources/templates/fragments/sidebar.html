@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+    <!-- Sidebar Fragment -->
+    <aside th:fragment="sidebar"
+        class="fixed left-0 top-0 h-screen w-72 bg-amazon-sidebar/80 backdrop-blur-2xl border-r border-emerald-500/10 z-50 transition-all duration-500 flex flex-col overflow-hidden group/sidebar"
+        sec:authorize="isAuthenticated()">
+
+        <!-- Topo: Branding -->
+        <div class="p-6 pb-2" x-data="{ showEntidadeModal: false }">
+            <div class="flex justify-center mb-4">
+                <div
+                    class="bg-white p-3 rounded-[1.5rem] shadow-sm border border-emerald-500/10 transition-transform group-hover/sidebar:scale-110 duration-500 flex items-center justify-center">
+                    <img th:src="@{/img/logo.svg}" alt="Logo" class="h-12">
+                </div>
+            </div>
+
+            <!-- Prefeitura Info -->
+            <div class="relative group/card">
+                <div
+                    class="p-4 rounded-[2rem] bg-white/60 backdrop-blur-md border border-emerald-500/10 shadow-sm transition-all hover:bg-white/80">
+                    <div class="flex items-center space-x-4">
+                        <div
+                            class="h-12 w-12 flex-shrink-0 bg-white rounded-2xl border border-emerald-500/5 flex items-center justify-center p-2 overflow-hidden shadow-inner transition-transform group-hover/card:scale-105 duration-500">
+                            <img th:if="${entidadePrincipal != null and entidadePrincipal.logoUrl != null}"
+                                th:src="@{/uploads/entidades/{url}(url=${entidadePrincipal.logoUrl})}"
+                                class="max-h-full max-w-full object-contain">
+                            <i th:unless="${entidadePrincipal != null and entidadePrincipal.logoUrl != null}"
+                                class="fas fa-shield-halved text-amazon-primary text-xl opacity-40"></i>
+                        </div>
+                        <div class="flex flex-col overflow-hidden leading-tight">
+                            <span
+                                class="text-[11px] font-black text-amazon-text uppercase truncate font-opensans tracking-tight"
+                                th:text="${entidadePrincipal != null ? entidadePrincipal.nomeEmpresarial : 'SISgetrim'}">
+                                Prefeitura Municipal
+                            </span>
+                            <span
+                                class="text-[9px] font-bold text-amazon-primary/60 uppercase tracking-[0.15em] truncate font-opensans mt-0.5"
+                                th:text="${entidadePrincipal != null ? (entidadePrincipal.municipio + ' - ' + entidadePrincipal.uf) : 'Unidade de Auditoria'}">
+                                Unidade Pará
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botão Trocar -->
+                <button @click="showEntidadeModal = true"
+                    th:if="${listaEntidadesUsuario != null and listaEntidadesUsuario.size() > 1}"
+                    class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full shadow-lg opacity-0 group-hover/card:opacity-100 transition-all hover:bg-emerald-600 hover:scale-105 active:scale-95 z-10">
+                    <i class="fas fa-exchange-alt mr-1"></i> Trocar
+                </button>
+            </div>
+
+            <!-- Modal de Seleção de Entidade -->
+            <template x-teleport="body">
+                <div x-show="showEntidadeModal" x-cloak
+                    class="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4">
+                    <div @click.away="showEntidadeModal = false"
+                        class="bg-white rounded-[2rem] shadow-2xl w-full max-w-md overflow-hidden animate-fade-in border border-white/20">
+
+                        <div
+                            class="px-6 py-5 border-b border-slate-50 flex items-center justify-between bg-slate-50/50">
+                            <div class="flex items-center space-x-3">
+                                <div
+                                    class="h-8 w-8 rounded-xl bg-emerald-100/50 flex items-center justify-center text-emerald-600">
+                                    <i class="fas fa-building text-xs"></i>
+                                </div>
+                                <h3 class="text-sm font-black text-slate-700 font-outfit">Selecionar Entidade</h3>
+                            </div>
+                            <button @click="showEntidadeModal = false"
+                                class="text-slate-400 hover:text-slate-600 transition-colors">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <div class="p-4 max-h-[60vh] overflow-y-auto custom-scrollbar space-y-2">
+                            <div th:if="${listaEntidadesUsuario != null}" th:remove="tag">
+                                <button th:each="entidade : ${listaEntidadesUsuario}"
+                                    th:onclick="'mudarEntidade(' + ${entidade.id} + ')'"
+                                    th:classappend="${entidadePrincipal != null && entidadePrincipal.id == entidade.id} ? 'bg-emerald-50 border-emerald-200 ring-1 ring-emerald-500/20' : 'bg-white border-slate-100 hover:border-emerald-200 hover:bg-emerald-50/30'"
+                                    class="w-full p-4 rounded-xl border text-left transition-all group flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <div th:class="${entidadePrincipal != null && entidadePrincipal.id == entidade.id} ? 'bg-emerald-500 text-white' : 'bg-slate-100 text-slate-400 group-hover:bg-white group-hover:text-emerald-500'"
+                                            class="h-10 w-10 rounded-lg flex items-center justify-center transition-colors shadow-sm">
+                                            <i class="fas fa-landmark text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-black text-slate-700 uppercase tracking-tight"
+                                                th:text="${entidade.nomeEmpresarial}"></p>
+                                            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-0.5"
+                                                th:text="${entidade.municipio + ' - ' + entidade.uf}"></p>
+                                        </div>
+                                    </div>
+                                    <div th:if="${entidadePrincipal != null && entidadePrincipal.id == entidade.id}">
+                                        <span
+                                            class="text-[9px] font-black bg-emerald-500 text-white px-2 py-0.5 rounded-md uppercase tracking-widest shadow-sm shadow-emerald-500/20">Atual</span>
+                                    </div>
+                                </button>
+                            </div>
+
+                            <div th:if="${listaEntidadesUsuario == null or listaEntidadesUsuario.isEmpty()}"
+                                class="text-center py-8">
+                                <i class="fas fa-ghost text-slate-200 text-3xl mb-2"></i>
+                                <p class="text-xs font-bold text-slate-400">Nenhuma entidade vinculada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <!-- Navegação -->
+        <nav class="flex-1 px-4 py-2 space-y-0.5 overflow-y-auto" x-data="{ active: window.location.pathname }">
+            <p class="px-4 text-[9px] font-black text-amazon-primary/40 uppercase tracking-[0.2em] mb-1.5">Principal</p>
+
+            <a href="/dashboard"
+                :class="active === '/dashboard' ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-bold transition-all group">
+                <i class="fas fa-home text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Dashboard Principal</span>
+            </a>
+
+            <a href="/entidades"
+                :class="active.startsWith('/entidades') ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-bold transition-all group">
+                <i class="fas fa-landmark text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Gestão de Entidades</span>
+            </a>
+
+            <a href="/cartorios"
+                :class="active.startsWith('/cartorios') ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                class="flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-bold transition-all group">
+                <i class="fas fa-stamp text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Gestão de Cartórios</span>
+            </a>
+
+            <!-- Menu Importações (Dropdown) -->
+            <div x-data="{ open: window.location.pathname.startsWith('/malha') }">
+                <button @click="open = !open"
+                    class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold transition-all group"
+                    :class="open ? 'bg-emerald-50 text-emerald-600' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-file-import text-base transition duration-300"
+                            :class="open ? 'text-emerald-500' : 'opacity-40 group-hover:opacity-100'"></i>
+                        <span>Importações</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-[10px] transition-transform duration-300"
+                        :class="open ? 'rotate-180 text-emerald-500' : 'opacity-40'"></i>
+                </button>
+
+                <div x-show="open" x-collapse class="pl-4 pr-2 py-1 space-y-1">
+                    <a href="/malha/importar"
+                        :class="window.location.pathname === '/malha/importar' ? 'bg-emerald-100/50 text-emerald-700' : 'text-slate-500 hover:text-emerald-600 hover:bg-slate-50'"
+                        class="flex items-center space-x-3 px-4 py-2 rounded-lg text-[11px] font-bold transition-all">
+                        <i class="fas fa-upload text-xs opacity-60"></i>
+                        <span>Importação de Arq. DOI/XLSX</span>
+                    </a>
+
+                    <a href="/malha/analise-importacoes"
+                        :class="window.location.pathname === '/malha/analise-importacoes' ? 'bg-emerald-100/50 text-emerald-700' : 'text-slate-500 hover:text-emerald-600 hover:bg-slate-50'"
+                        class="flex items-center space-x-3 px-4 py-2 rounded-lg text-[11px] font-bold transition-all">
+                        <i class="fas fa-chart-pie text-xs opacity-60"></i>
+                        <span>Análise Importações</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dropdown Configurações -->
+            <div x-data="{ open: active.startsWith('/admin/usuarios') || active === '/configuracoes' }">
+                <button @click="open = !open"
+                    :class="(active === '/configuracoes' || active.startsWith('/admin/usuarios')) ? 'sidebar-active-link' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                    class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold transition-all group">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-cog text-base opacity-40 group-hover:opacity-100 transition"></i>
+                        <span>Configurações</span>
+                    </div>
+                    <i class="fas fa-chevron-right text-[10px] transition-transform duration-300 opacity-20"
+                        :class="open ? 'rotate-90 opacity-100' : ''"></i>
+                </button>
+
+                <!-- Submenu -->
+                <div x-show="open" x-cloak x-collapse class="mt-1 ml-4 space-y-1 border-l-2 border-emerald-500/10 pl-2">
+                    <a href="/configuracoes"
+                        :class="active === '/configuracoes' ? 'text-amazon-primary bg-emerald-500/5' : 'text-slate-500 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                        class="flex items-center space-x-3 px-4 py-2 rounded-lg text-[11px] font-bold transition-all">
+                        <i class="fas fa-user-circle text-sm opacity-40"></i>
+                        <span>Meu Perfil</span>
+                    </a>
+                    <a href="/admin/usuarios" sec:authorize="hasAnyRole('ADMIN', 'MASTER')"
+                        :class="active.startsWith('/admin/usuarios') ? 'text-amazon-primary bg-emerald-500/5' : 'text-slate-500 hover:text-amazon-primary hover:bg-emerald-500/5'"
+                        class="flex items-center space-x-3 px-4 py-2 rounded-lg text-[11px] font-bold transition-all">
+                        <i class="fas fa-users-cog text-sm opacity-40"></i>
+                        <span>Gestão de Usuários</span>
+                    </a>
+                </div>
+            </div>
+
+
+            <a href="#"
+                class="flex items-center space-x-3 px-4 py-3.5 rounded-xl text-xs font-bold text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5 transition-all group">
+                <i class="fas fa-chart-line text-base opacity-40 group-hover:opacity-100 transition"></i>
+                <span>Relatórios Analíticos</span>
+            </a>
+        </nav>
+
+        <!-- Rodapé Sidebar: Perfil e Logout -->
+        <div class="p-4 border-t border-emerald-500/10 bg-white/40">
+            <div class="flex flex-col space-y-1">
+                <div class="flex items-center space-x-3 overflow-hidden group/user">
+                    <div
+                        class="h-9 w-9 flex-shrink-0 bg-amazon-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 overflow-hidden border border-white">
+                        <i class="fas fa-user text-xs" th:if="${#authentication.principal.fotoUrl == null}"></i>
+                        <img th:src="@{'/uploads/usuarios/' + ${#authentication.principal.fotoUrl}}"
+                            th:if="${#authentication.principal.fotoUrl != null}" class="h-full w-full object-cover">
+                    </div>
+                    <div class="flex flex-col overflow-hidden leading-tight">
+                        <span class="text-xs font-black text-amazon-text truncate"
+                            sec:authentication="principal.nome">Usuário</span>
+                        <span class="text-[8px] font-bold text-amazon-primary/60 uppercase tracking-widest -mt-0.5"
+                            th:text="${#authentication.principal.role == 'ROLE_USER' ? 'USER' : 'ADMIN'}">USER</span>
+                    </div>
+                </div>
+
+                <form th:action="@{/logout}" method="post" id="logoutFormSidebar" class="m-0">
+                    <button type="submit"
+                        class="w-full flex items-center justify-center space-x-3 py-1.5 rounded-xl bg-rose-500/10 text-rose-600 text-[10px] font-black uppercase tracking-widest border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all duration-300 group">
+                        <i class="fas fa-power-off text-xs opacity-60 group-hover:opacity-100"></i>
+                        <span>Sair do Sistema</span>
+                    </button>
+                </form>
+
+                <!-- Copyright Sidebar -->
+                <div class="text-center pt-1">
+                    <p class="text-[8px] font-bold text-amazon-primary/40 uppercase tracking-[0.1em]">
+                        &copy; 2026 <span class="text-amazon-text font-black">SISgetrim.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function mudarEntidade(id) {
+                const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+                const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+
+                fetch('/entidade/selecionar/' + id, {
+                    method: 'POST',
+                    headers: {
+                        [csrfHeader]: csrfToken
+                    }
+                }).then(() => window.location.reload());
+            }
+        </script>
+    </aside>
+</body>
+
+</html>

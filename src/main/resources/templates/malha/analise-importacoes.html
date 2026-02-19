@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Análise de Importações DOI</title>
+</head>
+
+<body>
+    <section layout:fragment="content">
+        <div class="p-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-2xl font-black text-amazon-text uppercase tracking-tight">Análise de Importações DOI
+                    </h2>
+                    <p class="text-xs font-bold text-slate-400 mt-1">Visão mensal de conformidade e status</p>
+                </div>
+
+                <!-- Filtro de Ano -->
+                <div class="relative">
+                    <form id="filtroAnoForm" th:action="@{/malha/analise-importacoes}" method="get"
+                        class="flex items-center space-x-2">
+                        <label for="ano" class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Ano
+                            Ref.:</label>
+                        <select id="ano" name="ano" onchange="this.form.submit()"
+                            class="bg-white border border-slate-200 text-slate-700 text-xs rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-2.5 font-bold shadow-sm">
+                            <option th:each="a : ${anosDisponiveis}" th:value="${a}" th:text="${a}"
+                                th:selected="${a == anoSelecionado}">
+                            </option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Lista de Meses (Accordion) -->
+            <div class="space-y-4" id="accordion-container">
+                <div th:each="mes : ${analiseMeses}"
+                    class="bg-white rounded-2xl shadow-sm border border-slate-100 accordion-item">
+
+                    <!-- Header do Card (Mês) -->
+                    <div class="p-4 flex items-center justify-between cursor-pointer hover:bg-slate-50 transition-colors accordion-header"
+                        th:data-month="${mes.numeroMes}">
+
+                        <div class="flex items-center space-x-4">
+                            <!-- Ícone/Número do Mês -->
+                            <div class="h-10 w-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 font-bold text-sm"
+                                th:classappend="${mes.statusMes == 'Concluído'} ? '!bg-emerald-100 !text-emerald-600' : (${mes.statusMes == 'Atraso'} ? '!bg-rose-100 !text-rose-600' : '')">
+                                <span th:text="${#numbers.formatInteger(mes.numeroMes, 2)}">01</span>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-black text-slate-700 uppercase tracking-tight"
+                                    th:text="${mes.nomeMes}">Janeiro</h3>
+                                <div class="flex items-center space-x-2 mt-0.5">
+                                    <span
+                                        class="px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider border"
+                                        th:classappend="${mes.statusCor}" th:text="${mes.statusMes}">
+                                        Status
+                                    </span>
+                                    <span class="text-[10px] font-bold text-slate-400"
+                                        th:if="${!mes.importacoes.isEmpty()}"
+                                        th:text="'(' + ${mes.importacoes.size()} + ' arquivos)'"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <!-- Action Button (Dropdown) -->
+                            <div class="relative dropdown-container">
+                                <button
+                                    class="text-slate-300 hover:text-emerald-600 transition-colors p-2 dropdown-toggle">
+                                    <i class="fas fa-cog"></i>
+                                </button>
+                                <!-- Dropdown Content -->
+                                <div
+                                    class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-100 z-50 py-1">
+                                    <a href="/malha/importar"
+                                        class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 hover:text-emerald-600">
+                                        <i class="fas fa-upload mr-2"></i> Nova Importação
+                                    </a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 hover:text-emerald-600">
+                                        <i class="fas fa-download mr-2"></i> Relatório Mensal
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Chevron -->
+                            <div class="p-2 cursor-pointer group chevron-icon">
+                                <i
+                                    class="fas fa-chevron-down text-slate-300 transition-transform duration-300 group-hover:text-emerald-500"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo Collapsible (Tabela) -->
+                    <div class="accordion-content hidden overflow-hidden transition-all duration-200">
+                        <div class="p-4 border-t border-slate-100 bg-slate-50/50">
+
+                            <div th:if="${mes.importacoes.isEmpty()}" class="text-center py-6 text-slate-400">
+                                <i class="fas fa-inbox text-2xl mb-2 opacity-50"></i>
+                                <p class="text-xs font-bold">Nenhuma importação registrada para este mês.</p>
+                            </div>
+
+                            <div th:unless="${mes.importacoes.isEmpty()}"
+                                class="overflow-x-auto rounded-lg border border-slate-200 bg-white max-h-96 overflow-y-auto">
+                                <table class="w-full text-left">
+                                    <thead class="bg-slate-50 border-b border-slate-200 sticky top-0 z-10">
+                                        <tr>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                                                ID</th>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                                                Protocolo</th>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                                                Data Inserção</th>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                                                Matrícula do Imóvel</th>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider">
+                                                Nome Arquivo</th>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider text-center">
+                                                Status</th>
+                                            <th
+                                                class="px-2 py-1 text-[9px] font-black text-slate-400 uppercase tracking-wider text-right">
+                                                Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr th:each="imp : ${mes.importacoes}"
+                                            class="hover:bg-slate-50/80 transition-colors">
+                                            <td class="px-2 py-0.5 text-[10px] font-bold text-slate-600 font-mono"
+                                                th:text="${imp.id}">513</td>
+                                            <td class="px-2 py-0.5 text-[10px] font-medium text-slate-500"
+                                                th:text="${imp.protocolo}">IMP-001</td>
+                                            <td class="px-2 py-0.5 text-[10px] font-medium text-slate-500"
+                                                th:text="${#temporals.format(imp.dataInsercao, 'dd/MM/yyyy HH:mm:ss')}">
+                                                01/01/2026 20:30:29</td>
+                                            <td class="px-2 py-0.5 text-[10px] font-bold text-slate-700 font-mono"
+                                                th:text="${imp.matricula}">0029609</td>
+                                            <td class="px-2 py-0.5 text-[10px] font-medium text-slate-700 truncate max-w-[300px]"
+                                                th:text="${imp.nomeArquivo}">arquivo.json</td>
+                                            <td class="px-2 py-0.5 text-center">
+                                                <span
+                                                    class="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider"
+                                                    th:classappend="${imp.statusBadgeClass}"
+                                                    th:text="${imp.status}">CONCLUIDO</span>
+                                            </td>
+                                            <td class="px-2 py-0.5 text-right">
+                                                <a th:href="@{/malha/doi/declaracao/{id}(id=${imp.id})}"
+                                                    class="text-[9px] font-bold text-emerald-600 hover:text-emerald-700 hover:underline">Visualizar</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Accordion functionality
+                document.addEventListener('DOMContentLoaded', function () {
+                    const headers = document.querySelectorAll('.accordion-header');
+
+                    headers.forEach(header => {
+                        header.addEventListener('click', function (e) {
+                            // Don't toggle if clicking on dropdown
+                            if (e.target.closest('.dropdown-container')) {
+                                return;
+                            }
+
+                            const item = this.closest('.accordion-item');
+                            const content = item.querySelector('.accordion-content');
+                            const chevron = item.querySelector('.chevron-icon i');
+                            const isOpen = !content.classList.contains('hidden');
+
+                            // Close all other accordions
+                            document.querySelectorAll('.accordion-content').forEach(c => {
+                                c.classList.add('hidden');
+                            });
+                            document.querySelectorAll('.chevron-icon i').forEach(ch => {
+                                ch.classList.remove('rotate-180', 'text-emerald-500');
+                            });
+
+                            // Toggle current accordion
+                            if (!isOpen) {
+                                content.classList.remove('hidden');
+                                chevron.classList.add('rotate-180', 'text-emerald-500');
+                            }
+                        });
+                    });
+
+                    // Dropdown functionality
+                    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                        toggle.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            const menu = this.nextElementSibling;
+                            menu.classList.toggle('hidden');
+                        });
+                    });
+
+                    // Close dropdowns when clicking outside
+                    document.addEventListener('click', function (e) {
+                        if (!e.target.closest('.dropdown-container')) {
+                            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                                menu.classList.add('hidden');
+                            });
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </section>
+</body>
+
+</html>

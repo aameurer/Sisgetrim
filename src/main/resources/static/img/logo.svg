@@ -1,0 +1,26 @@
+<svg width="400" height="120" viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Hexagono -->
+  <path d="M60 20 L100 40 L100 85 L60 105 L20 85 L20 40 Z" fill="none" stroke="black" stroke-width="3"/>
+  <path d="M60 25 L95 43 L95 82 L60 100 L25 82 L25 43 Z" fill="none" stroke="black" stroke-width="1.5"/>
+  
+  <!-- Icone de Prédio (Simplificado) -->
+  <path d="M40 50 L60 40 L80 50 L80 85 L60 95 L40 85 Z" fill="black"/>
+  <path d="M60 40 L60 95" stroke="white" stroke-width="1"/>
+  <rect x="45" y="55" width="4" height="4" fill="white"/>
+  <rect x="52" y="55" width="4" height="4" fill="white"/>
+  <rect x="45" y="65" width="4" height="4" fill="white"/>
+  <rect x="52" y="65" width="4" height="4" fill="white"/>
+  <rect x="45" y="75" width="4" height="4" fill="white"/>
+  <rect x="52" y="75" width="4" height="4" fill="white"/>
+  
+  <rect x="64" y="55" width="4" height="4" fill="white"/>
+  <rect x="71" y="55" width="4" height="4" fill="white"/>
+  <rect x="64" y="65" width="4" height="4" fill="white"/>
+  <rect x="71" y="65" width="4" height="4" fill="white"/>
+  <rect x="64" y="75" width="4" height="4" fill="white"/>
+  <rect x="71" y="75" width="4" height="4" fill="white"/>
+  
+  <!-- Texto -->
+  <text x="120" y="75" font-family="Arial, sans-serif" font-weight="900" font-size="42" fill="black">SISGETRIM</text>
+  <text x="120" y="100" font-family="Arial, sans-serif" font-weight="bold" font-size="20" fill="#2563EB">.COM.BR</text>
+</svg>

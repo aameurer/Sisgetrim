@@ -1,0 +1,33 @@
+{
+    "declaracoes": [
+        {
+            "numeroDeclaracao": "2026000001",
+            "dataLavraturaRegistroAverbacao": "2026-02-16",
+            "valorOperacaoImobiliaria": 250000.00,
+            "areaImovel": 120.50,
+            "indicadorNaoConstaValorOperacaoImobiliaria": false,
+            "tipoImovel": "1",
+            "codigoIbge": "4202404",
+            "alienantes": [
+                {
+                    "ni": "12345678901",
+                    "participacao": 100.00,
+                    "indicadorEspolio": false,
+                    "indicadorEstrangeiro": false,
+                    "indicadorNaoConstaParticipacaoOperacao": false,
+                    "indicadorNiIdentificado": true
+                }
+            ],
+            "adquirentes": [
+                {
+                    "ni": "98765432100",
+                    "participacao": 100.00,
+                    "indicadorEspolio": false,
+                    "indicadorEstrangeiro": false,
+                    "indicadorNaoConstaParticipacaoOperacao": false,
+                    "indicadorNiIdentificado": true
+                }
+            ]
+        }
+    ]
+}

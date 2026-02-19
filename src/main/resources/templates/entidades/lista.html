@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{dashboard}">
+
+<head>
+    <title>Entidades Cadastradas - Sisgetrim</title>
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <!-- Cabeçalho da Página -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div>
+                <h1 class="text-2xl font-black text-amazon-text font-outfit uppercase tracking-tight">Entidades
+                    Cadastradas</h1>
+                <p class="text-[10px] font-black text-amazon-primary/60 uppercase tracking-[0.2em] mt-1">Gestão de
+                    Identidades Jurídicas do Município</p>
+            </div>
+            <a th:href="@{/entidades/novo}"
+                class="inline-flex items-center space-x-2 bg-amazon-primary text-white text-[10px] font-black uppercase tracking-[0.2em] px-6 py-4 rounded-2xl shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-95 transition-all">
+                <i class="fas fa-plus"></i>
+                <span>Nova Entidade</span>
+            </a>
+        </div>
+
+        <!-- Alertas -->
+        <div th:if="${sucesso}" x-data="{ show: true }" x-show="show" x-transition.duration.500ms
+            x-init="setTimeout(() => show = false, 10000)"
+            class="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-xs font-bold rounded-2xl flex items-center shadow-sm">
+            <i class="fas fa-check-circle mr-3"></i>
+            <span th:text="${sucesso}"></span>
+        </div>
+        <div th:if="${erro}" x-data="{ show: true }" x-show="show" x-transition.duration.500ms
+            x-init="setTimeout(() => show = false, 10000)"
+            class="mb-6 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-600 text-xs font-bold rounded-2xl flex items-center shadow-sm">
+            <i class="fas fa-exclamation-triangle mr-3"></i>
+            <span th:text="${erro}"></span>
+        </div>
+
+        <!-- Grade de Entidades -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div th:each="entidade : ${entidades}"
+                class="bg-white/40 backdrop-blur-2xl rounded-[2rem] border border-emerald-500/10 shadow-xl p-6 transition-all duration-500 hover:shadow-2xl hover:scale-[1.01] group relative overflow-hidden">
+                <div
+                    class="absolute inset-0 bg-gradient-to-br from-amazon-primary/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+
+                <div class="flex items-start justify-between mb-4 relative">
+                    <div
+                        class="h-16 w-16 bg-white rounded-2xl border border-slate-100 shadow-inner flex items-center justify-center p-2">
+                        <img th:if="${entidade.logoUrl}" th:src="@{/uploads/entidades/{url}(url=${entidade.logoUrl})}"
+                            class="max-h-full max-w-full object-contain">
+                        <i th:unless="${entidade.logoUrl}" class="fas fa-landmark text-2xl text-slate-200"></i>
+                    </div>
+                    <div class="flex flex-col items-end">
+                        <span th:if="${entidade.ativo}"
+                            class="px-2 py-1 bg-emerald-500/10 text-emerald-600 text-[8px] font-black uppercase tracking-tighter rounded-full border border-emerald-500/20">Ativo</span>
+                        <span th:unless="${entidade.ativo}"
+                            class="px-2 py-1 bg-slate-500/10 text-slate-400 text-[8px] font-black uppercase tracking-tighter rounded-full border border-slate-500/20">Inativo</span>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <h3 class="text-sm font-black text-slate-800 uppercase tracking-tight line-clamp-1 mb-1"
+                        th:text="${entidade.nomeEmpresarial}">NOME DA ENTIDADE</h3>
+                    <p class="text-[10px] font-bold text-slate-400 font-mono mb-4" th:text="${entidade.cnpj}">
+                        00.000.000/0000-00</p>
+
+                    <div class="flex items-center space-x-2 text-[10px] font-bold text-slate-500 mb-6">
+                        <i class="fas fa-map-marker-alt text-amazon-primary/40"></i>
+                        <span th:text="${entidade.municipio + ' - ' + entidade.uf}">Município - UF</span>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-900/5">
+                        <a th:href="@{/entidades/editar/id/{id}(id=${entidade.id})}"
+                            class="flex items-center space-x-2 bg-amazon-primary/10 text-amazon-primary text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl hover:bg-amazon-primary hover:text-white transition-all duration-300">
+                            <i class="fas fa-edit"></i>
+                            <span>Editar</span>
+                        </a>
+                        <a th:href="@{/entidades/excluir/{id}(id=${entidade.id})}"
+                            onclick="return confirm('Tem certeza que deseja excluir esta entidade? Esta ação não pode ser desfeita.')"
+                            class="w-8 h-8 flex items-center justify-center rounded-xl text-slate-300 hover:text-rose-500 hover:bg-rose-50 transition-all duration-300">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card para Adicionar Nova -->
+            <a th:href="@{/entidades/novo}"
+                class="bg-white/10 backdrop-blur-xl border-2 border-dashed border-emerald-500/20 rounded-[2rem] flex flex-col items-center justify-center p-8 text-emerald-500/40 hover:text-amazon-primary hover:border-amazon-primary hover:bg-white/40 transition-all duration-500 group min-h-[220px]">
+                <div
+                    class="h-12 w-12 bg-white/20 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-plus text-xl"></i>
+                </div>
+                <span class="text-[10px] font-black uppercase tracking-[0.2em]">Adicionar</span>
+            </a>
+        </div>
+
+        <!-- Estado Vazio -->
+        <div th:if="${#lists.isEmpty(entidades)}" class="text-center py-20">
+            <div class="inline-flex items-center justify-center h-20 w-20 bg-slate-50 rounded-full mb-6 text-slate-200">
+                <i class="fas fa-folder-open text-3xl"></i>
+            </div>
+            <h3 class="text-lg font-black text-slate-800 uppercase tracking-tighter mb-2">Sem entidades cadastradas</h3>
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sua base de dados jurídica está vazia
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

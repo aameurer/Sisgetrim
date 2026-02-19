@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout}">
+
+<head>
+    <title>Painel - Sisgetrim Amazônia</title>
+</head>
+
+<body>
+    <div layout:fragment="page-content" class="fade-in">
+        <!-- Cabeçalho do Painel -->
+        <div class="mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+                <h1 class="text-4xl font-black text-amazon-text tracking-tight mb-2">Painel de Controle</h1>
+                <div
+                    class="flex items-center space-x-2 text-amazon-primary/60 font-bold text-xs uppercase tracking-widest">
+                    <span class="w-8 h-px bg-amazon-primary/20"></span>
+                    <span th:text="${#dates.format(#dates.createNow(), 'EEEE, dd ''de'' MMMM')}">Domingo, 15 de
+                        Fevereiro</span>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button
+                    class="glass-panel px-6 py-3 rounded-2xl text-xs font-black text-amazon-text uppercase tracking-widest hover:bg-emerald-500/5 transition-all">
+                    Exportar Relatórios
+                </button>
+                <button
+                    class="bg-amazon-primary px-6 py-3 rounded-2xl text-xs font-black text-white uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-500/20">
+                    Novo Processo
+                </button>
+            </div>
+        </div>
+
+        <!-- Cards de Estatísticas -->
+        <div class="grid grid-cols-3 gap-4 mb-12">
+            <!-- Card Usuários -->
+            <div
+                class="glass-card p-10 rounded-[2.5rem] relative group overflow-hidden flex flex-col items-center text-center">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <i class="fas fa-users text-6xl text-amazon-primary"></i>
+                </div>
+                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-opensans">
+                    Quantidade de Usuários</p>
+                <div class="flex flex-col items-center space-y-2">
+                    <h3 th:text="${totalUsuarios}"
+                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-opensans">
+                        0</h3>
+                    <span
+                        class="text-emerald-500 text-[10px] font-black px-2 py-1 bg-emerald-500/10 rounded-lg border border-emerald-500/20 font-opensans"
+                        th:text="${usuariosOnline} + ' Online'">+0%</span>
+                </div>
+                <div class="mt-8 w-full flex justify-center">
+                    <div class="w-full max-w-[150px] h-1.5 bg-emerald-500/5 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500/30 w-[65%]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Arquivos -->
+            <div
+                class="glass-card p-10 rounded-[2.5rem] relative group overflow-hidden flex flex-col items-center text-center">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <i class="fas fa-file-invoice text-6xl text-amazon-primary"></i>
+                </div>
+                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-opensans">
+                    Arquivos Importados</p>
+                <div class="flex flex-col items-center space-y-2">
+                    <h3
+                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-opensans">
+                        10</h3>
+                    <span class="text-amazon-primary text-[10px] font-black font-opensans uppercase tracking-widest">+5
+                        hoje</span>
+                </div>
+                <div class="mt-8 w-full flex justify-center">
+                    <div class="w-full max-w-[150px] h-1.5 bg-emerald-500/5 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500/30 w-[80%]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Pendentes -->
+            <div
+                class="glass-card p-10 rounded-[2.5rem] relative group overflow-hidden border-amazon-accent/10 flex flex-col items-center text-center">
+                <div class="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <i class="fas fa-clock text-6xl text-amazon-primary"></i>
+                </div>
+                <p class="text-[11px] font-black text-amazon-primary/50 uppercase tracking-[0.2em] mb-4 font-opensans">
+                    Processos Pendentes</p>
+                <div class="flex flex-col items-center space-y-2">
+                    <h3
+                        class="text-6xl font-black text-amazon-text transition-transform group-hover:scale-110 duration-500 leading-none font-opensans">
+                        0</h3>
+                    <span
+                        class="text-slate-400 text-[10px] font-black font-opensans uppercase tracking-widest italic">Estável</span>
+                </div>
+                <div class="mt-8 w-full flex justify-center">
+                    <div class="w-full max-w-[150px] h-1.5 bg-emerald-500/5 rounded-full overflow-hidden">
+                        <div class="h-full bg-emerald-500/30 w-[10%]"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid de Tabelas (Novos Usuários + Importações) -->
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+            <!-- Novos Usuários (Visível apenas para Admin/Master) -->
+            <div sec:authorize="hasAnyRole('ADMIN', 'MASTER')" th:if="${usuariosRecentes != null}"
+                class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden border-amazon-primary/5">
+                <div class="flex items-center justify-between mb-8 px-4">
+                    <h2
+                        class="text-xl font-black text-amazon-text uppercase tracking-tight font-opensans flex items-center">
+                        <i class="fas fa-user-plus mr-3 text-amazon-primary"></i>
+                        Novos Usuários
+                    </h2>
+                    <a href="/admin/usuarios"
+                        class="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-2xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
+                        Ver Todos
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto px-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-100">
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">ID</th>
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Data
+                                </th>
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Usuário
+                                </th>
+                                <th class="pb-2 text-[10px] font-black text-slate-400 uppercase tracking-widest">Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr th:each="user : ${usuariosRecentes}"
+                                class="hover:bg-slate-50/50 transition-colors group">
+                                <td class="py-1.5 text-[11px] font-bold text-slate-400 font-opensans"
+                                    th:text="'#' + ${user.id}">#14</td>
+                                <td class="py-1.5 text-[11px] font-semibold text-slate-500"
+                                    th:text="${#temporals.format(user.createdAt, 'dd/MM/yyyy')}">30/12/2025</td>
+                                <td class="py-1.5">
+                                    <span class="text-[12px] font-black text-amazon-dark font-opensans"
+                                        th:text="${user.nome}">Maria Luísa</span>
+                                </td>
+                                <td class="py-1.5">
+                                    <div class="flex items-center space-x-2">
+                                        <span th:if="${user.status == 'PENDENTE'}"
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-orange-100 text-orange-600 border border-orange-200">
+                                            Pendente
+                                        </span>
+                                        <span th:if="${user.status == 'VERIFICADO'}"
+                                            class="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-emerald-100 text-emerald-600 border border-emerald-200">
+                                            Verificado
+                                        </span>
+                                        <!-- Botão de Aprovação Rápida discreto -->
+                                        <form th:if="${user.status == 'PENDENTE'}"
+                                            th:action="@{/admin/usuarios/aprovar/{id}(id=${user.id})}" method="POST">
+                                            <button type="submit" title="Aprovar Usuário"
+                                                class="p-1 text-amazon-primary hover:text-amazon-dark transition-all">
+                                                <i class="fas fa-check-circle"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela Fiscais (ITBI) -->
+            <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">
+                <div class="flex items-center justify-between mb-4 px-4">
+                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-opensans">
+                        Importações
+                        Recentes
+                        dos Fiscais</h2>
+                    <a href="/malha"
+                        class="px-4 py-2 text-[9px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
+                        Ver Todos
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto px-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-50">
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">ID</th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Arquivo
+                                </th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Usuário
+                                </th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Data
+                                </th>
+                                <th
+                                    class="pb-2 text-right text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                    Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr th:each="imp : ${importacoesItbi}" class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-1 text-[11px] font-bold text-slate-400 font-opensans"
+                                    th:text="'#' + ${imp.id}">#622
+                                </td>
+                                <td class="py-1">
+                                    <span
+                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-opensans"
+                                        th:text="${imp.nomeArquivo}">ARRECADACAO.XLSX</span>
+                                </td>
+                                <td class="py-1 text-[11px] font-bold text-slate-500" th:text="${imp.usuario.nome}">User
+                                </td>
+                                <td class="py-1 text-[11px] font-bold text-slate-500"
+                                    th:text="${#temporals.format(imp.createdAt, 'dd/MM/yy')}">21/01/26</td>
+                                <td class="py-1 text-right">
+                                    <a href="#"
+                                        class="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-800 transition-colors">Visualizar</a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(importacoesItbi)}">
+                                <td colspan="5" class="py-16 text-center">
+                                    <span class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Nenhuma
+                                        importação ITBI</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela Cartórios (DOI) -->
+            <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">
+                <div class="flex items-center justify-between mb-4 px-4">
+                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-opensans">
+                        Importações
+                        Recentes
+                        dos Cartórios</h2>
+                    <a href="/malha"
+                        class="px-4 py-2 text-[9px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
+                        Ver Todos
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto px-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-50">
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">ID</th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Arquivo
+                                </th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Usuário
+                                </th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Data
+                                </th>
+                                <th
+                                    class="pb-2 text-right text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                    Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr th:each="imp : ${importacoes}" class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-1 text-[11px] font-bold text-slate-400 font-opensans"
+                                    th:text="'#' + ${imp.id}">#7</td>
+                                <td class="py-1">
+                                    <span
+                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-inter"
+                                        th:text="${imp.nomeArquivo}">DOI_DADOS.JSON</span>
+                                </td>
+                                <td class="py-1 text-[11px] font-bold text-slate-500" th:text="${imp.usuario.nome}">User
+                                </td>
+                                <td class="py-1 text-[11px] font-bold text-slate-500"
+                                    th:text="${#temporals.format(imp.dataImportacao, 'dd/MM/yy')}">16/02/26</td>
+                                <td class="py-1 text-right">
+                                    <a th:href="@{/malha/detalhes/{id}(id=${imp.id})}"
+                                        class="text-[10px] font-black uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors">Visualizar</a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(importacoes)}">
+                                <td colspan="5" class="py-16 text-center">
+                                    <span class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Nenhuma
+                                        importação DOI</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
