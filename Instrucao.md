@@ -189,7 +189,7 @@ Ou, caso tenha o Maven instalado no sistema:
 mvn spring-boot:run
 ```
 
-A aplicação estará disponível em: [http://localhost:8080/login](http://localhost:8080/login)
+A aplicação estará disponível em: [http://localhost:8004/login](http://localhost:8004/login)
 
 ---
 

@@ -47,9 +47,9 @@
    ```
 
 3. **Acessar o sistema:**
-   - Login: http://localhost:8080/login
-   - Cadastro: http://localhost:8080/cadastro
-   - Dashboard: http://localhost:8080/dashboard (requer autenticação)
+   - Login: http://localhost:8004/login
+   - Cadastro: http://localhost:8004/cadastro
+   - Dashboard: http://localhost:8004/dashboard (requer autenticação)
 
 ---
 
