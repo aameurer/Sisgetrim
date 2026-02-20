@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalhes Fiscal ITBI</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: "Helvetica", "Arial", sans-serif;
+            font-size: 9pt;
+            color: #18181b;
+            line-height: 1.5;
+            background: #ffffff;
+        }
+
+        .header {
+            border-bottom: 2px solid #059669;
+            /* Emerald 600 */
+            padding-bottom: 4mm;
+            margin-bottom: 6mm;
+        }
+
+        h1 {
+            font-size: 16pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin: 0;
+            color: #064e3b;
+            /* Emerald 900 */
+        }
+
+        h2 {
+            font-size: 10pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #18181b;
+            margin-top: 6mm;
+            margin-bottom: 3mm;
+            background-color: #f0fdf4;
+            /* Emerald 50 */
+            padding: 2.5mm 4mm;
+            border-left: 4px solid #059669;
+            /* Emerald 600 */
+            letter-spacing: 0.5px;
+        }
+
+        .info-grid {
+            width: 100%;
+            margin-bottom: 2mm;
+        }
+
+        .info-item {
+            display: inline-block;
+            width: 31%;
+            margin-bottom: 3mm;
+            vertical-align: top;
+            padding-right: 2%;
+        }
+
+        .label {
+            font-size: 7pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #71717a;
+            display: block;
+            margin-bottom: 0.5mm;
+            letter-spacing: 0.5px;
+        }
+
+        .value {
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #18181b;
+            display: block;
+            word-wrap: break-word;
+        }
+
+        .value-mono {
+            font-family: "Courier New", Courier, monospace;
+            background: #f8fafc;
+            padding: 1px 3px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 7pt;
+            color: #a1a1aa;
+            border-top: 1px solid #f4f4f5;
+            padding-top: 3mm;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 1mm 3mm;
+            background: #059669;
+            color: #ffffff;
+            font-size: 7pt;
+            font-weight: 900;
+            border-radius: 1mm;
+            text-transform: uppercase;
+        }
+
+        .price-box {
+            background-color: #fafafa;
+            border: 1px solid #f0f0f0;
+            padding: 3mm;
+            margin-bottom: 4mm;
+        }
+
+        .price-label {
+            font-size: 7pt;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 1mm;
+        }
+
+        .price-amount {
+            font-size: 11pt;
+            font-weight: 900;
+            color: #064e3b;
+        }
+
+        .section-split {
+            width: 100%;
+        }
+
+        .col-half {
+            display: inline-block;
+            width: 48%;
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>
+            REGISTRO FISCAL ITBI #<span th:text="${itbi.id}">568</span>
+            <span style="font-weight: normal; color: #d1d5db; margin: 0 4mm;">|</span>
+            PROCESSO: <span th:text="${itbi.itbiNumero + '/' + itbi.itbiAno}"></span>
+        </h1>
+    </div>
+
+    <!-- Processo ITBI -->
+    <h2>Processo ITBI</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">ID Sistema</span>
+            <span class="value" th:text="${itbi.id}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Número / Ano</span>
+            <span class="value" th:text="${itbi.itbiNumero + '/' + itbi.itbiAno}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Data do ITBI</span>
+            <span class="value"
+                th:text="${itbi.itbiData != null ? #temporals.format(itbi.itbiData, 'dd/MM/yyyy') : 'NÃO INFORMADA'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo Processo</span>
+            <span class="value" th:text="${itbi.itbiTipo ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Situação</span>
+            <div style="margin-top: 1mm;">
+                <span class="status-badge" th:text="${itbi.itbiSituacao}">PAGO</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Partes Envolvidas -->
+    <h2>Partes Envolvidas</h2>
+    <div class="info-grid" style="background-color: #f8fafc; padding: 4mm; border-radius: 2mm;">
+        <div style="margin-bottom: 4mm;">
+            <span class="label">Proprietário Atual (Cadastral)</span>
+            <span class="value" th:text="${itbi.itbiProprietarioNome}">-</span>
+            <span class="label" style="margin-top: 1mm;">CPF/CNPJ: <span class="value"
+                    style="display: inline; font-family: monospace;"
+                    th:text="${itbi.itbiProprietarioCpf}">-</span></span>
+        </div>
+
+        <div class="section-split">
+            <div class="col-half" style="border-right: 1px solid #e2e8f0; padding-right: 4mm;">
+                <span class="label">Transmitente (Vendedor)</span>
+                <span class="value" th:text="${itbi.itbiTransmitenteNome}">-</span>
+                <span class="label" style="margin-top: 1mm;">CPF/CNPJ: <span class="value"
+                        style="display: inline; font-family: monospace;"
+                        th:text="${itbi.itbiTransmitenteCpf}">-</span></span>
+            </div>
+            <div class="col-half" style="padding-left: 4mm;">
+                <span class="label">Adquirente (Comprador)</span>
+                <span class="value" th:text="${itbi.itbiAdquirenteNome}">-</span>
+                <span class="label" style="margin-top: 1mm;">CPF/CNPJ: <span class="value"
+                        style="display: inline; font-family: monospace;"
+                        th:text="${itbi.itbiAdquirenteCpf}">-</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Avaliação ITBI -->
+    <h2>Avaliação ITBI</h2>
+    <div class="section-split">
+        <div class="col-half" style="padding-right: 2%;">
+            <div class="price-box" style="border-left: 3px solid #059669;">
+                <div class="price-label">Valor Venal Calculado (Total)</div>
+                <div class="price-amount"
+                    th:text="${itbi.itbiValorVenalCalculadoTotal != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalCalculadoTotal, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
+                </div>
+                <div style="margin-top: 2mm; font-size: 7pt; color: #6b7280;">
+                    Territorial (VVT): <span
+                        th:text="${itbi.itbiValorVenalCalculadoVvt != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalCalculadoVvt, 1, 'POINT', 2, 'COMMA') : '-'}"></span><br />
+                    Predial (VVP): <span
+                        th:text="${itbi.itbiValorVenalCalculadoVvp != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalCalculadoVvp, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-half">
+            <div class="price-box" style="border-left: 3px solid #2563eb;">
+                <div class="price-label">Valor Venal Informado (Total)</div>
+                <div class="price-amount" style="color: #1e40af;"
+                    th:text="${itbi.itbiValorVenalInformadoTotal != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalInformadoTotal, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
+                </div>
+                <div style="margin-top: 2mm; font-size: 7pt; color: #6b7280;">
+                    Territorial (VVT): <span
+                        th:text="${itbi.itbiValorVenalInformadoVvt != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalInformadoVvt, 1, 'POINT', 2, 'COMMA') : '-'}"></span><br />
+                    Predial (VVP): <span
+                        th:text="${itbi.itbiValorVenalInformadoVvp != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalInformadoVvp, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cadastro Imobiliário (CADIMO) -->
+    <h2>Cadastro Imobiliário (CADIMO)</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">Inscrição</span>
+            <span class="value" th:text="${itbi.cadimoInscricao ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Cód. Cadastro</span>
+            <span class="value" th:text="${itbi.cadimoCadastro ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Situação Cadastral</span>
+            <span class="value" th:text="${itbi.cadimoSituacaoCadastral ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Quadra / Lote</span>
+            <span class="value" th:text="${(itbi.cadimoQuadra ?: '-') + ' / ' + (itbi.cadimoLote ?: '-')}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Matrícula (Cadastro)</span>
+            <span class="value" th:text="${itbi.cadimoMatricula ?: '-'}"></span>
+        </div>
+    </div>
+    <div style="margin-bottom: 4mm;">
+        <span class="label">Endereço (CADIMO)</span>
+        <span class="value"
+            th:text="${(itbi.cadimoLogradouroNome ?: '') + ', ' + (itbi.cadimoNumero ?: 'S/N') + ' - ' + (itbi.cadimoBairroNome ?: '') + ' - CEP: ' + (itbi.cadimoCep ?: '-')}"></span>
+    </div>
+
+    <!-- Avaliação IPTU -->
+    <h2>Avaliação IPTU (Base Legal)</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">Venal Territorial</span>
+            <span class="value"
+                th:text="${itbi.iptuValorVenalTerritorial != null ? 'R$ ' + #numbers.formatDecimal(itbi.iptuValorVenalTerritorial, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Venal Predial</span>
+            <span class="value"
+                th:text="${itbi.iptuValorVenalPredial != null ? 'R$ ' + #numbers.formatDecimal(itbi.iptuValorVenalPredial, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Total Venal IPTU</span>
+            <span class="value" style="color: #991b1b;"
+                th:text="${itbi.iptuValorVenalTotal != null ? 'R$ ' + #numbers.formatDecimal(itbi.iptuValorVenalTotal, 1, 'POINT', 2, 'COMMA') : '-'}"></span>
+        </div>
+    </div>
+
+    <div class="footer">
+        SISGETRIM - Sistema de Gestão Tributária Municipal - Documento Oficial Gerado em <span
+            th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+    </div>
+
+</body>
+
+</html>

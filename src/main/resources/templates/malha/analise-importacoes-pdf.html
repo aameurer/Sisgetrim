@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Relatório Analítico DOI</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 10mm;
+        }
+
+        body {
+            font-family: "Helvetica", "Arial", sans-serif;
+            font-size: 8pt;
+            color: #18181b;
+            line-height: 1.2;
+            background: #ffffff;
+        }
+
+        .header {
+            border-bottom: 2px solid #10b981;
+            /* Emerald 500 */
+            padding-bottom: 3mm;
+            margin-bottom: 5mm;
+        }
+
+        .header table {
+            width: 100%;
+            border: none;
+        }
+
+        h1 {
+            font-size: 16pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            color: #064e3b;
+            /* Emerald 900 */
+        }
+
+        .filters-info {
+            font-size: 7pt;
+            color: #64748b;
+            /* Slate 500 */
+            margin-top: 1mm;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 5mm;
+        }
+
+        table.data-table th {
+            background-color: #f8fafc;
+            /* Slate 50 */
+            color: #64748b;
+            /* Slate 500 */
+            font-weight: 800;
+            text-align: left;
+            padding: 2mm 3mm;
+            border-bottom: 1px solid #e2e8f0;
+            /* Slate 200 */
+            text-transform: uppercase;
+            font-size: 6pt;
+            letter-spacing: 0.5px;
+        }
+
+        table.data-table td {
+            padding: 2mm 3mm;
+            border-bottom: 1px solid #f1f5f9;
+            /* Slate 100 */
+            color: #334155;
+            /* Slate 700 */
+            font-size: 7.5pt;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .font-mono {
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+
+        .badge {
+            padding: 1mm 2mm;
+            border-radius: 2mm;
+            font-size: 6pt;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .bg-emerald {
+            background-color: #ecfdf5;
+            color: #065f46;
+        }
+
+        .bg-rose {
+            background-color: #fff1f2;
+            color: #9f1239;
+        }
+
+        .bg-slate {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 6pt;
+            color: #94a3b8;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 2mm;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <table>
+            <tr>
+                <td>
+                    <h1>Relatório Analítico DOI</h1>
+                    <div class="filters-info">
+                        PERÍODO: <span th:text="${periodoExtenso}">JANEIRO / 2026</span>
+                        <span th:if="${cartorioNome != null}" th:text="' | CARTÓRIO: ' + ${cartorioNome}"></span>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="filters-info">
+                        GERADO EM: <span
+                            th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th width="5%">ID</th>
+                <th width="10%">Protocolo</th>
+                <th width="10%">Lavratura</th>
+                <th width="10%">Matrícula</th>
+                <th>Cartório</th>
+                <th width="12%" class="text-right">Valor Operação</th>
+                <th width="10%" class="text-center">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="imp : ${listaDeclaracoes}">
+                <td class="font-mono" th:text="${imp.id}"></td>
+                <td class="font-bold" th:text="${imp.protocolo}"></td>
+                <td th:text="${#temporals.format(imp.dataLavratura, 'dd/MM/yyyy')}"></td>
+                <td class="font-mono" th:text="${imp.matricula}"></td>
+                <td th:text="${imp.cartorio}"></td>
+                <td class="text-right font-bold"
+                    th:text="${imp.valorOperacao != null ? 'R$ ' + #numbers.formatDecimal(imp.valorOperacao, 1, 'POINT', 2, 'COMMA') : '-'}">
+                </td>
+                <td class="text-center">
+                    <span th:text="${imp.status}"></span>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot style="background-color: #f8fafc; border-top: 2px solid #e2e8f0;">
+            <tr style="font-weight: 900; color: #0f172a;">
+                <td colspan="2" class="text-left" style="padding: 3mm;">
+                    TOTAL DE REGISTROS: <span th:text="${totalRegistros}">0</span>
+                </td>
+                <td colspan="3"></td>
+                <td class="text-right" style="padding: 3mm; font-size: 9pt; color: #166534;">
+                    TOTAL GERAL: <span
+                        th:text="'R$ ' + ${#numbers.formatDecimal(totalGeral, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</span>
+                </td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="footer">
+        SISGETRIM - Sistema de Gestão Tributária Municipal - Página <span
+            th:text="${#numbers.formatInteger(1, 1)}">1</span>
+    </div>
+
+</body>
+
+</html>

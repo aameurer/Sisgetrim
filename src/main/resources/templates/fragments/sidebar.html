@@ -136,7 +136,8 @@
             </a>
 
             <!-- Menu Importações (Dropdown) -->
-            <div x-data="{ open: window.location.pathname.startsWith('/malha') }">
+            <div x-data="{ open: window.location.pathname.startsWith('/malha') }"
+                sec:authorize="hasAnyRole('ADMIN', 'MASTER')">
                 <button @click="open = !open"
                     class="w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-xs font-bold transition-all group"
                     :class="open ? 'bg-emerald-50 text-emerald-600' : 'text-slate-600 hover:text-amazon-primary hover:bg-emerald-500/5'">
@@ -161,7 +162,14 @@
                         :class="window.location.pathname === '/malha/analise-importacoes' ? 'bg-emerald-100/50 text-emerald-700' : 'text-slate-500 hover:text-emerald-600 hover:bg-slate-50'"
                         class="flex items-center space-x-3 px-4 py-2 rounded-lg text-[11px] font-bold transition-all">
                         <i class="fas fa-chart-pie text-xs opacity-60"></i>
-                        <span>Análise Importações</span>
+                        <span>Análise Importação DOI</span>
+                    </a>
+
+                    <a href="/malha/analise-fiscal"
+                        :class="window.location.pathname === '/malha/analise-fiscal' ? 'bg-emerald-100/50 text-emerald-700' : 'text-slate-500 hover:text-emerald-600 hover:bg-slate-50'"
+                        class="flex items-center space-x-3 px-4 py-2 rounded-lg text-[11px] font-bold transition-all">
+                        <i class="fas fa-file-invoice-dollar text-xs opacity-60"></i>
+                        <span>Análise Importação Fiscal</span>
                     </a>
                 </div>
             </div>

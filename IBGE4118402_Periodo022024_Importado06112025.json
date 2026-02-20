@@ -1,0 +1,4024 @@
+{
+  "Declaracoes": [
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "49162",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "09/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Maria Josefina Pagani Salvador",
+      "NumeroImovel": "111",
+      "ComplementoEndereco": "Lt. 17, Quadra 03",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Itália",
+      "InscricaoMunicipal": "02170030122",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03902734906",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08782375933",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "39720",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "05/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada 08",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 02, Quadra 05",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Residencial Campestr",
+      "InscricaoMunicipal": "01062980042",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "13983210000199",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "45753534000127",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "13565",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "07/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua B",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 11, Quadra 05",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Simone",
+      "InscricaoMunicipal": "01034270114001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "95849475915",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05670534905",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "44805",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Permuta",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "21/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Boiadeira",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 15, Quadra 08",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Distrito de Sumaré",
+      "InscricaoMunicipal": "02018000166001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "36197831953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "15676943904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "29461726864",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "61177318920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03204866998",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "55626696920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "48079",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "27/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Romario Fernandes da Silva",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 15, Quadra 23",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Residencial Campestr",
+      "InscricaoMunicipal": "01063160247",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05841174932",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04799807994",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "50839705972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "36312",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "19/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua  B",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 27, Quadra 14",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Cidade Industrial I",
+      "InscricaoMunicipal": "02110140355001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "09239177000110",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04449982924",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "17899",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "29/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Tapajós",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "LOTE 02, QD. 84",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "SÃO JORGE",
+      "InscricaoMunicipal": "01040770030001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03590892919",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02185175998",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00639326951",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "50918842972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "9477",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "HerancaLegadoOuMeacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "06/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Rua Pedro Miguel da Silva",
+      "NumeroImovel": "155",
+      "ComplementoEndereco": "Lt. 05, Quadra 51",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Parque Morumbi",
+      "InscricaoMunicipal": "01061110405010",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "35059443949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03539177965",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01778002919",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "32095815840",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "55873413991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02199340961",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04961263931",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "69786577949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "51649",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "21/02/2024",
+      "Destinacao": "Rural",
+      "TipoLogradouro": null,
+      "NomeLogradouro": "GLEBA 2-IVAÍ",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 63-A, Quadra 2-Iv",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Colônia Paranavaí",
+      "InscricaoMunicipal": "98191900",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01622930975",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08615827990",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06152702984",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "41255",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "26/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Noruega",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 20, qd. 62",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "jd. das Nações",
+      "InscricaoMunicipal": "01062280327",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05837524975",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "32130",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Dinamarca",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "LOTE 01, QD. 16",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "jardim Oasis",
+      "InscricaoMunicipal": "01062750015001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "11727943830",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "40942",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Holanda",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 06, Quadra 30",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim das Nações Pa",
+      "InscricaoMunicipal": "01061940081001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08007858946",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "14592",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Antonio José da Silva",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 4, Quadra 33",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Antigo Aeroporto",
+      "InscricaoMunicipal": "01031200062",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04298489949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00082073996",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06396476932",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "39719",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "05/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Av. Gabriel Esperidião",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 01, Quadra 05",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Residencial Campestr",
+      "InscricaoMunicipal": "01062980030",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "13983210000199",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "45753534000127",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "7729",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "20/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "GLEBA JACAREÍ",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 349-B-1",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Gleba Jacarei",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "60066385920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "09567069913",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03934626920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "41296",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "23/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Nova Zelândia",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 17, qd. 67",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jd. das Naçõers I",
+      "InscricaoMunicipal": "01062330288",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "49364120906",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "50090",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "02/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua França",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "UNIDADE 02",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Resd. LEME SANTOS",
+      "InscricaoMunicipal": "01062810263001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "60014555972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "69887586900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "85615781904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "46580",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "27/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Ademar Giandotti",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 09-B, Quadra 09",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Novo Ouro Bra",
+      "InscricaoMunicipal": "01023110072",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03318349950",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06774877974",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "50104",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "20/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Espanha",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 13, qd. 15",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "jd. das Nações I",
+      "InscricaoMunicipal": "01061780266",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01659086965",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00529439921",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08899590990",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "40172598800",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "2308",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "HerancaLegadoOuMeacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Heihachiro Niekawa",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 01, Quadra 08",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim do Sol",
+      "InscricaoMunicipal": "01031060035001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "24042307949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02415799963",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05129546903",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00986333921",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "23340",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "19/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua H",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 04, qd. 01",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Parque dos Ipês",
+      "InscricaoMunicipal": "01043240228",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "16777836000137",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "07558240913",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "39745",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "23/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada 07",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 10, qd. 07",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "residencial campestr",
+      "InscricaoMunicipal": "01063000123",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "13983210000199",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "88390594900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "47263",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "HerancaLegadoOuMeacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "09/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Arlete Borges Bulguerolli",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "UNIDADE 01",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Condominio  Residenc",
+      "InscricaoMunicipal": "01062360345001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "46158197904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "69786941934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "5976",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "09/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Lusitana",
+      "NumeroImovel": "516",
+      "ComplementoEndereco": "Lt. 17, Quadra 73",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Bairro Santos Dumont",
+      "InscricaoMunicipal": "01022280329001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "63437759949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "30155070959",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "48777960963",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "39721",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "05/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada 08",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 03, Quadra 05",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Residencial Campestr",
+      "InscricaoMunicipal": "01062980079",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "13983210000199",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "45753534000127",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "19421",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "05/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua das Araucárias",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 79/01",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Condomínio Fechado I",
+      "InscricaoMunicipal": "4257",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "14325371990",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06236320985",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "23330",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Rio Grande do Sul",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 15, Quadra 03",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Novo Horizont",
+      "InscricaoMunicipal": "01051090053",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "88380246934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06801400932",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "22230",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "HerancaLegadoOuMeacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Porto Alegre",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 21/22, Quadra 07",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Belo Horizont",
+      "InscricaoMunicipal": "01032840106001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "24042307949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05129546903",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00986333921",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02415799963",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "23381",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada \" J\"",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 10, qd. 08",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "parque dos ipês",
+      "InscricaoMunicipal": "01043810102",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "29210118839",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05875130989",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00914247980",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "48345",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada \"B\"",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 15, Quadra 04",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Milenium I",
+      "InscricaoMunicipal": "01024750246001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "17030671000106",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05660083943",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "6376",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Doacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "20/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Pedro Rodrigues de Carvalho",
+      "NumeroImovel": "655",
+      "ComplementoEndereco": "Lt. 04, Quadra 03",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim São João",
+      "InscricaoMunicipal": "01050760397001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02783938960",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "77622685968",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "88380246934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "8900",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Rural",
+      "TipoLogradouro": null,
+      "NomeLogradouro": "GLEBA PATRIMÔNIO SUMARÉ",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 61",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Gleba Patrimônio Sum",
+      "InscricaoMunicipal": "36728276",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04316296841",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "36388084915",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03135686930",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "24898",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "01/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Amendoeiras",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 96",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Condomínio Bougainvi",
+      "InscricaoMunicipal": "01044021790",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "51404159000102",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "21547640000196",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "44128",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "19/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Paranavaí",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. A-1-2-A",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Chácaras Progresso",
+      "InscricaoMunicipal": "02010330098001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "39712079953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "53451376920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08585125993",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "79352154991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "28895",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "08/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Carlos Gomes",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 03, Quadra 182",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Ouro Branco",
+      "InscricaoMunicipal": "01020310221",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "59626658991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "66796164920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "28608",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "29/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Avenida Presidente Tancredo Neves",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "LOTE 14",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "JD. MARAVILHA II",
+      "InscricaoMunicipal": "01060570210001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "95845623987",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "09837790903",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "SERVIÇO DISTRITAL DE GRACIOSA",
+      "Cns": 144725,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "32223",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Doacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Rural",
+      "TipoLogradouro": null,
+      "NomeLogradouro": "LOTE 359-A",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "GLEBA 02",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "DISTRITO GRACIOSA",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04631984929",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "58329099172",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "49023012100",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "78074860906",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00610152106",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01855458152",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02474865900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02020852950",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02024305962",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "40986",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Belgica",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 04, Quadra 36",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim das Nações Pa",
+      "InscricaoMunicipal": "01062000100",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02596293919",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "49312",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Novo Horizonte",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 18, Quadra 05",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Parque Residencial C",
+      "InscricaoMunicipal": "02120050072",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01966250000143",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "83768815900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "49860",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "15/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada \"A\"",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 02",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Condomínio Residenci",
+      "InscricaoMunicipal": "01024710053001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "28006275904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08778766907",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "24864",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "26/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Jacaranda",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 60",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Condomínio Bougainvi",
+      "InscricaoMunicipal": "01044021124",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "22042294000157",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01449302939",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "28021",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "21/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Avenida Presidente Tancredo Neves",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 02, Quadra Unica",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Maravilha II",
+      "InscricaoMunicipal": "01060570015",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04301797904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "52300",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "09/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Avenida PERIMETRAL",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 08, Quadra 04",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Vila Prudêncio",
+      "InscricaoMunicipal": "01060100171001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06728653945",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "68799594900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03648891952",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00740976958",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "96601299987",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "39169910944",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "11729882935",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08038288963",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "70590818953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "48078",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "27/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada 08",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 14-A, Quadra 23",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Residencial Campestr",
+      "InscricaoMunicipal": "01063160239",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05841174932",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04799807994",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "50839705972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "SERVIÇO DISTRITAL DE GRACIOSA",
+      "Cns": 144725,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "47179",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "15/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada B",
+      "NumeroImovel": null,
+      "ComplementoEndereco": null,
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Cond Res Parthenon",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06503100981",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08323044929",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03903201960",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06224435936",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04118250977",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06224444927",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "SERVIÇO DISTRITAL DE GRACIOSA",
+      "Cns": 144725,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "51553",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada \"B\"",
+      "NumeroImovel": null,
+      "ComplementoEndereco": null,
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Cond Dancaiz Residen",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "43993830000170",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "69790370997",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "69813930934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "23943",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua  D",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 14, Quadra 07",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Residencial F",
+      "InscricaoMunicipal": "01034290192001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02017876950",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03137057981",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "17030671000106",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "32197",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Avenida das Nações",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 08, Quadra 76",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jd. das Nações I",
+      "InscricaoMunicipal": "01062440173",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81450942000173",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "81149336900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "24695",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "HerancaLegadoOuMeacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "21/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua 8",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 13, qd. 06",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Conjunto Dona Josefa",
+      "InscricaoMunicipal": "01033450143001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "51774534991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "10980161908",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08267201963",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06461936947",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06461937919",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "80777678934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "16517",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "05/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Marcilio Dias",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 03-A, Quadra 74",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Santos Dumont",
+      "InscricaoMunicipal": "01022270083001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05439089926",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08940146921",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00522931901",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "49709100904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "46562",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "28/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Santa Catarina",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "UNIDADE 03",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "QUADRO URBANO",
+      "InscricaoMunicipal": "01010030353001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "68931000944",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "47449993953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "50768239915",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "45628",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Rural",
+      "TipoLogradouro": null,
+      "NomeLogradouro": "GLEBA 01-A, COLÔNIA PARANAVAÍ",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 72E1C",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Gleba 01 Ivaí",
+      "InscricaoMunicipal": "89017226",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "09246881907",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05854697920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02200876955",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "10650",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua 06",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 11, Quadra 47",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Ipê",
+      "InscricaoMunicipal": "01032240216001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01539525988",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "89447298915",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04046263865",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "18719",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "05/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Antonio Lopes de Lima",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 01, Quadra 23",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Residencial F",
+      "InscricaoMunicipal": "01035190337",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "74749773972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "11647204909",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "1845",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Doacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "26/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Almirante Tamandaré",
+      "NumeroImovel": "1436",
+      "ComplementoEndereco": "Lt. 01-Rem, Quadra 20",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim São Jorge",
+      "InscricaoMunicipal": "01041980015001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "84160829953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08124181152",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "40183",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "20/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Maria Josefina Pagani Salvador",
+      "NumeroImovel": "211",
+      "ComplementoEndereco": "Lt. 16, Quadra 08",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Itália",
+      "InscricaoMunicipal": "02170080212",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "86573390997",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "63835576968",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "11647204909",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "49292",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "29/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Doutor Sylvio Vidal Coelho Leite Ri",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "UNIDADE 04",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Quadro Urbano",
+      "InscricaoMunicipal": "01010210418001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "11052176984",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "35003618972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "7630",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Doacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "28/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Altino da Silva Azeredo",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 08, Quadra 24",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Ipê",
+      "InscricaoMunicipal": "01031840108001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08255522905",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "35054123920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "79632882920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "29486",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "27/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 02, Quadra 03",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Alvorada do S",
+      "InscricaoMunicipal": "01031550026",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02047060923",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "71861076991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02675758906",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "75050374987",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05749613992",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "07126748965",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06666724909",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03577067900",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "83413944991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06939787917",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03817559917",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "5683",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 06, Quadra 01",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Simone",
+      "InscricaoMunicipal": "01031390227001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "49095005968",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05252206902",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05750039951",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "10624",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "20/02/2024",
+      "Destinacao": "Rural",
+      "TipoLogradouro": null,
+      "NomeLogradouro": "GLEBA JACAREÍ",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 349B2B, Quadra 36",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "GLEBA JACAREÍ",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "09567069913",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "60066385920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03934626920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "52411",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "23/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Nadir Giandotti da Silva",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "lote 07, qd. 67",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jd. das Nações",
+      "InscricaoMunicipal": "01062330099001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "49538187172",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "32622309953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "43768962920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "12474",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "15/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Rua Grevilea",
+      "NumeroImovel": "1005",
+      "ComplementoEndereco": "Lt. 16, Quadra 02",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Vista Alegre",
+      "InscricaoMunicipal": "01042760218001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "26143578800",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "13687149862",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01451703902",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "SERVIÇO DISTRITAL DE GRACIOSA",
+      "Cns": 144725,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "30357",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Doacao",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "23/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "LOTE 08, QUADRA 01",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "JD SÃO CRISTOVÃO",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "DISTRITO DE GRACIOSA",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "23881992987",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08582291965",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06584023907",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "44806",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "Permuta",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "21/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Boiadeira",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 14, Quadra 08",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Distrito de Sumaré",
+      "InscricaoMunicipal": "02010080182001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "29461726864",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "55626696920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "03204866998",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "61177318920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "36197831953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "15676943904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "18336",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "23/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua 03",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 02, Quadra 09",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Conjunto Residencial",
+      "InscricaoMunicipal": "01043170154001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "10640221971",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "09600437998",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02559731959",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "27823",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "15/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Porto Alegre",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 04, Quadra 04",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Belo Horizont",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "27235252871",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "77340450904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "08977957923",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "6212",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "16/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Avenida Roosevelt",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 05, Quadra A",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "São Jorge",
+      "InscricaoMunicipal": "01042190085",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "59601990178",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "72254912968",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04197225997",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "54858046915",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "2518",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Rua Frederico Virmond",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 23, Quadra 51",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Santos Dumont",
+      "InscricaoMunicipal": "01022370416",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "42448719934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "23527102949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02545003905",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "4056",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "27/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Pirai",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 11, Quadra 159",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Ouro Branco",
+      "InscricaoMunicipal": "010206101170010",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "75411431972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05903739946",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "29474",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "20/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Juvercindo Rodrigues Gomes",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 10/11, Quadra 28",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Parque dos Ip",
+      "InscricaoMunicipal": "01043510010",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "16777836000137",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "19672689000129",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "20204",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "22/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Tóquio",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 24, Quadra 2",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim Avaré",
+      "InscricaoMunicipal": "01050550299001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "15203999953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "77292561934",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "39755",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "09/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada 08",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 20, Quadra 07",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Residencial Campestr",
+      "InscricaoMunicipal": "01063000263",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "13983210000199",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "19672689000129",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "28491",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "15/02/2024",
+      "Destinacao": "Rural",
+      "TipoLogradouro": null,
+      "NomeLogradouro": "COLÔNIA SECÇÃO ANHUMAÍ",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "LOTE  07/08-REM-02/C",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "SECÇÃO ANHUMAÍ",
+      "InscricaoMunicipal": "39728870",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "30153980915",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "39171787968",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04640052995",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "TABELIONATO DE NOTAS E TABELIONATO DE PROTESTO DE TÍTULOS",
+      "Cns": 86470,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "21704",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "PartilhaAmigavelOuLitigiosa",
+      "DescricaoOutrasOperacoesImobiliarias": "49",
+      "DataLavraturaRegistroAverbacao": "14/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Marechal Candido Rondon",
+      "NumeroImovel": "1970",
+      "ComplementoEndereco": "Lt. 18A1/18A2D Qd. 94",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Centro",
+      "InscricaoMunicipal": "3335",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "31302122991",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "02186548984",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "70195366972",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "04528971909",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "8505",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "29/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "RUA 2",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "LOTE 03, QD. 18",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "VILA ALTA",
+      "InscricaoMunicipal": "01033640338001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00903532930",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "75412470904",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "SERVIÇO DISTRITAL DE GRACIOSA",
+      "Cns": 144725,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "50655",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "14/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Apto 401",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Residencial Terra Cru",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Jardim das Nações I",
+      "InscricaoMunicipal": null,
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "12009120000139",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "06650573930",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "50304",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "07/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "Rua Projetada B",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 92",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Condomínio Residenci",
+      "InscricaoMunicipal": "01024771633001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "16615192000180",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "01850287996",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    },
+    {
+      "NomeCartorio": "2º TABELIONATO DE NOTAS",
+      "Cns": 84418,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "17193",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "07/02/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "n/c",
+      "NomeLogradouro": "rua \"Men de Sá\"",
+      "NumeroImovel": null,
+      "ComplementoEndereco": "Lt. 10",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "Chácaras Harmonia",
+      "InscricaoMunicipal": "01042531223001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "57069204949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00350256977",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "00690528914",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "05922888978",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    }
+  ]
+}

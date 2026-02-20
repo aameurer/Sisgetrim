@@ -11,20 +11,34 @@ import java.util.Optional;
 
 @Repository
 public interface DoiDeclaracaoRepository extends JpaRepository<DoiDeclaracao, Long> {
-    List<DoiDeclaracao> findByEntidade(Entidade entidade);
+        List<DoiDeclaracao> findByEntidade(Entidade entidade);
 
-    List<DoiDeclaracao> findByImportacaoId(Long importacaoId);
+        List<DoiDeclaracao> findByImportacaoId(Long importacaoId);
 
-    java.util.Optional<DoiDeclaracao> findByMatricula(String matricula);
+        java.util.Optional<DoiDeclaracao> findByMatricula(String matricula);
 
-    @org.springframework.data.jpa.repository.Query("SELECT d FROM DoiDeclaracao d JOIN FETCH d.importacao WHERE d.entidade = :entidade AND YEAR(d.dataCadastro) = :ano ORDER BY d.dataCadastro DESC")
-    List<DoiDeclaracao> findByEntidadeAndAno(Entidade entidade, int ano);
+        @org.springframework.data.jpa.repository.Query("SELECT d FROM DoiDeclaracao d " +
+                        "JOIN FETCH d.importacao " +
+                        "LEFT JOIN FETCH d.operacao " +
+                        "WHERE d.entidade = :entidade " +
+                        "AND d.dataLavratura BETWEEN :inicio AND :fim " +
+                        "AND (:cartorioId IS NULL OR d.importacao.cartorio.id = :cartorioId)")
+        List<DoiDeclaracao> findByEntidadeAndPeriodo(@Param("entidade") Entidade entidade,
+                        @Param("inicio") java.time.LocalDate inicio, @Param("fim") java.time.LocalDate fim,
+                        @Param("cartorioId") Long cartorioId,
+                        org.springframework.data.domain.Sort sort);
 
-    @Query("SELECT d FROM DoiDeclaracao d " +
-            "LEFT JOIN FETCH d.importacao " +
-            "LEFT JOIN FETCH d.entidade " +
-            "LEFT JOIN FETCH d.dadosImovel " +
-            "LEFT JOIN FETCH d.operacao " +
-            "WHERE d.id = :id")
-    Optional<DoiDeclaracao> findByIdWithDetails(@Param("id") Long id);
+        @org.springframework.data.jpa.repository.Query("SELECT MIN(d.dataLavratura) FROM DoiDeclaracao d WHERE d.entidade = :entidade")
+        java.time.LocalDate findMinDataLavratura(@Param("entidade") Entidade entidade);
+
+        @org.springframework.data.jpa.repository.Query("SELECT MAX(d.dataLavratura) FROM DoiDeclaracao d WHERE d.entidade = :entidade")
+        java.time.LocalDate findMaxDataLavratura(@Param("entidade") Entidade entidade);
+
+        @Query("SELECT d FROM DoiDeclaracao d " +
+                        "LEFT JOIN FETCH d.importacao " +
+                        "LEFT JOIN FETCH d.entidade " +
+                        "LEFT JOIN FETCH d.dadosImovel " +
+                        "LEFT JOIN FETCH d.operacao " +
+                        "WHERE d.id = :id")
+        Optional<DoiDeclaracao> findByIdWithDetails(@Param("id") Long id);
 }

@@ -1,0 +1,54 @@
+{
+  "Declaracoes": [
+    {
+      "NomeCartorio": "3º TABELIONATO DE NOTAS",
+      "Cns": 80507,
+      "TipoServico": "Notarial",
+      "TipoDeclaracao": "Original",
+      "Matricula": "17853",
+      "Transcricao": null,
+      "CodigoNacionalMatricula": null,
+      "MatriculaNotarialEletronica": null,
+      "TipoOperacaoImobiliaria": "CompraEVenda",
+      "DescricaoOutrasOperacoesImobiliarias": null,
+      "DataLavraturaRegistroAverbacao": "25/01/2024",
+      "Destinacao": "Urbano",
+      "TipoLogradouro": "QUADRO",
+      "NomeLogradouro": "QUADRO URBANO",
+      "NumeroImovel": "00",
+      "ComplementoEndereco": " L0102BREM Q81",
+      "ComplementoNumeroImovel": null,
+      "Bairro": "QUADRO URBANO",
+      "InscricaoMunicipal": "01011010030001",
+      "CodigoIbge": "4118402",
+      "Denominacao": null,
+      "Localizacao": null,
+      "Cib": null,
+      "Alienantes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "63543508920",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        },
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "60901098949",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ],
+      "Adquirentes": [
+        {
+          "IndicadorNiIdentificado": true,
+          "Ni": "19994737953",
+          "MotivoNaoIdentificacaoNi": null,
+          "IndicadorCpfConjugeIdentificado": null,
+          "CpfConjuge": null
+        }
+      ]
+    }
+  ]
+}
