@@ -14,6 +14,7 @@ trigger: always_on
   - `cursor-pointer`
 - Evite CSS inline.
 - Componentes reutilizáveis devem ser extraídos para fragments (Thymeleaf).
+- **Alertas e Feedback:** Devem possuir auto-dismiss de **10 segundos** utilizando AlpineJS.
 - **Máscaras de Campo:** Sempre que houver campos de **CNPJ, CPF, Telefone ou CEP**, deve-se aplicar máscara de formatação (via JavaScript no frontend e validação no DTO).
 - **Tabelas:** Devem seguir o padrão ultra-compacto (densidade máxima):
   - Células `<td>`: padding vertical `py-1` ou `py-1.5`.

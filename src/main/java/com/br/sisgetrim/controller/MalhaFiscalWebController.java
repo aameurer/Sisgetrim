@@ -19,6 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.br.sisgetrim.service.ibge.IbgeDeclaracaoService;
+import com.br.sisgetrim.service.FiscalItbiService;
+import com.br.sisgetrim.service.doi.DoiService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -36,7 +39,10 @@ public class MalhaFiscalWebController {
         private final ImportacaoDoiService importacaoDoiService;
         private final PdfService pdfService;
         private final TemplateEngine templateEngine;
-        private final FiscalItbiRepository fiscalItbiRepository; // Added field
+        private final FiscalItbiRepository fiscalItbiRepository;
+        private final IbgeDeclaracaoService ibgeDeclaracaoService;
+        private final FiscalItbiService fiscalItbiService;
+        private final DoiService doiService;
 
         @Autowired
         public MalhaFiscalWebController(DoiImportacaoRepository importacaoRepository,
@@ -49,7 +55,10 @@ public class MalhaFiscalWebController {
                         ImportacaoDoiService importacaoDoiService,
                         PdfService pdfService,
                         TemplateEngine templateEngine,
-                        FiscalItbiRepository fiscalItbiRepository) {
+                        FiscalItbiRepository fiscalItbiRepository,
+                        IbgeDeclaracaoService ibgeDeclaracaoService,
+                        FiscalItbiService fiscalItbiService,
+                        DoiService doiService) {
                 this.importacaoRepository = importacaoRepository;
                 this.itbiImportacaoRepository = itbiImportacaoRepository;
                 this.ibgeImportacaoRepository = ibgeImportacaoRepository;
@@ -61,6 +70,9 @@ public class MalhaFiscalWebController {
                 this.pdfService = pdfService;
                 this.templateEngine = templateEngine;
                 this.fiscalItbiRepository = fiscalItbiRepository;
+                this.ibgeDeclaracaoService = ibgeDeclaracaoService;
+                this.fiscalItbiService = fiscalItbiService;
+                this.doiService = doiService;
         }
 
         @GetMapping("/analise-importacoes")
@@ -562,9 +574,51 @@ public class MalhaFiscalWebController {
                 return "malha/analise-fiscal-detalhes";
         }
 
+        @org.springframework.web.bind.annotation.PostMapping("/analise-fiscal/{id}/salvar")
+        public String salvarFiscal(@AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        @PathVariable Long id,
+                        @org.springframework.web.bind.annotation.ModelAttribute("itbi") com.br.sisgetrim.model.FiscalItbi itbiForm,
+                        org.springframework.validation.BindingResult bindingResult,
+                        org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes) {
+
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return "redirect:/dashboard";
+
+                if (bindingResult.hasErrors()) {
+                        System.err.println("ERROS DE BINDING DETECTADOS:");
+                        bindingResult.getAllErrors().forEach(error -> {
+                                System.err.println("Erro: " + error.toString());
+                        });
+                }
+
+                try {
+                        System.out.println("Salvando Fiscal ID: " + id);
+                        System.out.println("Data recebida: " + itbiForm.getItbiData());
+                        System.out.println("Numero recebido: " + itbiForm.getItbiNumero());
+
+                        fiscalItbiService.atualizarFiscal(id, itbiForm);
+                        redirectAttributes.addFlashAttribute("mensagemSucesso", "Alterações salvas com sucesso!");
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        redirectAttributes.addFlashAttribute("mensagemErro",
+                                        "Erro ao salvar alterações: " + e.getMessage());
+                        return "redirect:/malha/analise-fiscal/" + id;
+                }
+
+                return "redirect:/malha/analise-fiscal/" + id;
+        }
+
         @GetMapping("/doi/declaracao/{id}")
         @org.springframework.transaction.annotation.Transactional(readOnly = true)
-        public String visualizarDeclaracao(@PathVariable Long id, Model model) {
+        public String visualizarDeclaracao(@PathVariable Long id,
+                        @AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        Model model) {
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return "redirect:/dashboard";
                 com.br.sisgetrim.model.doi.DoiDeclaracao declaracao = doiDeclaracaoRepository.findByIdWithDetails(id)
                                 .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
                                                 org.springframework.http.HttpStatus.NOT_FOUND,
@@ -789,6 +843,50 @@ public class MalhaFiscalWebController {
                 }
         }
 
+        @GetMapping("/analise-ibge/{id}/pdf")
+        public ResponseEntity<byte[]> exportarPdfIbgeDetalhes(@PathVariable Long id,
+                        @AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session) {
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return ResponseEntity.status(org.springframework.http.HttpStatus.UNAUTHORIZED).build();
+
+                com.br.sisgetrim.model.ibge.IbgeDeclaracao ibge = ibgeDeclaracaoRepository.findById(id)
+                                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                                                org.springframework.http.HttpStatus.NOT_FOUND,
+                                                "Registro IBGE não encontrado"));
+
+                if (!ibge.getEntidade().getId().equals(entidade.getId())) {
+                        return ResponseEntity.status(org.springframework.http.HttpStatus.FORBIDDEN).build();
+                }
+
+                Context context = new Context();
+                context.setVariable("ibge", ibge);
+
+                // Nomes cruzados para o PDF
+                java.util.Map<Long, String> nomeAlienanteMap = new java.util.HashMap<>();
+                ibge.getAlienantes().forEach(a -> nomeAlienanteMap.put(a.getId(), buscarNomeCpfCnpj(a.getNi())));
+
+                java.util.Map<Long, String> nomeAdquirenteMap = new java.util.HashMap<>();
+                ibge.getAdquirentes().forEach(a -> nomeAdquirenteMap.put(a.getId(), buscarNomeCpfCnpj(a.getNi())));
+
+                context.setVariable("nomeAlienanteMap", nomeAlienanteMap);
+                context.setVariable("nomeAdquirenteMap", nomeAdquirenteMap);
+
+                try {
+                        String htmlContent = templateEngine.process("malha/analise-ibge-detalhes-pdf", context);
+                        byte[] pdfBytes = pdfService.generatePdfFromHtml(htmlContent);
+                        String filename = "detalhes-ibge-" + id + ".pdf";
+
+                        return ResponseEntity.ok()
+                                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                                        .contentType(MediaType.APPLICATION_PDF)
+                                        .body(pdfBytes);
+                } catch (Exception e) {
+                        return ResponseEntity.internalServerError().build();
+                }
+        }
+
         @GetMapping("/analise-ibge/{id}")
         public String analiseIbgeDetalhes(@AuthenticationPrincipal Usuario usuarioLogado,
                         jakarta.servlet.http.HttpSession session,
@@ -824,57 +922,51 @@ public class MalhaFiscalWebController {
                 if (entidade == null)
                         return "redirect:/dashboard";
 
-                com.br.sisgetrim.model.ibge.IbgeDeclaracao declaracao = ibgeDeclaracaoRepository.findById(id)
-                                .orElseThrow(() -> new IllegalArgumentException("Declaração não encontrada: " + id));
-
-                // Atualizar campos básicos
-                declaracao.setNomeCartorio(ibgeForm.getNomeCartorio());
-                declaracao.setCns(ibgeForm.getCns());
-                declaracao.setTipoServico(ibgeForm.getTipoServico());
-                declaracao.setTipoDeclaracao(ibgeForm.getTipoDeclaracao());
-                declaracao.setMatricula(ibgeForm.getMatricula());
-                declaracao.setTranscricao(ibgeForm.getTranscricao());
-                declaracao.setCodigoNacionalMatricula(ibgeForm.getCodigoNacionalMatricula());
-                declaracao.setMatriculaNotarialEletronica(ibgeForm.getMatriculaNotarialEletronica());
-                declaracao.setTipoOperacaoImobiliaria(ibgeForm.getTipoOperacaoImobiliaria());
-                declaracao.setDescricaoOutrasOperacoesImobiliarias(ibgeForm.getDescricaoOutrasOperacoesImobiliarias());
-                declaracao.setDataLavraturaRegistroAverbacao(ibgeForm.getDataLavraturaRegistroAverbacao());
-                declaracao.setDestinacao(ibgeForm.getDestinacao());
-
-                // Endereço e Localização
-                declaracao.setTipoLogradouro(ibgeForm.getTipoLogradouro());
-                declaracao.setNomeLogradouro(ibgeForm.getNomeLogradouro());
-                declaracao.setNumeroImovel(ibgeForm.getNumeroImovel());
-                declaracao.setComplementoEndereco(ibgeForm.getComplementoEndereco());
-                declaracao.setComplementoNumeroImovel(ibgeForm.getComplementoNumeroImovel());
-                declaracao.setBairro(ibgeForm.getBairro());
-                declaracao.setInscricaoMunicipal(ibgeForm.getInscricaoMunicipal());
-                declaracao.setCodigoIbge(ibgeForm.getCodigoIbge());
-                declaracao.setDenominacao(ibgeForm.getDenominacao());
-                declaracao.setLocalizacao(ibgeForm.getLocalizacao());
-                declaracao.setCib(ibgeForm.getCib());
-
-                // Atualizar Alienantes e Adquirentes (Sync NI)
-                if (ibgeForm.getAlienantes() != null) {
-                        for (int i = 0; i < ibgeForm.getAlienantes().size(); i++) {
-                                if (i < declaracao.getAlienantes().size()) {
-                                        declaracao.getAlienantes().get(i)
-                                                        .setNi(ibgeForm.getAlienantes().get(i).getNi());
-                                }
-                        }
-                }
-                if (ibgeForm.getAdquirentes() != null) {
-                        for (int i = 0; i < ibgeForm.getAdquirentes().size(); i++) {
-                                if (i < declaracao.getAdquirentes().size()) {
-                                        declaracao.getAdquirentes().get(i)
-                                                        .setNi(ibgeForm.getAdquirentes().get(i).getNi());
-                                }
-                        }
+                try {
+                        ibgeDeclaracaoService.atualizarDeclaracao(id, ibgeForm);
+                        redirectAttributes.addFlashAttribute("mensagemSucesso", "Alterações salvas com sucesso!");
+                } catch (Exception e) {
+                        redirectAttributes.addFlashAttribute("mensagemErro",
+                                        "Erro ao salvar alterações: " + e.getMessage());
+                        return "redirect:/malha/analise-ibge/" + id;
                 }
 
-                ibgeDeclaracaoRepository.save(declaracao);
-
-                redirectAttributes.addFlashAttribute("mensagemSucesso", "Alterações salvas com sucesso!");
                 return "redirect:/malha/analise-ibge/" + id;
+        }
+
+        @org.springframework.web.bind.annotation.PostMapping("/doi/{id}/salvar")
+        public String salvarDoiDetalhes(@AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        @PathVariable Long id,
+                        @org.springframework.web.bind.annotation.ModelAttribute("declaracao") com.br.sisgetrim.model.doi.DoiDeclaracao doiForm,
+                        org.springframework.validation.BindingResult bindingResult,
+                        org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes) {
+
+                if (bindingResult.hasErrors()) {
+                        System.err.println(">>> DEBUG DOI: Erros de Binding no salvamento:");
+                        bindingResult.getAllErrors().forEach(error -> System.err.println("  - " + error.toString()));
+                }
+
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null) {
+                        System.err.println(">>> DEBUG DOI: Entidade nula no POST /doi/" + id + "/salvar");
+                        System.err.println(">>> DEBUG DOI: Usuario Logado: "
+                                        + (usuarioLogado != null ? usuarioLogado.getDocumento() : "NULL"));
+                        return "redirect:/dashboard";
+                }
+
+                try {
+                        System.out.println("Salvando DOI ID: " + id);
+                        doiService.atualizarDeclaracao(id, doiForm);
+                        redirectAttributes.addFlashAttribute("mensagemSucesso", "Alterações salvas com sucesso!");
+                } catch (Exception e) {
+                        System.err.println("Erro ao salvar DOI: " + e.getMessage());
+                        e.printStackTrace();
+                        redirectAttributes.addFlashAttribute("mensagemErro",
+                                        "Erro ao salvar alterações: " + e.getMessage());
+                        return "redirect:/malha/doi/declaracao/" + id;
+                }
+
+                return "redirect:/malha/doi/declaracao/" + id;
         }
 }

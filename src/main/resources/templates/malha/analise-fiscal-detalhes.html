@@ -3,383 +3,342 @@
     layout:decorate="~{layout}">
 
 <head>
-    <title>Detalhes Fiscal ITBI</title>
+    <title>Detalhes Fiscal ITBI | SISgetrim</title>
 </head>
 
-<body>
-    <section layout:fragment="content">
+<body class="bg-slate-50">
+    <section layout:fragment="content" class="space-y-6">
         <div class="p-8">
             <!-- Breadcrumb -->
-            <nav class="mb-6 text-sm">
+            <nav class="mb-6 text-sm animate-in fade-in slide-in-from-top-4 duration-500">
                 <a href="/dashboard" class="text-slate-400 hover:text-emerald-600 transition-colors">Dashboard</a>
                 <span class="text-slate-300 mx-2">→</span>
                 <a href="/malha/analise-fiscal" class="text-slate-400 hover:text-emerald-600 transition-colors">Análise
                     Fiscal ITBI</a>
                 <span class="text-slate-300 mx-2">→</span>
-                <span class="text-slate-700 font-bold">Detalhes #<span th:text="${itbi.id}">421</span></span>
+                <span class="text-slate-700 font-bold">Detalhes #<span th:text="${itbi.id}">000</span></span>
             </nav>
 
-            <!-- Header -->
-            <div class="flex justify-between items-center mb-8">
-                <div>
-                    <h1 class="text-2xl font-black text-amazon-text uppercase tracking-tight">
-                        Detalhes do Registro Fiscal
-                    </h1>
-                </div>
-                <div class="flex space-x-3">
-                    <a href="/malha/analise-fiscal"
-                        class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-xl transition-all active:scale-95 flex items-center space-x-2">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Voltar</span>
-                    </a>
-                    <a th:href="@{/malha/analise-fiscal/{id}/pdf(id=${itbi.id})}" target="_blank"
-                        class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-xl transition-all active:scale-95 flex items-center space-x-2">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Exportar PDF</span>
-                    </a>
-                </div>
+            <!-- Alerts -->
+            <div th:if="${mensagemSucesso}" x-data="{ show: true }" x-show="show"
+                x-init="setTimeout(() => show = false, 10000)"
+                class="mb-6 p-4 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl flex items-center space-x-3 animate-in fade-in slide-in-from-right-4 duration-500 transition-all">
+                <i class="fas fa-check-circle text-lg"></i>
+                <span class="text-sm font-bold" th:text="${mensagemSucesso}">Sucesso!</span>
             </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                <!-- Coluna 1: ITBI e Partes -->
-                <div class="space-y-6">
-                    <!-- Card: Informações ITBI -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
-                            <div class="h-12 w-12 rounded-xl bg-emerald-100 flex items-center justify-center">
-                                <i class="fas fa-file-invoice-dollar text-emerald-600 text-lg"></i>
-                            </div>
-                            <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Processo ITBI</h2>
-                        </div>
+            <div th:if="${mensagemErro}" x-data="{ show: true }" x-show="show"
+                x-init="setTimeout(() => show = false, 10000)"
+                class="mb-6 p-4 bg-rose-50 border border-rose-100 text-rose-700 rounded-2xl flex items-center space-x-3 animate-in fade-in slide-in-from-right-4 duration-500 transition-all">
+                <i class="fas fa-exclamation-circle text-lg"></i>
+                <span class="text-sm font-bold" th:text="${mensagemErro}">Erro!</span>
+            </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
-                            <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Número /
-                                    Ano</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                    th:text="${itbi.itbiNumero + '/' + itbi.itbiAno}">-</p>
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Data do
-                                    ITBI</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1"
-                                    th:text="${itbi.itbiData != null ? #temporals.format(itbi.itbiData, 'dd/MM/yyyy') : 'Não informado'}">
-                                    -</p>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1" th:text="${itbi.itbiTipo}">-</p>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Situação</label>
-                                <div class="mt-1">
-                                    <span th:if="${itbi.itbiSituacao == 'PAGO'}"
-                                        class="px-2 py-1 rounded-lg text-[10px] bg-emerald-100 text-emerald-700 font-black">PAGO</span>
-                                    <span th:if="${itbi.itbiSituacao != 'PAGO'}"
-                                        class="px-2 py-1 rounded-lg text-[10px] bg-amber-100 text-amber-700 font-black"
-                                        th:text="${itbi.itbiSituacao}">PENDENTE</span>
-                                </div>
-                            </div>
-                        </div>
+            <form th:action="@{/malha/analise-fiscal/{id}/salvar(id=${itbi.id})}" th:object="${itbi}" method="post"
+                class="space-y-8">
+                <!-- Header -->
+                <div class="flex justify-between items-center mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
+                    <div>
+                        <h1 class="text-2xl font-black text-slate-800 uppercase tracking-tight">
+                            Detalhes do Registro Fiscal
+                        </h1>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+                            Visualização e Edição de Processos ITBI e CADIMO
+                        </p>
                     </div>
-
-                    <!-- Card: Partes Envolvidas -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
-                            <div class="h-12 w-12 rounded-xl bg-blue-100 flex items-center justify-center">
-                                <i class="fas fa-users text-blue-600 text-lg"></i>
-                            </div>
-                            <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Partes Envolvidas
-                            </h2>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-2">Proprietário
-                                    Atual</label>
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiProprietarioNome}">-</p>
-                                        <p class="text-xs text-slate-500 font-mono mt-0.5"
-                                            th:text="${itbi.itbiProprietarioCpf}">-</p>
-                                    </div>
-                                    <span
-                                        class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[9px] font-black rounded uppercase">ITBI</span>
-                                </div>
-                            </div>
-
-                            <div class="p-4 bg-rose-50/50 rounded-xl border border-rose-100">
-                                <label
-                                    class="text-[10px] font-black text-rose-400 uppercase tracking-wider block mb-2">Transmitente</label>
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiTransmitenteNome}">-</p>
-                                        <p class="text-xs text-slate-500 font-mono mt-0.5"
-                                            th:text="${itbi.itbiTransmitenteCpf}">-</p>
-                                    </div>
-                                    <span
-                                        class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[9px] font-black rounded uppercase tracking-wider">Alienante</span>
-                                </div>
-                            </div>
-
-                            <div class="p-4 bg-emerald-50/50 rounded-xl border border-emerald-100">
-                                <label
-                                    class="text-[10px] font-black text-emerald-400 uppercase tracking-wider block mb-2">Adquirente</label>
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiAdquirenteNome}">-</p>
-                                        <p class="text-xs text-slate-500 font-mono mt-0.5"
-                                            th:text="${itbi.itbiAdquirenteCpf}">-</p>
-                                    </div>
-                                    <span
-                                        class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[9px] font-black rounded uppercase tracking-wider">Comprador</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Valores de Avaliação ITBI -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
-                            <div class="h-12 w-12 rounded-xl bg-violet-100 flex items-center justify-center">
-                                <i class="fas fa-chart-line text-violet-600 text-lg"></i>
-                            </div>
-                            <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Avaliação ITBI</h2>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-4">
-                                <h3
-                                    class="text-[11px] font-black text-slate-500 uppercase border-l-4 border-emerald-500 pl-2">
-                                    Valor Calculado</h3>
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Calculado
-                                            Territorial (VVT)</label>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiValorVenalCalculadoVvt != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalCalculadoVvt, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                            -</p>
-                                    </div>
-                                    <div>
-                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Calculado Predial
-                                            (VVP)</label>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiValorVenalCalculadoVvp != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalCalculadoVvp, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                            -</p>
-                                    </div>
-                                    <div class="pt-2 border-t border-slate-50">
-                                        <label class="text-[9px] font-black text-emerald-600 uppercase">Total Venal
-                                            Calculado</label>
-                                        <p class="text-lg font-black text-emerald-700"
-                                            th:text="${itbi.itbiValorVenalCalculadoTotal != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalCalculadoTotal, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                            -</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="space-y-4">
-                                <h3
-                                    class="text-[11px] font-black text-slate-500 uppercase border-l-4 border-blue-500 pl-2">
-                                    Valor Informado</h3>
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Informado
-                                            Territorial (VVT)</label>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiValorVenalInformadoVvt != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalInformadoVvt, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                            -</p>
-                                    </div>
-                                    <div>
-                                        <label class="text-[9px] font-bold text-slate-400 uppercase">Informado Predial
-                                            (VVP)</label>
-                                        <p class="text-sm font-bold text-slate-700"
-                                            th:text="${itbi.itbiValorVenalInformadoVvp != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalInformadoVvp, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                            -</p>
-                                    </div>
-                                    <div class="pt-2 border-t border-slate-50">
-                                        <label class="text-[9px] font-black text-blue-600 uppercase">Total Venal
-                                            Informado</label>
-                                        <p class="text-lg font-black text-blue-700"
-                                            th:text="${itbi.itbiValorVenalInformadoTotal != null ? 'R$ ' + #numbers.formatDecimal(itbi.itbiValorVenalInformadoTotal, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                            -</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="flex space-x-3">
+                        <a href="/malha/analise-fiscal"
+                            class="px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-sm rounded-2xl transition-all active:scale-95 flex items-center space-x-2 shadow-sm">
+                            <i class="fas fa-arrow-left text-xs"></i>
+                            <span>Voltar</span>
+                        </a>
+                        <a th:href="@{/malha/analise-fiscal/{id}/pdf(id=${itbi.id})}" target="_blank"
+                            class="px-4 py-2 bg-rose-50 border border-rose-100 hover:bg-rose-100 text-rose-700 font-bold text-sm rounded-2xl transition-all active:scale-95 flex items-center space-x-2 shadow-sm">
+                            <i class="fas fa-file-pdf text-xs"></i>
+                            <span>Exportar PDF</span>
+                        </a>
+                        <button type="submit"
+                            class="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm rounded-2xl transition-all active:scale-95 flex items-center space-x-2 shadow-lg shadow-emerald-200">
+                            <i class="fas fa-save text-xs"></i>
+                            <span>Salvar Alterações</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Coluna 2: CADIMO e IPTU -->
-                <div class="space-y-6">
-                    <!-- Card: Cadastro Imobiliário (CADIMO) -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
-                            <div class="h-12 w-12 rounded-xl bg-amber-100 flex items-center justify-center">
-                                <i class="fas fa-home text-amber-600 text-lg"></i>
+                <div
+                    class="grid grid-cols-1 xl:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <!-- Coluna 1: ITBI e Partes -->
+                    <div class="space-y-6">
+                        <!-- Card: Informações ITBI -->
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                            <div class="flex items-center space-x-4 mb-8 pb-4 border-b border-slate-50">
+                                <div class="h-12 w-12 rounded-2xl bg-emerald-100 flex items-center justify-center">
+                                    <i class="fas fa-file-invoice-dollar text-emerald-600 text-lg"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-lg font-black text-slate-700 uppercase tracking-tight">Processo ITBI
+                                    </h2>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Dados do
+                                        Lançamento Fiscal</p>
+                                </div>
                             </div>
-                            <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Cadastro
-                                Imobiliário (CADIMO)</h2>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Número</label>
+                                    <input type="text" th:field="*{itbiNumero}"
+                                        class="w-full px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white transition-all outline-none" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Ano</label>
+                                    <input type="number" th:field="*{itbiAno}"
+                                        class="w-full px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white transition-all outline-none" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Data
+                                        do ITBI</label>
+                                    <input type="date" th:field="*{itbiData}"
+                                        class="w-full px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white transition-all outline-none" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Situação</label>
+                                    <select th:field="*{itbiSituacao}"
+                                        class="w-full px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white transition-all outline-none">
+                                        <option value="PAGO">PAGO</option>
+                                        <option value="PENDENTE">PENDENTE</option>
+                                        <option value="AVALIAÇÃO">AVALIAÇÃO</option>
+                                        <option value="CANCELADO">CANCELADO</option>
+                                    </select>
+                                </div>
+                                <div class="col-span-full space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Tipo
+                                        de Processo</label>
+                                    <input type="text" th:field="*{itbiTipo}"
+                                        class="w-full px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white transition-all outline-none" />
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-5">
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Inscrição</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                    th:text="${itbi.cadimoInscricao}">-</p>
+                        <!-- Card: Partes Envolvidas -->
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                            <div class="flex items-center space-x-4 mb-8 pb-4 border-b border-slate-50">
+                                <div class="h-12 w-12 rounded-2xl bg-blue-100 flex items-center justify-center">
+                                    <i class="fas fa-users text-blue-600 text-lg"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-lg font-black text-slate-700 uppercase tracking-tight">Partes
+                                        Envolvidas</h2>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                        Proprietários, Vendedores e Compradores</p>
+                                </div>
                             </div>
-                            <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Cod.
-                                    Cadastro</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                    th:text="${itbi.cadimoCadastro}">-</p>
+
+                            <div class="space-y-6">
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100">
+                                    <div class="col-span-full mb-1">
+                                        <span
+                                            class="px-2 py-0.5 bg-blue-100 text-blue-700 text-[9px] font-black rounded uppercase">Proprietário
+                                            Atual (ITBI)</span>
+                                    </div>
+                                    <input type="text" th:field="*{itbiProprietarioNome}" placeholder="Nome"
+                                        class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 outline-none" />
+                                    <input type="text" th:field="*{itbiProprietarioCpf}" placeholder="CPF/CNPJ"
+                                        class="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 outline-none" />
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 bg-rose-50/50 rounded-2xl border border-rose-100">
+                                    <div class="col-span-full mb-1">
+                                        <span
+                                            class="px-2 py-0.5 bg-rose-100 text-rose-700 text-[9px] font-black rounded uppercase">Transmitente
+                                            (Vendedor)</span>
+                                    </div>
+                                    <input type="text" th:field="*{itbiTransmitenteNome}" placeholder="Nome"
+                                        class="w-full px-3 py-2 bg-white border border-rose-200/50 rounded-lg text-xs font-bold text-slate-700 outline-none" />
+                                    <input type="text" th:field="*{itbiTransmitenteCpf}" placeholder="CPF/CNPJ"
+                                        class="w-full px-3 py-2 bg-white border border-rose-200/50 rounded-lg text-xs font-bold text-slate-700 outline-none" />
+                                </div>
+
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-5 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                                    <div class="col-span-full mb-1">
+                                        <span
+                                            class="px-2 py-0.5 bg-emerald-100 text-emerald-700 text-[9px] font-black rounded uppercase">Adquirente
+                                            (Comprador)</span>
+                                    </div>
+                                    <input type="text" th:field="*{itbiAdquirenteNome}" placeholder="Nome"
+                                        class="w-full px-3 py-2 bg-white border border-emerald-200/50 rounded-lg text-xs font-bold text-slate-700 outline-none" />
+                                    <input type="text" th:field="*{itbiAdquirenteCpf}" placeholder="CPF/CNPJ"
+                                        class="w-full px-3 py-2 bg-white border border-emerald-200/50 rounded-lg text-xs font-bold text-slate-700 outline-none" />
+                                </div>
                             </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Situação</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1"
-                                    th:text="${itbi.cadimoSituacaoCadastral}">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Coluna 2: CADIMO -->
+                    <div class="space-y-6">
+                        <!-- Card: Cadastro Imobiliário (CADIMO) -->
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                            <div class="flex items-center space-x-4 mb-8 pb-4 border-b border-slate-50">
+                                <div class="h-12 w-12 rounded-2xl bg-amber-100 flex items-center justify-center">
+                                    <i class="fas fa-home text-amber-600 text-lg"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-lg font-black text-slate-700 uppercase tracking-tight">Cadastro
+                                        Imobiliário</h2>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Base de
+                                        Dados Imobiliária (CADIMO)</p>
+                                </div>
                             </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Tipo</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1" th:text="${itbi.cadimoTipo}">-</p>
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Quadra /
-                                    Lote</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                    th:text="${itbi.cadimoQuadra + ' / ' + itbi.cadimoLote}">- / -</p>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Matrícula</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                    th:text="${itbi.cadimoMatricula}">-</p>
-                            </div>
-                            <div class="col-span-full">
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Logradouro</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1"
-                                    th:text="${itbi.cadimoLogradouroNome + ', ' + itbi.cadimoNumero}">-</p>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Bairro</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1" th:text="${itbi.cadimoBairroNome}">-
-                                </p>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">CEP</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1 font-mono" th:text="${itbi.cadimoCep}">-
-                                </p>
-                            </div>
-                            <div>
-                                <label
-                                    class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Complemento</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1"
-                                    th:text="${itbi.cadimoComplemento != null ? itbi.cadimoComplemento : (itbi.cadimoApartamentoUnidade != null ? itbi.cadimoApartamentoUnidade : '-') }">
-                                    -</p>
-                            </div>
-                            <div class="col-span-full border-t border-slate-50 pt-4 mt-2">
-                                <div class="grid grid-cols-3 gap-4">
-                                    <div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Inscrição</label>
+                                    <input type="text" th:field="*{cadimoInscricao}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none focus:bg-white focus:border-amber-400 transition-all" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Cod.
+                                        Cadastro</label>
+                                    <input type="text" th:field="*{cadimoCadastro}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none focus:bg-white focus:border-amber-400 transition-all" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Matrícula</label>
+                                    <input type="text" th:field="*{cadimoMatricula}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none focus:bg-white focus:border-amber-400 transition-all" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Tipo</label>
+                                    <input type="text" th:field="*{cadimoTipo}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none focus:bg-white focus:border-amber-400 transition-all" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Situação</label>
+                                    <input type="text" th:field="*{cadimoSituacaoCadastral}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none focus:bg-white focus:border-amber-400 transition-all" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Quadra
+                                        / Lote</label>
+                                    <div class="flex space-x-1">
+                                        <input type="text" th:field="*{cadimoQuadra}" placeholder="Q"
+                                            class="w-1/2 px-2 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                        <input type="text" th:field="*{cadimoLote}" placeholder="L"
+                                            class="w-1/2 px-2 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-50 pt-6">
+                                    <div class="space-y-1">
                                         <label
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Área
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Logradouro</label>
+                                        <input type="text" th:field="*{cadimoLogradouroNome}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Número</label>
+                                        <input type="text" th:field="*{cadimoNumero}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Bairro</label>
+                                        <input type="text" th:field="*{cadimoBairroNome}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">CEP</label>
+                                        <input type="text" th:field="*{cadimoCep}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                    </div>
+                                    <div class="space-y-1 col-span-full">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Complemento
+                                            / Unidade</label>
+                                        <div class="flex space-x-2">
+                                            <input type="text" th:field="*{cadimoComplemento}" placeholder="Comp."
+                                                class="w-1/2 px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                            <input type="text" th:field="*{cadimoApartamentoUnidade}"
+                                                placeholder="Unid."
+                                                class="w-1/2 px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-span-full grid grid-cols-3 gap-4 border-t border-slate-50 pt-6">
+                                    <div class="space-y-1">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Área
                                             Terreno</label>
-                                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                            th:text="${itbi.cadimoAreaTerreno != null ? itbi.cadimoAreaTerreno + ' m²' : '-'}">
-                                            -</p>
+                                        <input type="number" step="0.0001" th:field="*{cadimoAreaTerreno}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
                                     </div>
-                                    <div>
+                                    <div class="space-y-1">
                                         <label
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Área
-                                            Construída</label>
-                                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                            th:text="${itbi.cadimoAreaConstruida != null ? itbi.cadimoAreaConstruida + ' m²' : '-'}">
-                                            -</p>
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Área
+                                            Const.</label>
+                                        <input type="number" step="0.0001" th:field="*{cadimoAreaConstruida}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
                                     </div>
-                                    <div>
+                                    <div class="space-y-1">
                                         <label
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Área
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Área
                                             Total</label>
-                                        <p class="text-sm font-bold text-slate-700 mt-1 font-mono"
-                                            th:text="${itbi.cadimoAreaTotalConstruida != null ? itbi.cadimoAreaTotalConstruida + ' m²' : '-'}">
-                                            -</p>
+                                        <input type="number" step="0.0001" th:field="*{cadimoAreaTotalConstruida}"
+                                            class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Card: Valores Venais (IPTU) -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                        <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-100">
-                            <div class="h-12 w-12 rounded-xl bg-rose-100 flex items-center justify-center">
-                                <i class="fas fa-coins text-rose-600 text-lg"></i>
+                        <!-- Card: Informações Extras -->
+                        <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8">
+                            <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-slate-50">
+                                <i class="fas fa-info-circle text-slate-400"></i>
+                                <h2 class="text-xs font-black text-slate-500 uppercase tracking-tight">Metadados e
+                                    Identificadores</h2>
                             </div>
-                            <h2 class="text-base font-black text-slate-700 uppercase tracking-tight">Avaliação IPTU
-                                (Base Legal)</h2>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Venal
-                                    Territorial</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1"
-                                    th:text="${itbi.iptuValorVenalTerritorial != null ? 'R$ ' + #numbers.formatDecimal(itbi.iptuValorVenalTerritorial, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                    -</p>
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Venal
-                                    Predial</label>
-                                <p class="text-sm font-bold text-slate-700 mt-1"
-                                    th:text="${itbi.iptuValorVenalPredial != null ? 'R$ ' + #numbers.formatDecimal(itbi.iptuValorVenalPredial, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                    -</p>
-                            </div>
-                            <div class="bg-rose-50 p-2 rounded-lg border border-rose-100">
-                                <label class="text-[10px] font-black text-rose-600 uppercase tracking-wider">Total Venal
-                                    IPTU</label>
-                                <p class="text-base font-black text-rose-700 mt-1"
-                                    th:text="${itbi.iptuValorVenalTotal != null ? 'R$ ' + #numbers.formatDecimal(itbi.iptuValorVenalTotal, 1, 'POINT', 2, 'COMMA') : 'R$ 0,00'}">
-                                    -</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card: Informações Extras -->
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6"
-                        th:if="${itbi.cadimoNomePropriedade != null || itbi.cadimoCib != null}">
-                        <div class="flex items-center space-x-3 mb-4 pb-4 border-b border-slate-100">
-                            <i class="fas fa-info-circle text-slate-400"></i>
-                            <h2 class="text-xs font-black text-slate-500 uppercase tracking-tight">Metadados e Outros
-                            </h2>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div th:if="${itbi.cadimoNomePropriedade != null}">
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Nome da
-                                    Propriedade (Rural)</label>
-                                <p class="text-xs font-bold text-slate-600 mt-1"
-                                    th:text="${itbi.cadimoNomePropriedade}">-</p>
-                            </div>
-                            <div th:if="${itbi.cadimoCib != null}">
-                                <label class="text-[10px] font-black text-slate-400 uppercase tracking-wider">CIB /
-                                    INCRA</label>
-                                <p class="text-xs font-bold text-slate-600 font-mono mt-1"
-                                    th:text="${itbi.cadimoCib + (itbi.cadimoNroImovelIncra != null ? ' / ' + itbi.cadimoNroImovelIncra : '')}">
-                                    -</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">CIB
+                                        / NIRF</label>
+                                    <input type="text" th:field="*{cadimoCib}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">CNM</label>
+                                    <input type="text" th:field="*{cadimoCodigoNacionalMatricula}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                </div>
+                                <div class="col-span-full space-y-1">
+                                    <label
+                                        class="text-[10px] font-black text-slate-400 uppercase tracking-wider ml-1">Nome
+                                        da Propriedade (Rural)</label>
+                                    <input type="text" th:field="*{cadimoNomePropriedade}"
+                                        class="w-full px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl text-xs font-bold text-slate-700 outline-none" />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 </body>

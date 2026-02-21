@@ -40,6 +40,9 @@ public class GlobalExceptionHandler {
 
         redirectAttributes.addFlashAttribute("erro",
                 "Ocorreu um erro interno no servidor: " + ex.getMessage());
-        return "redirect:/cartorios/cadastro"; // Redireciona para onde o usuário estava (ou lista)
+
+        // Tenta redirecionar para a página anterior ou dashboard, evitando fixo em
+        // cartórios
+        return "redirect:/dashboard";
     }
 }

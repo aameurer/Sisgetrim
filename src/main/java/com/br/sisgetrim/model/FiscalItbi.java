@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "fiscal_itbi")
@@ -25,6 +26,7 @@ public class FiscalItbi {
     private Integer itbiAno;
 
     @Column(name = "itbi_data")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate itbiData;
 
     @Column(name = "itbi_tipo", length = 100)

@@ -19,9 +19,11 @@ public class ResponsavelCartorioRequestDTO {
         private String cpf;
 
         @NotNull
+        @org.springframework.format.annotation.DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate dataNomeacao;
 
         @NotNull
+        @org.springframework.format.annotation.DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate dataIngresso;
 
         @NotNull

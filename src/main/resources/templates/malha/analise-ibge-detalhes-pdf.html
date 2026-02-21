@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Detalhes do Registro IBGE</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: "Helvetica", "Arial", sans-serif;
+            font-size: 9pt;
+            color: #18181b;
+            line-height: 1.5;
+            background: #ffffff;
+        }
+
+        .header {
+            border-bottom: 2px solid #18181b;
+            padding-bottom: 4mm;
+            margin-bottom: 6mm;
+        }
+
+        h1 {
+            font-size: 16pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin: 0;
+            color: #09090b;
+        }
+
+        h2 {
+            font-size: 11pt;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #18181b;
+            margin-top: 8mm;
+            margin-bottom: 4mm;
+            background-color: #f4f4f5;
+            padding: 3mm 4mm;
+            border-left: 4px solid #18181b;
+            letter-spacing: 0.5px;
+        }
+
+        .info-grid {
+            width: 100%;
+            margin-bottom: 4mm;
+        }
+
+        .info-item {
+            display: inline-block;
+            width: 31%;
+            margin-bottom: 4mm;
+            vertical-align: top;
+            padding-right: 2%;
+        }
+
+        .label {
+            font-size: 7pt;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #71717a;
+            display: block;
+            margin-bottom: 1mm;
+            letter-spacing: 0.5px;
+        }
+
+        .value {
+            font-size: 9pt;
+            font-weight: bold;
+            color: #18181b;
+            display: block;
+            word-wrap: break-word;
+        }
+
+        .value-mono {
+            font-family: "Courier New", Courier, monospace;
+            background: #f8fafc;
+            padding: 2px 4px;
+            border: 1px solid #e2e8f0;
+            border-radius: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6mm;
+        }
+
+        th {
+            background-color: #f4f4f5;
+            color: #71717a;
+            font-weight: 800;
+            text-align: left;
+            padding: 3mm 4mm;
+            border-bottom: 1px solid #e4e4e7;
+            text-transform: uppercase;
+            font-size: 7pt;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 3mm 4mm;
+            border-bottom: 1px solid #f4f4f5;
+            color: #27272a;
+            font-size: 8.5pt;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 7pt;
+            color: #a1a1aa;
+            border-top: 1px solid #f4f4f5;
+            padding-top: 3mm;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>
+            REGISTRO IBGE #<span th:text="${ibge.id}">000</span>
+            <span style="font-weight: normal; color: #d4d4d8; margin: 0 4mm;">|</span>
+            MATRÍCULA: <span th:text="${ibge.matricula ?: 'NÃO CONSTA'}"></span>
+        </h1>
+    </div>
+
+    <!-- Informações da Serventia -->
+    <h2>Informações da Serventia</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">CNS</span>
+            <span class="value" th:text="${ibge.cns}"></span>
+        </div>
+        <div class="info-item" style="width: 63%;">
+            <span class="label">Nome do Cartório</span>
+            <span class="value" th:text="${ibge.nomeCartorio}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo de Serviço</span>
+            <span class="value" th:text="${ibge.tipoServico}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo de Declaração</span>
+            <span class="value" th:text="${ibge.tipoDeclaracao}"></span>
+        </div>
+    </div>
+
+    <!-- Informações do Título -->
+    <h2>Informações do Título</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">Matrícula</span>
+            <span class="value" th:text="${ibge.matricula ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Transcrição</span>
+            <span class="value" th:text="${ibge.transcricao ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">CNM</span>
+            <span class="value" th:text="${ibge.codigoNacionalMatricula ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">MNE</span>
+            <span class="value" th:text="${ibge.matriculaNotarialEletronica ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Data Lavratura/Registro</span>
+            <span class="value"
+                th:text="${ibge.dataLavraturaRegistroAverbacao != null ? #temporals.format(ibge.dataLavraturaRegistroAverbacao, 'dd/MM/yyyy') : '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Tipo Operação</span>
+            <span class="value" th:text="${ibge.tipoOperacaoImobiliaria}"></span>
+        </div>
+    </div>
+
+    <!-- Transmitentes (Alienantes) -->
+    <h2>Vendedores (Alienantes)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CPF/CNPJ (NI)</th>
+                <th>Nome Cruzado (ITBI)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="alienante : ${ibge.alienantes}">
+                <td><span class="value-mono" th:text="${alienante.ni}"></span></td>
+                <td th:text="${nomeAlienanteMap[alienante.id] ?: '-'}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Adquirentes -->
+    <h2>Compradores (Adquirentes)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>CPF/CNPJ (NI)</th>
+                <th>Nome Cruzado (ITBI)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="adquirente : ${ibge.adquirentes}">
+                <td><span class="value-mono" th:text="${adquirente.ni}"></span></td>
+                <td th:text="${nomeAdquirenteMap[adquirente.id] ?: '-'}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Dados do Imóvel -->
+    <h2>Dados do Imóvel</h2>
+    <div class="info-grid">
+        <div class="info-item">
+            <span class="label">Inscrição Municipal</span>
+            <span class="value" th:text="${ibge.inscricaoMunicipal ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">CIB</span>
+            <span class="value" th:text="${ibge.cib ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Destinação</span>
+            <span class="value" th:text="${ibge.destinacao ?: '-'}"></span>
+        </div>
+        <div class="info-item" style="width: 63%;">
+            <span class="label">Logradouro</span>
+            <span class="value" th:text="${(ibge.tipoLogradouro ?: '') + ' ' + (ibge.nomeLogradouro ?: '')}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Número</span>
+            <span class="value" th:text="${ibge.numeroImovel ?: 'S/N'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Bairro</span>
+            <span class="value" th:text="${ibge.bairro ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Complemento</span>
+            <span class="value" th:text="${ibge.complementoEndereco ?: '-'}"></span>
+        </div>
+        <div class="info-item">
+            <span class="label">Cód. IBGE Município</span>
+            <span class="value" th:text="${ibge.codigoIbge ?: '-'}"></span>
+        </div>
+    </div>
+
+    <div class="footer">
+        SISGETRIM - Sistema de Gestão Tributária Municipal - Documento Oficial Gerado em <span
+            th:text="${#temporals.format(#temporals.createNow(), 'dd/MM/yyyy HH:mm')}"></span>
+    </div>
+
+</body>
+
+</html>

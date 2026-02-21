@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "doi_operacao_imobiliaria")
@@ -18,6 +19,7 @@ public class DoiOperacaoImobiliaria {
     private DoiDeclaracao declaracao;
 
     @Column(name = "data_negocio_juridico", nullable = false)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNegocioJuridico;
 
     @Column(name = "tipo_operacao_imobiliaria", length = 100, nullable = false)
@@ -45,6 +47,7 @@ public class DoiOperacaoImobiliaria {
     private Boolean indicadorAlienacaoFiduciaria;
 
     @Column(name = "mes_ano_ultima_parcela")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate mesAnoUltimaParcela;
 
     @Column(name = "valor_pago_ate_data_ato", precision = 20, scale = 2)

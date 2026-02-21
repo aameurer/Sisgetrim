@@ -256,6 +256,15 @@ public class UsuarioService implements UserDetailsService {
                 .collect(java.util.stream.Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public java.util.List<UsuarioResponseDTO> listarPorCartorio(Long cartorioId) {
+        com.br.sisgetrim.model.Cartorio cartorio = cartorioRepository.findById(cartorioId)
+                .orElseThrow(() -> new IllegalArgumentException("Cartório não encontrado"));
+        return usuarioRepository.findByCartoriosContaining(cartorio).stream()
+                .map(usuarioMapper::toResponseDTO)
+                .collect(java.util.stream.Collectors.toList());
+    }
+
     /**
      * Centraliza a lógica de obtenção da entidade ativa:
      * 1. Tenta pegar da sessão (entidade selecionada pelo usuário).

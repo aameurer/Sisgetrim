@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout}">
 
 <head>
@@ -7,7 +7,7 @@
 </head>
 
 <body class="bg-slate-50">
-    <div layout:fragment="content" class="p-6 lg:p-10 space-y-8 max-w-7xl mx-auto">
+    <div layout:fragment="page-content" class="p-6 lg:p-10 space-y-8 max-w-7xl mx-auto">
         <!-- Header -->
         <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
@@ -16,7 +16,9 @@
                     <i class="fas fa-arrow-left text-sm"></i>
                 </a>
                 <div>
-                    <h1 class="text-2xl font-black text-amazon-text tracking-tight">Novo Cartório</h1>
+                    <h1 class="text-2xl font-black text-amazon-text tracking-tight"
+                        th:text="${cartorio != null and cartorio.id != null ? 'Editar Cartório' : 'Novo Cartório'}">
+                        Novo Cartório</h1>
                     <p class="text-xs text-slate-500 font-medium italic">Complete as informações para vincular o
                         cartório à malha fiscal.</p>
                 </div>
@@ -44,7 +46,8 @@
                                 class="h-8 w-8 rounded-lg bg-amazon-primary/10 flex items-center justify-center text-amazon-primary">
                                 <i class="fas fa-id-card"></i>
                             </div>
-                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Identificação do
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Identificação
+                                do
                                 Cartório</h2>
                         </div>
 
@@ -177,7 +180,8 @@
                                     de Cartório <span class="text-rose-500">*</span></label>
                                 <select th:field="*{tipo}" required
                                     class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-emerald-500/10 focus:border-amazon-primary focus:ring-4 focus:ring-emerald-500/5 text-sm font-bold text-amazon-text transition-all outline-none appearance-none">
-                                    <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}">PRIVATIZADA</option>
+                                    <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}">PRIVATIZADA
+                                    </option>
                                 </select>
                                 <span class="text-rose-500 text-[10px] font-bold block ml-1"
                                     th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></span>
@@ -206,7 +210,8 @@
                                 class="h-8 w-8 rounded-lg bg-amazon-primary/10 flex items-center justify-center text-amazon-primary">
                                 <i class="fas fa-list-check"></i>
                             </div>
-                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Atribuições</h2>
+                            <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Atribuições
+                            </h2>
                         </div>
 
                         <div class="space-y-2 flex-1 overflow-y-auto pr-2 custom-scrollbar">
@@ -234,7 +239,8 @@
                         <div>
                             <h2 class="text-sm font-black text-amazon-text uppercase tracking-widest">Gestão de
                                 Responsáveis</h2>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Titulares,
+                            <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">
+                                Titulares,
                                 Interinos e Interventores</p>
                         </div>
                     </div>
@@ -320,6 +326,7 @@
 
                 </div>
             </div>
+
 
             <!-- Footer: Ações -->
             <div

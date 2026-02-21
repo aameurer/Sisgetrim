@@ -22,6 +22,7 @@ public class CartorioRequestDTO {
     private String denominacao;
 
     @NotNull
+    @org.springframework.format.annotation.DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataCriacao;
 
     @NotNull

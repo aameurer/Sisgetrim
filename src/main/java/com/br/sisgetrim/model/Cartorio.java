@@ -85,6 +85,9 @@ public class Cartorio {
     @OneToMany(mappedBy = "cartorio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ResponsavelCartorio> responsaveis = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "cartorios")
+    private Set<Usuario> usuarios = new HashSet<>();
+
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -269,6 +272,14 @@ public class Cartorio {
 
     public void setResponsaveis(List<ResponsavelCartorio> responsaveis) {
         this.responsaveis = responsaveis;
+    }
+
+    public Set<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Set<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 
     public LocalDateTime getCreatedAt() {

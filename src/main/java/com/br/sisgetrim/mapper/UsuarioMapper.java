@@ -55,6 +55,7 @@ public class UsuarioMapper {
                                 entity.getStatus(),
                                 entidades,
                                 cartorios,
+                                entity.getFotoUrl(),
                                 entity.getCreatedAt(),
                                 entity.getUpdatedAt());
         }

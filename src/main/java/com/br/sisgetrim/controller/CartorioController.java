@@ -17,7 +17,6 @@ import com.br.sisgetrim.dto.CartorioRequestDTO;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.br.sisgetrim.dto.CartorioResponseDTO;
 import java.util.Set;
 
 @Controller
@@ -62,11 +61,14 @@ public class CartorioController {
     public String editar(@PathVariable Long id, @AuthenticationPrincipal Usuario usuarioLogado,
             jakarta.servlet.http.HttpSession session, Model model) {
         Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+        if (entidade == null)
+            return "redirect:/dashboard";
 
         try {
-            CartorioResponseDTO cartorio = cartorioService.buscarPorIdEEntidade(id, entidade);
+            CartorioRequestDTO cartorio = cartorioService.buscarRequestDtoPorIdEEntidade(id, entidade);
             model.addAttribute("cartorio", cartorio);
-            carregarAtributos(model); // Reutiliza método auxiliar
+            model.addAttribute("usuariosVinculados", usuarioService.listarPorCartorio(id));
+            carregarAtributos(model);
 
             return "cartorios/cadastro";
         } catch (Exception e) {

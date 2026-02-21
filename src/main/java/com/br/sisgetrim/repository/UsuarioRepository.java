@@ -20,4 +20,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     boolean existsByEntidadesContaining(com.br.sisgetrim.model.Entidade entidade);
 
     java.util.List<Usuario> findTop10ByOrderByCreatedAtDesc();
+
+    java.util.List<Usuario> findByCartoriosContaining(com.br.sisgetrim.model.Cartorio cartorio);
 }

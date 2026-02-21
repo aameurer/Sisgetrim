@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 public class CartorioService {
 
     private final CartorioRepository cartorioRepository;
+    private final com.br.sisgetrim.mapper.UsuarioMapper usuarioMapper;
 
     @Autowired
-    public CartorioService(CartorioRepository cartorioRepository) {
+    public CartorioService(CartorioRepository cartorioRepository, com.br.sisgetrim.mapper.UsuarioMapper usuarioMapper) {
         this.cartorioRepository = cartorioRepository;
+        this.usuarioMapper = usuarioMapper;
     }
 
     @Transactional
@@ -71,9 +73,13 @@ public class CartorioService {
                 .orElseThrow(() -> new IllegalArgumentException("Cartório não encontrado ou acesso negado."));
 
         // Proteção CNS: Não permite alterar
-        if (!cartorio.getCodigoCns().equals(dto.getCodigoCns())) {
+        String cnsDb = cartorio.getCodigoCns() != null ? cartorio.getCodigoCns().replaceAll("\\D", "") : "";
+        String cnsDto = dto.getCodigoCns() != null ? dto.getCodigoCns().replaceAll("\\D", "") : "";
+        if (!cnsDb.equals(cnsDto)) {
             throw new IllegalArgumentException("O código CNS não pode ser alterado.");
         }
+
+        dto.setCodigoCns(cartorio.getCodigoCns()); // Restaura o original puro
 
         updateEntityFromDTO(cartorio, dto);
         Cartorio atualizado = cartorioRepository.save(cartorio);
@@ -132,6 +138,51 @@ public class CartorioService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public CartorioRequestDTO buscarRequestDtoPorIdEEntidade(Long id, Entidade entidade) {
+        if (id == null)
+            throw new IllegalArgumentException("ID não pode ser nulo.");
+        Cartorio cartorio = cartorioRepository.findById(id)
+                .filter(c -> c.getEntidade() != null && c.getEntidade().equals(entidade))
+                .orElseThrow(() -> new IllegalArgumentException("Cartório não encontrado ou acesso negado."));
+        return mapToRequestDTO(cartorio);
+    }
+
+    private CartorioRequestDTO mapToRequestDTO(Cartorio entity) {
+        CartorioRequestDTO dto = new CartorioRequestDTO();
+        dto.setId(entity.getId());
+        dto.setCodigoCns(entity.getCodigoCns());
+        dto.setDenominacao(entity.getDenominacao());
+        dto.setDataCriacao(entity.getDataCriacao());
+        dto.setSituacao(entity.getSituacao());
+        dto.setTipo(entity.getTipo());
+        dto.setSituacaoJuridicaResponsavel(entity.getSituacaoJuridicaResponsavel());
+        dto.setAtribuicoes(new java.util.HashSet<>(entity.getAtribuicoes()));
+        dto.setBairro(entity.getBairro());
+        dto.setCep(entity.getCep());
+        dto.setEndereco(entity.getEndereco());
+        dto.setNumero(entity.getNumero());
+        dto.setTelefonePrincipal(entity.getTelefonePrincipal());
+        dto.setTelefoneSecundario(entity.getTelefoneSecundario());
+        dto.setEmail(entity.getEmail());
+        dto.setCnpj(entity.getCnpj());
+        dto.setRazaoSocial(entity.getRazaoSocial());
+        dto.setAtividadePrincipal(entity.getAtividadePrincipal());
+
+        List<ResponsavelCartorioRequestDTO> responsaveis = entity.getResponsaveis().stream()
+                .map(resp -> new ResponsavelCartorioRequestDTO(
+                        resp.getTipo(),
+                        resp.getNome(),
+                        resp.getCpf(),
+                        resp.getDataNomeacao(),
+                        resp.getDataIngresso(),
+                        resp.getSubstituto()))
+                .collect(Collectors.toList());
+        dto.setResponsaveis(responsaveis);
+
+        return dto;
+    }
+
     private CartorioResponseDTO mapToResponseDTO(Cartorio entity) {
         List<ResponsavelCartorioResponseDTO> responsaveis = entity.getResponsaveis().stream()
                 .map(resp -> new ResponsavelCartorioResponseDTO(
@@ -162,6 +213,9 @@ public class CartorioService {
                 entity.getCnpj(),
                 entity.getRazaoSocial(),
                 entity.getNaturezaJuridica(),
-                responsaveis);
+                responsaveis,
+                entity.getUsuarios().stream()
+                        .map(usuarioMapper::toResponseDTO)
+                        .collect(Collectors.toList()));
     }
 }

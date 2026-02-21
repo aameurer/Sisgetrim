@@ -53,7 +53,7 @@ public class IbgeDeclaracao {
     @Column(name = "ibge_descricao_outras_operacoes_imobiliarias")
     private String descricaoOutrasOperacoesImobiliarias;
 
-    @Column(name = "ibge_data_lavratura_registro_averbacao", nullable = false)
+    @Column(name = "ibge_data_lavratura_registro_averbacao")
     private LocalDate dataLavraturaRegistroAverbacao;
 
     @Column(name = "ibge_destinacao")

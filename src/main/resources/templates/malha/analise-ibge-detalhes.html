@@ -20,10 +20,18 @@
             </nav>
 
             <!-- Alerts -->
-            <div th:if="${mensagemSucesso}"
-                class="mb-6 p-4 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl flex items-center space-x-3 animate-in fade-in slide-in-from-right-4 duration-500">
+            <div th:if="${mensagemSucesso}" x-data="{ show: true }" x-show="show"
+                x-init="setTimeout(() => show = false, 10000)"
+                class="mb-6 p-4 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-2xl flex items-center space-x-3 animate-in fade-in slide-in-from-right-4 duration-500 transition-all">
                 <i class="fas fa-check-circle text-lg"></i>
                 <span class="text-sm font-bold" th:text="${mensagemSucesso}">Sucesso!</span>
+            </div>
+
+            <div th:if="${mensagemErro}" x-data="{ show: true }" x-show="show"
+                x-init="setTimeout(() => show = false, 10000)"
+                class="mb-6 p-4 bg-rose-50 border border-rose-100 text-rose-700 rounded-2xl flex items-center space-x-3 animate-in fade-in slide-in-from-right-4 duration-500 transition-all">
+                <i class="fas fa-exclamation-circle text-lg"></i>
+                <span class="text-sm font-bold" th:text="${mensagemErro}">Erro!</span>
             </div>
 
             <form th:action="@{/malha/analise-ibge/{id}/salvar(id=${ibge.id})}" th:object="${ibge}" method="post">
@@ -42,6 +50,11 @@
                             class="px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-sm rounded-2xl transition-all active:scale-95 flex items-center space-x-2 shadow-sm">
                             <i class="fas fa-arrow-left text-xs"></i>
                             <span>Voltar</span>
+                        </a>
+                        <a th:href="@{/malha/analise-ibge/{id}/pdf(id=${ibge.id})}"
+                            class="px-4 py-2 bg-rose-50 border border-rose-100 hover:bg-rose-100 text-rose-700 font-bold text-sm rounded-2xl transition-all active:scale-95 flex items-center space-x-2 shadow-sm">
+                            <i class="fas fa-file-pdf text-xs"></i>
+                            <span>Gerar PDF</span>
                         </a>
                         <button type="submit"
                             class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-2xl transition-all active:scale-95 flex items-center space-x-2 shadow-lg shadow-indigo-200">

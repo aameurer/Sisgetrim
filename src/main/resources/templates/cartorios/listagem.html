@@ -45,9 +45,10 @@
         <!-- Tabela -->
         <div class="bg-white rounded-3xl border border-emerald-500/10 shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-left">
+                <table class="w-full text-left border-collapse" x-data="{ expanded: null }">
                     <thead class="bg-slate-50/50 border-b border-emerald-500/5">
                         <tr>
+                            <th class="w-10 px-4 pb-2"></th>
                             <th
                                 class="px-6 pb-2 text-[10px] font-black text-amazon-primary/60 uppercase tracking-widest font-exo">
                                 CNS</th>
@@ -63,34 +64,86 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-emerald-500/5">
-                        <tr th:each="c : ${cartorios}" class="hover:bg-slate-50/50 transition-colors">
-                            <td class="px-6 py-1 text-xs font-black text-amazon-primary cns-text font-exo"
-                                th:text="${c.codigoCns}">
-                                00.000-0</td>
-                            <td class="px-6 py-1 text-xs font-bold text-slate-700" th:text="${c.denominacao}">Cartório
-                                Exemplo</td>
-                            <td class="px-6 py-1">
-                                <span
-                                    th:class="${c.situacao.name() == 'ATIVO' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'}"
-                                    class="px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest"
-                                    th:text="${c.situacao}">ATIVO</span>
-                            </td>
-                            <td class="px-6 py-1 text-center">
-                                <div class="flex items-center justify-center space-x-2">
-                                    <a th:href="@{'/cartorios/editar/' + ${c.id}}" title="Editar Cartório"
-                                        class="h-9 w-9 flex items-center justify-center rounded-xl bg-emerald-500/10 text-amazon-primary hover:bg-amazon-primary hover:text-white transition-all active:scale-90 shadow-sm">
-                                        <i class="fas fa-edit text-sm"></i>
-                                    </a>
-                                    <a th:href="@{'/cartorios/excluir/' + ${c.id}}" title="Excluir Cartório"
-                                        onclick="return confirm('Tem certeza que deseja excluir este cartório?')"
-                                        class="h-9 w-9 flex items-center justify-center rounded-xl bg-rose-500/10 text-rose-600 hover:bg-rose-500 hover:text-white transition-all active:scale-90 shadow-sm">
-                                        <i class="fas fa-trash-alt text-sm"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
+                        <th:block th:each="c : ${cartorios}">
+                            <tr class="hover:bg-slate-50/50 transition-colors group cursor-pointer"
+                                th:x-on:click="${'expanded = (expanded === ' + c.id + ' ? null : ' + c.id + ')'}">
+                                <td class="px-4 py-1 text-center">
+                                    <button
+                                        class="h-6 w-6 rounded-lg flex items-center justify-center transition-all duration-300"
+                                        th:x-bind:class="${'expanded === ' + c.id + ' ? ''bg-rose-500 text-white rotate-45'' : ''bg-amazon-primary/10 text-amazon-primary''' }">
+                                        <i class="fas fa-plus text-[10px]"></i>
+                                    </button>
+                                </td>
+                                <td class="px-6 py-1 text-xs font-black text-amazon-primary cns-text font-exo"
+                                    th:text="${c.codigoCns}">
+                                    00.000-0</td>
+                                <td class="px-6 py-1 text-xs font-bold text-slate-700" th:text="${c.denominacao}">
+                                    Cartório Exemplo</td>
+                                <td class="px-6 py-1">
+                                    <span
+                                        th:class="${c.situacao.name() == 'ATIVO' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-rose-500/10 text-rose-600'}"
+                                        class="px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest"
+                                        th:text="${c.situacao}">ATIVO</span>
+                                </td>
+                                <td class="px-6 py-1 text-center">
+                                    <div class="flex items-center justify-center space-x-2" @click.stop="">
+                                        <a th:href="@{'/cartorios/editar/' + ${c.id}}" title="Editar Cartório"
+                                            class="h-8 w-8 flex items-center justify-center rounded-xl bg-emerald-500/10 text-amazon-primary hover:bg-amazon-primary hover:text-white transition-all active:scale-90 shadow-sm">
+                                            <i class="fas fa-edit text-xs"></i>
+                                        </a>
+                                        <a th:href="@{'/cartorios/excluir/' + ${c.id}}" title="Excluir Cartório"
+                                            onclick="return confirm('Tem certeza que deseja excluir este cartório?')"
+                                            class="h-8 w-8 flex items-center justify-center rounded-xl bg-rose-500/10 text-rose-600 hover:bg-rose-500 hover:text-white transition-all active:scale-90 shadow-sm">
+                                            <i class="fas fa-trash-alt text-xs"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Linha Expandida: Usuários -->
+                            <tr th:x-show="${'expanded === ' + c.id}" x-cloak x-collapse class="bg-slate-50/80">
+                                <td colspan="5" class="px-10 py-4">
+                                    <div class="flex flex-col space-y-4">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fas fa-users text-amazon-primary/40 text-xs"></i>
+                                            <span
+                                                class="text-[9px] font-black text-amazon-primary/60 uppercase tracking-widest">Usuários
+                                                com Acesso</span>
+                                        </div>
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+                                            <th:block th:each="u : ${c.usuarios}">
+                                                <div
+                                                    class="flex items-center space-x-3 p-2.5 rounded-2xl bg-white border border-emerald-500/5 shadow-sm">
+                                                    <div
+                                                        class="h-8 w-8 rounded-full bg-amazon-primary/10 flex items-center justify-center text-amazon-primary overflow-hidden">
+                                                        <img th:if="${u.fotoUrl != null}"
+                                                            th:src="@{'/uploads/usuarios/' + ${u.fotoUrl}}"
+                                                            class="h-full w-full object-cover">
+                                                        <i th:unless="${u.fotoUrl != null}"
+                                                            class="fas fa-user text-[10px]"></i>
+                                                    </div>
+                                                    <div class="flex flex-col min-w-0">
+                                                        <span class="text-[10px] font-black text-slate-700 truncate"
+                                                            th:text="${u.nome}">Usuário</span>
+                                                        <span class="text-[8px] font-bold text-slate-400 truncate"
+                                                            th:text="${u.email}">email@teste.com</span>
+                                                    </div>
+                                                </div>
+                                            </th:block>
+
+                                            <div th:if="${c.usuarios == null or c.usuarios.isEmpty()}"
+                                                class="col-span-full py-4 flex flex-col items-center justify-center text-slate-400">
+                                                <i class="fas fa-ghost text-xl mb-2 opacity-20"></i>
+                                                <p class="text-[10px] font-bold uppercase tracking-widest italic">Nenhum
+                                                    usuário vinculado</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </th:block>
                         <tr th:if="${cartorios == null or cartorios.isEmpty()}">
-                            <td colspan="4" class="px-6 py-20 text-center">
+                            <td colspan="5" class="px-6 py-20 text-center">
                                 <div class="max-w-xs mx-auto space-y-4">
                                     <div
                                         class="h-20 w-20 mx-auto bg-slate-100 rounded-full flex items-center justify-center">
