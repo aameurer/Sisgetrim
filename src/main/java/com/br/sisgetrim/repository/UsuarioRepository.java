@@ -22,4 +22,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     java.util.List<Usuario> findTop10ByOrderByCreatedAtDesc();
 
     java.util.List<Usuario> findByCartoriosContaining(com.br.sisgetrim.model.Cartorio cartorio);
+
+    java.util.List<Usuario> findByEntidadesContaining(com.br.sisgetrim.model.Entidade entidade);
 }

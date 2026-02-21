@@ -17,6 +17,7 @@ public class EntidadeService {
     private final EntidadeRepository entidadeRepository;
     private final FileService fileService;
     private final com.br.sisgetrim.repository.UsuarioRepository usuarioRepository;
+    private final com.br.sisgetrim.mapper.UsuarioMapper usuarioMapper;
     private final com.br.sisgetrim.repository.CartorioRepository cartorioRepository;
     private final com.br.sisgetrim.repository.doi.DoiImportacaoRepository doiImportacaoRepository;
     private final com.br.sisgetrim.repository.FiscalItbiImportacaoRepository fiscalItbiImportacaoRepository;
@@ -25,12 +26,14 @@ public class EntidadeService {
     public EntidadeService(EntidadeRepository entidadeRepository,
             FileService fileService,
             com.br.sisgetrim.repository.UsuarioRepository usuarioRepository,
+            com.br.sisgetrim.mapper.UsuarioMapper usuarioMapper,
             com.br.sisgetrim.repository.CartorioRepository cartorioRepository,
             com.br.sisgetrim.repository.doi.DoiImportacaoRepository doiImportacaoRepository,
             com.br.sisgetrim.repository.FiscalItbiImportacaoRepository fiscalItbiImportacaoRepository) {
         this.entidadeRepository = entidadeRepository;
         this.fileService = fileService;
         this.usuarioRepository = usuarioRepository;
+        this.usuarioMapper = usuarioMapper;
         this.cartorioRepository = cartorioRepository;
         this.doiImportacaoRepository = doiImportacaoRepository;
         this.fiscalItbiImportacaoRepository = fiscalItbiImportacaoRepository;
@@ -166,6 +169,11 @@ public class EntidadeService {
     }
 
     private EntidadeResponseDTO toResponseDTO(Entidade entidade) {
+        java.util.List<com.br.sisgetrim.dto.UsuarioResponseDTO> usuariosDto = usuarioRepository
+                .findByEntidadesContaining(entidade).stream()
+                .map(usuarioMapper::toResponseDTO)
+                .collect(java.util.stream.Collectors.toList());
+
         return new EntidadeResponseDTO(
                 entidade.getId(),
                 CnpjUtils.format(entidade.getCnpj()),
@@ -174,6 +182,7 @@ public class EntidadeService {
                 entidade.getMunicipio(),
                 entidade.getUf(),
                 entidade.getLogoUrl(),
-                entidade.isAtivo());
+                entidade.isAtivo(),
+                usuariosDto);
     }
 }

@@ -176,7 +176,7 @@
                         Importações
                         Recentes
                         dos Fiscais</h2>
-                    <a href="/malha"
+                    <a th:href="@{/malha/analise-fiscal}"
                         class="px-4 py-2 text-[9px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
                         Ver Todos
                     </a>
@@ -213,7 +213,7 @@
                                 <td class="py-1 text-[11px] font-bold text-slate-500"
                                     th:text="${#temporals.format(imp.createdAt, 'dd/MM/yy')}">21/01/26</td>
                                 <td class="py-1 text-right">
-                                    <a href="#"
+                                    <a th:href="@{/malha/analise-fiscal}"
                                         class="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-800 transition-colors">Visualizar</a>
                                 </td>
                             </tr>
@@ -232,10 +232,8 @@
             <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">
                 <div class="flex items-center justify-between mb-4 px-4">
                     <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-opensans">
-                        Importações
-                        Recentes
-                        dos Cartórios</h2>
-                    <a href="/malha"
+                        Importações Recentes dos Cartórios</h2>
+                    <a th:href="@{/malha/analise-importacoes(ano=${T(java.time.Year).now().getValue()})}"
                         class="px-4 py-2 text-[9px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
                         Ver Todos
                     </a>
@@ -279,6 +277,62 @@
                                 <td colspan="5" class="py-16 text-center">
                                     <span class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Nenhuma
                                         importação DOI</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabela IBGE -->
+            <div class="glass-panel p-8 md:p-10 rounded-[3rem] overflow-hidden">
+                <div class="flex items-center justify-between mb-4 px-4">
+                    <h2 class="text-[13px] font-black text-amazon-dark uppercase tracking-[0.2em] font-opensans">
+                        Importações Recentes do IBGE</h2>
+                    <a th:href="@{/malha/analise-ibge}"
+                        class="px-4 py-2 text-[9px] font-black uppercase tracking-widest text-slate-600 bg-white rounded-xl hover:bg-slate-50 transition-all border border-slate-200 shadow-sm">
+                        Ver Todos
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto px-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="border-b border-slate-50">
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">ID</th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Arquivo
+                                </th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Usuário
+                                </th>
+                                <th class="pb-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">Data
+                                </th>
+                                <th
+                                    class="pb-2 text-right text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                    Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            <tr th:each="imp : ${importacoesIbge}" class="hover:bg-slate-50/50 transition-colors">
+                                <td class="py-1 text-[11px] font-bold text-slate-400 font-opensans"
+                                    th:text="'#' + ${imp.id}">#1</td>
+                                <td class="py-1">
+                                    <span
+                                        class="text-[12px] font-black text-zinc-800 truncate block max-w-[120px] font-opensans"
+                                        th:text="${imp.nomeArquivo}">IBGE.XLSX</span>
+                                </td>
+                                <td class="py-1 text-[11px] font-bold text-slate-500" th:text="${imp.usuario.nome}">User
+                                </td>
+                                <td class="py-1 text-[11px] font-bold text-slate-500"
+                                    th:text="${#temporals.format(imp.dataImportacao, 'dd/MM/yy')}">21/01/26</td>
+                                <td class="py-1 text-right">
+                                    <a th:href="@{/malha/analise-ibge/{id}(id=${imp.id})}"
+                                        class="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:text-emerald-800 transition-colors">Visualizar</a>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(importacoesIbge)}">
+                                <td colspan="5" class="py-16 text-center">
+                                    <span class="text-[9px] font-black text-slate-300 uppercase tracking-widest">Nenhuma
+                                        importação IBGE</span>
                                 </td>
                             </tr>
                         </tbody>

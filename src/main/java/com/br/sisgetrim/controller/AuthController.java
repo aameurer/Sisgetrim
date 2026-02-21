@@ -23,15 +23,18 @@ public class AuthController {
     private final EntidadeService entidadeService;
     private final com.br.sisgetrim.repository.doi.DoiImportacaoRepository importacaoRepository;
     private final com.br.sisgetrim.repository.FiscalItbiImportacaoRepository itbiImportacaoRepository;
+    private final com.br.sisgetrim.repository.ibge.IbgeImportacaoRepository ibgeImportacaoRepository;
 
     @Autowired
     public AuthController(UsuarioService usuarioService, EntidadeService entidadeService,
             com.br.sisgetrim.repository.doi.DoiImportacaoRepository importacaoRepository,
-            com.br.sisgetrim.repository.FiscalItbiImportacaoRepository itbiImportacaoRepository) {
+            com.br.sisgetrim.repository.FiscalItbiImportacaoRepository itbiImportacaoRepository,
+            com.br.sisgetrim.repository.ibge.IbgeImportacaoRepository ibgeImportacaoRepository) {
         this.usuarioService = usuarioService;
         this.entidadeService = entidadeService;
         this.importacaoRepository = importacaoRepository;
         this.itbiImportacaoRepository = itbiImportacaoRepository;
+        this.ibgeImportacaoRepository = ibgeImportacaoRepository;
     }
 
     @GetMapping("/login")
@@ -90,6 +93,8 @@ public class AuthController {
             model.addAttribute("importacoes", importacaoRepository.findByEntidade(entidade));
             model.addAttribute("importacoesItbi",
                     itbiImportacaoRepository.findByEntidadeOrderByCreatedAtDesc(entidade));
+            model.addAttribute("importacoesIbge",
+                    ibgeImportacaoRepository.findByEntidadeOrderByCreatedAtDesc(entidade));
         }
 
         model.addAttribute("totalUsuarios", usuarioService.contarTotalUsuarios());
