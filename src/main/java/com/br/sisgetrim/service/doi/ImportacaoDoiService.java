@@ -73,15 +73,27 @@ public class ImportacaoDoiService {
         // Lógica de Vínculo de Cartório
         com.br.sisgetrim.model.Cartorio cartorioSelecionado = null;
 
-        // 1. Se o usuário for de Cartório, pega o primeiro vinculado
-        if (!usuario.getCartorios().isEmpty()) {
-            cartorioSelecionado = usuario.getCartorios().stream().findFirst().orElse(null);
-        }
-        // 2. Se não for de Cartório (Admin/Prefeitura) e informou ID no DTO
-        else if (dto.cartorioId() != null) {
+        // 1. Se informou ID no DTO
+        if (dto.cartorioId() != null) {
             cartorioSelecionado = cartorioRepository.findById(dto.cartorioId())
                     .orElseThrow(
                             () -> new IllegalArgumentException("Cartório não encontrado com ID: " + dto.cartorioId()));
+
+            // Se o usuário for de Cartório (tem cartórios vinculados), valida se ele tem
+            // acesso a este cartório
+            if (!usuario.getCartorios().isEmpty()) {
+                boolean temAcesso = usuario.getCartorios().stream()
+                        .anyMatch(c -> c.getId().equals(dto.cartorioId()));
+                if (!temAcesso) {
+                    throw new IllegalArgumentException("Acesso negado para este cartório.");
+                }
+            }
+        }
+        // 2. Fallback: Se não informou ID, pega o primeiro vinculado da entidade atual
+        else if (!usuario.getCartorios().isEmpty()) {
+            cartorioSelecionado = usuario.getCartorios().stream()
+                    .filter(c -> c.getEntidade() != null && c.getEntidade().getId().equals(entidade.getId()))
+                    .findFirst().orElse(null);
         }
 
         if (cartorioSelecionado != null) {

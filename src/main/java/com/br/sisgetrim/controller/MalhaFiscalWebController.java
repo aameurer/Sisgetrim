@@ -523,14 +523,16 @@ public class MalhaFiscalWebController {
                                         itbiImportacaoRepository.findByEntidadeOrderByCreatedAtDesc(entidade));
                         model.addAttribute("entidade", entidade);
 
-                        // Lista de Cartórios para o dropdown (apenas se não for usuário de cartório ou
-                        // se for admin)
-                        // Lógica: Se o usuário já tem cartório vinculado, ele não escolhe.
-                        com.br.sisgetrim.model.Cartorio cartorioVinculado = usuario.getCartorios().stream().findFirst()
-                                        .orElse(null);
-                        model.addAttribute("cartorioVinculado", cartorioVinculado);
-
-                        if (cartorioVinculado == null) {
+                        // Lista de Cartórios para o dropdown
+                        java.util.Set<com.br.sisgetrim.model.Cartorio> userCartorios = usuario.getCartorios();
+                        if (userCartorios != null && !userCartorios.isEmpty()) {
+                                java.util.List<com.br.sisgetrim.model.Cartorio> filteredCartorios = userCartorios
+                                                .stream()
+                                                .filter(c -> c.getEntidade() != null
+                                                                && c.getEntidade().getId().equals(entidade.getId()))
+                                                .collect(java.util.stream.Collectors.toList());
+                                model.addAttribute("listaCartorios", filteredCartorios);
+                        } else {
                                 model.addAttribute("listaCartorios", cartorioRepository.findByEntidade(entidade));
                         }
                 }

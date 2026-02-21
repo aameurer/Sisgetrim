@@ -106,11 +106,7 @@ public class CartorioController {
         }
 
         if (bindingResult.hasErrors()) {
-            System.out.println("ERROS DE VALIDAÇÃO ENCONTRADOS:");
-            bindingResult.getAllErrors().forEach(error -> {
-                System.out.println(" - " + error.toString());
-            });
-
+            model.addAttribute("erro", "Por favor, corrija os erros destacados no formulário.");
             carregarAtributos(model);
             return "cartorios/cadastro";
         }

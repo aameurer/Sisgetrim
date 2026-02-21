@@ -29,7 +29,7 @@ public class DoiAlienante {
     @Column(name = "indicador_ni_identificado", nullable = false)
     private boolean indicadorNiIdentificado;
 
-    @Column(name = "motivo_nao_identificacao_ni", length = 2)
+    @Column(name = "motivo_nao_identificacao_ni", length = 255)
     private String motivoNaoIdentificacaoNi;
 
     @Column(length = 14)
@@ -59,7 +59,7 @@ public class DoiAlienante {
     @Column(name = "indicador_conjuge_participa")
     private Boolean indicadorConjugeParticipa;
 
-    @Column(name = "regime_bens", length = 50)
+    @Column(name = "regime_bens", length = 255)
     private String regimeBens;
 
     @Column(name = "indicador_cpf_conjuge_identificado")
