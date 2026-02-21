@@ -29,6 +29,7 @@ public class MalhaFiscalWebController {
         private final DoiImportacaoRepository importacaoRepository;
         private final FiscalItbiImportacaoRepository itbiImportacaoRepository;
         private final com.br.sisgetrim.repository.ibge.IbgeImportacaoRepository ibgeImportacaoRepository;
+        private final com.br.sisgetrim.repository.ibge.IbgeDeclaracaoRepository ibgeDeclaracaoRepository;
         private final UsuarioService usuarioService;
         private final com.br.sisgetrim.repository.CartorioRepository cartorioRepository;
         private final com.br.sisgetrim.repository.doi.DoiDeclaracaoRepository doiDeclaracaoRepository;
@@ -41,6 +42,7 @@ public class MalhaFiscalWebController {
         public MalhaFiscalWebController(DoiImportacaoRepository importacaoRepository,
                         FiscalItbiImportacaoRepository itbiImportacaoRepository,
                         com.br.sisgetrim.repository.ibge.IbgeImportacaoRepository ibgeImportacaoRepository,
+                        com.br.sisgetrim.repository.ibge.IbgeDeclaracaoRepository ibgeDeclaracaoRepository,
                         UsuarioService usuarioService,
                         com.br.sisgetrim.repository.CartorioRepository cartorioRepository,
                         com.br.sisgetrim.repository.doi.DoiDeclaracaoRepository doiDeclaracaoRepository,
@@ -51,6 +53,7 @@ public class MalhaFiscalWebController {
                 this.importacaoRepository = importacaoRepository;
                 this.itbiImportacaoRepository = itbiImportacaoRepository;
                 this.ibgeImportacaoRepository = ibgeImportacaoRepository;
+                this.ibgeDeclaracaoRepository = ibgeDeclaracaoRepository;
                 this.usuarioService = usuarioService;
                 this.cartorioRepository = cartorioRepository;
                 this.doiDeclaracaoRepository = doiDeclaracaoRepository;
@@ -231,6 +234,136 @@ public class MalhaFiscalWebController {
                 model.addAttribute("totalGeral", totalGeral);
 
                 return "malha/analise-fiscal";
+        }
+
+        @GetMapping("/analise-ibge")
+        public String analiseIbge(@AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false) Integer ano,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false) Integer mes,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false, defaultValue = "id") String sort,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false, defaultValue = "desc") String dir,
+                        Model model) {
+
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return "redirect:/dashboard";
+
+                // Filtros de Ano
+                int anoAtual = java.time.LocalDate.now().getYear();
+                java.util.List<Integer> anosDisponiveis = new java.util.ArrayList<>();
+                for (int i = 0; i < 6; i++) {
+                        anosDisponiveis.add(anoAtual - i);
+                }
+
+                int anoSelecionado = (ano != null) ? ano : anoAtual;
+                int mesSelecionado = (mes != null) ? mes : 0;
+
+                // Atributos para o template
+                model.addAttribute("anosDisponiveis", anosDisponiveis);
+                model.addAttribute("anoSelecionado", anoSelecionado);
+                model.addAttribute("mesSelecionado", mesSelecionado);
+                model.addAttribute("sortAtual", sort);
+                model.addAttribute("dirAtual", dir.toLowerCase());
+
+                // Cálculo do período
+                java.time.LocalDate inicio = java.time.LocalDate.of(anoSelecionado,
+                                (mesSelecionado == 0 ? 1 : mesSelecionado), 1);
+                java.time.LocalDate fim = (mesSelecionado == 0)
+                                ? java.time.LocalDate.of(anoSelecionado, 12, 31)
+                                : inicio.with(java.time.temporal.TemporalAdjusters.lastDayOfMonth());
+
+                // Ordenação dinâmica
+                org.springframework.data.domain.Sort sorting = dir.equalsIgnoreCase("asc")
+                                ? org.springframework.data.domain.Sort.by(sort).ascending()
+                                : org.springframework.data.domain.Sort.by(sort).descending();
+
+                java.util.List<com.br.sisgetrim.model.ibge.IbgeDeclaracao> listaIbge = ibgeDeclaracaoRepository
+                                .findByEntidadeAndPeriodo(entidade, inicio, fim, sorting);
+
+                // Mapeamento para DTO
+                java.util.List<com.br.sisgetrim.dto.ibge.analise.IbgeDeclaracaoResumoDTO> listaDTO = listaIbge.stream()
+                                .map(ibge -> {
+                                        String adquirenteNome = (ibge.getAdquirentes() != null
+                                                        && !ibge.getAdquirentes().isEmpty())
+                                                                        ? buscarNomeCpfCnpj(ibge.getAdquirentes().get(0)
+                                                                                        .getNi())
+                                                                        : "N/A";
+
+                                        String alienanteNome = (ibge.getAlienantes() != null
+                                                        && !ibge.getAlienantes().isEmpty())
+                                                                        ? buscarNomeCpfCnpj(ibge.getAlienantes().get(0)
+                                                                                        .getNi())
+                                                                        : "N/A";
+
+                                        String classStatus = "bg-slate-500/10 text-slate-600 border-slate-500/20";
+                                        if (ibge.getIbgeImportacao() != null && "CONCLUIDO".equalsIgnoreCase(
+                                                        ibge.getIbgeImportacao().getStatus())) {
+                                                classStatus = "bg-indigo-500/10 text-indigo-600 border-indigo-500/20";
+                                        }
+
+                                        return new com.br.sisgetrim.dto.ibge.analise.IbgeDeclaracaoResumoDTO(
+                                                        ibge.getId(),
+                                                        "IMP-" + (ibge.getIbgeImportacao() != null
+                                                                        ? ibge.getIbgeImportacao().getId()
+                                                                        : "N/A"),
+                                                        ibge.getDataLavraturaRegistroAverbacao(),
+                                                        ibge.getNomeCartorio(),
+                                                        alienanteNome,
+                                                        adquirenteNome,
+                                                        ibge.getIbgeImportacao() != null
+                                                                        ? ibge.getIbgeImportacao().getStatus()
+                                                                        : "N/A",
+                                                        classStatus);
+                                })
+                                .toList();
+
+                model.addAttribute("declaracoes", listaDTO);
+                model.addAttribute("totalRegistros", listaDTO.size());
+
+                return "malha/analise-ibge";
+        }
+
+        private String formatarCpfCnpj(String documento) {
+                if (documento == null)
+                        return "N/A";
+                String doc = documento.replaceAll("[^0-9]", "");
+                if (doc.length() == 11) {
+                        return doc.substring(0, 3) + "." + doc.substring(3, 6) + "." + doc.substring(6, 9) + "-"
+                                        + doc.substring(9);
+                } else if (doc.length() == 14) {
+                        return doc.substring(0, 2) + "." + doc.substring(2, 5) + "." + doc.substring(5, 8) + "/"
+                                        + doc.substring(8, 12) + "-" + doc.substring(12);
+                }
+                return documento;
+        }
+
+        private String buscarNomeCpfCnpj(String documento) {
+                if (documento == null || documento.isBlank())
+                        return "N/A";
+                String limpo = documento.replaceAll("[^0-9]", "");
+                String formatado = formatarCpfCnpj(limpo);
+
+                try {
+                        com.br.sisgetrim.model.FiscalItbi t = fiscalItbiRepository
+                                        .findFirstByItbiTransmitenteCpfOrderByIdDesc(limpo);
+                        if (t != null && t.getItbiTransmitenteNome() != null && !t.getItbiTransmitenteNome().isBlank())
+                                return t.getItbiTransmitenteNome() + " (" + formatado + ")";
+
+                        com.br.sisgetrim.model.FiscalItbi a = fiscalItbiRepository
+                                        .findFirstByItbiAdquirenteCpfOrderByIdDesc(limpo);
+                        if (a != null && a.getItbiAdquirenteNome() != null && !a.getItbiAdquirenteNome().isBlank())
+                                return a.getItbiAdquirenteNome() + " (" + formatado + ")";
+
+                        com.br.sisgetrim.model.FiscalItbi p = fiscalItbiRepository
+                                        .findFirstByItbiProprietarioCpfOrderByIdDesc(limpo);
+                        if (p != null && p.getItbiProprietarioNome() != null && !p.getItbiProprietarioNome().isBlank())
+                                return p.getItbiProprietarioNome() + " (" + formatado + ")";
+                } catch (Exception e) {
+                        // ignore fallback errors
+                }
+
+                return formatado;
         }
 
         @GetMapping("/analise-importacoes/pdf")
@@ -563,5 +696,185 @@ public class MalhaFiscalWebController {
                 } catch (Exception e) {
                         return ResponseEntity.internalServerError().build();
                 }
+        }
+
+        @GetMapping("/analise-ibge/pdf")
+        public ResponseEntity<byte[]> exportarPdfIbge(@AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false) Integer ano,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false) Integer mes,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false, defaultValue = "dataLavraturaRegistroAverbacao") String sort,
+                        @org.springframework.web.bind.annotation.RequestParam(required = false, defaultValue = "desc") String dir) {
+
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return ResponseEntity.badRequest().build();
+
+                int anoAtual = java.time.Year.now().getValue();
+                int anoSelecionado = (ano != null) ? ano : anoAtual;
+                int mesSelecionado = (mes != null) ? mes : 0;
+
+                java.time.LocalDate inicio = (mesSelecionado == 0)
+                                ? java.time.LocalDate.of(anoSelecionado, 1, 1)
+                                : java.time.LocalDate.of(anoSelecionado, mesSelecionado, 1);
+                java.time.LocalDate fim = (mesSelecionado == 0)
+                                ? java.time.LocalDate.of(anoSelecionado, 12, 31)
+                                : inicio.with(java.time.temporal.TemporalAdjusters.lastDayOfMonth());
+
+                org.springframework.data.domain.Sort sorting = dir.equalsIgnoreCase("asc")
+                                ? org.springframework.data.domain.Sort.by(sort).ascending()
+                                : org.springframework.data.domain.Sort.by(sort).descending();
+
+                java.util.List<com.br.sisgetrim.model.ibge.IbgeDeclaracao> listaIbge = ibgeDeclaracaoRepository
+                                .findByEntidadeAndPeriodo(entidade, inicio, fim, sorting);
+
+                java.util.List<com.br.sisgetrim.dto.ibge.analise.IbgeDeclaracaoResumoDTO> listaDTO = listaIbge.stream()
+                                .map(ibge -> {
+                                        String adquirenteNome = (ibge.getAdquirentes() != null
+                                                        && !ibge.getAdquirentes().isEmpty())
+                                                                        ? buscarNomeCpfCnpj(ibge.getAdquirentes().get(0)
+                                                                                        .getNi())
+                                                                        : "N/A";
+
+                                        String alienanteNome = (ibge.getAlienantes() != null
+                                                        && !ibge.getAlienantes().isEmpty())
+                                                                        ? buscarNomeCpfCnpj(ibge.getAlienantes().get(0)
+                                                                                        .getNi())
+                                                                        : "N/A";
+
+                                        String classStatus = "bg-slate-500/10 text-slate-600 border-slate-500/20";
+                                        String status = "N/A";
+                                        String protocolo = "N/A";
+
+                                        if (ibge.getIbgeImportacao() != null) {
+                                                status = ibge.getIbgeImportacao().getStatus();
+                                                protocolo = "IMP-" + ibge.getIbgeImportacao().getId();
+                                                if ("CONCLUIDO".equalsIgnoreCase(status)) {
+                                                        classStatus = "bg-indigo-500/10 text-indigo-600 border-indigo-500/20";
+                                                }
+                                        }
+
+                                        return new com.br.sisgetrim.dto.ibge.analise.IbgeDeclaracaoResumoDTO(
+                                                        ibge.getId(),
+                                                        protocolo,
+                                                        ibge.getDataLavraturaRegistroAverbacao(),
+                                                        ibge.getNomeCartorio(),
+                                                        alienanteNome,
+                                                        adquirenteNome,
+                                                        status,
+                                                        classStatus);
+                                })
+                                .toList();
+
+                Context context = new Context();
+                context.setVariable("listaDeclaracoes", listaDTO);
+                context.setVariable("totalRegistros", listaDTO.size());
+                context.setVariable("periodoExtenso",
+                                (mesSelecionado == 0 ? "ANO " : getMesNome(mesSelecionado) + " / ") + anoSelecionado);
+
+                String htmlContent = templateEngine.process("malha/analise-ibge-pdf", context);
+
+                try {
+                        byte[] pdfBytes = pdfService.generatePdfFromHtml(htmlContent);
+                        String filename = "relatorio-ibge-" + anoSelecionado
+                                        + (mesSelecionado > 0 ? "-" + mesSelecionado : "")
+                                        + ".pdf";
+
+                        return ResponseEntity.ok()
+                                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                                        .contentType(MediaType.APPLICATION_PDF)
+                                        .body(pdfBytes);
+                } catch (Exception e) {
+                        return ResponseEntity.internalServerError().build();
+                }
+        }
+
+        @GetMapping("/analise-ibge/{id}")
+        public String analiseIbgeDetalhes(@AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        @PathVariable Long id,
+                        Model model) {
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return "redirect:/dashboard";
+
+                com.br.sisgetrim.model.ibge.IbgeDeclaracao declaracao = ibgeDeclaracaoRepository.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Declaração não encontrada: " + id));
+
+                // Mapeia nomes cruzados para a view
+                declaracao.getAlienantes().forEach(a -> {
+                        model.addAttribute("nomeAlienante_" + a.getId(), buscarNomeCpfCnpj(a.getNi()));
+                });
+                declaracao.getAdquirentes().forEach(a -> {
+                        model.addAttribute("nomeAdquirente_" + a.getId(), buscarNomeCpfCnpj(a.getNi()));
+                });
+
+                model.addAttribute("ibge", declaracao);
+                return "malha/analise-ibge-detalhes";
+        }
+
+        @org.springframework.web.bind.annotation.PostMapping("/analise-ibge/{id}/salvar")
+        public String salvarIbgeDetalhes(@AuthenticationPrincipal Usuario usuarioLogado,
+                        jakarta.servlet.http.HttpSession session,
+                        @PathVariable Long id,
+                        @org.springframework.web.bind.annotation.ModelAttribute("ibge") com.br.sisgetrim.model.ibge.IbgeDeclaracao ibgeForm,
+                        org.springframework.web.servlet.mvc.support.RedirectAttributes redirectAttributes) {
+
+                Entidade entidade = usuarioService.getEntidadeSelecionada(usuarioLogado, session);
+                if (entidade == null)
+                        return "redirect:/dashboard";
+
+                com.br.sisgetrim.model.ibge.IbgeDeclaracao declaracao = ibgeDeclaracaoRepository.findById(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Declaração não encontrada: " + id));
+
+                // Atualizar campos básicos
+                declaracao.setNomeCartorio(ibgeForm.getNomeCartorio());
+                declaracao.setCns(ibgeForm.getCns());
+                declaracao.setTipoServico(ibgeForm.getTipoServico());
+                declaracao.setTipoDeclaracao(ibgeForm.getTipoDeclaracao());
+                declaracao.setMatricula(ibgeForm.getMatricula());
+                declaracao.setTranscricao(ibgeForm.getTranscricao());
+                declaracao.setCodigoNacionalMatricula(ibgeForm.getCodigoNacionalMatricula());
+                declaracao.setMatriculaNotarialEletronica(ibgeForm.getMatriculaNotarialEletronica());
+                declaracao.setTipoOperacaoImobiliaria(ibgeForm.getTipoOperacaoImobiliaria());
+                declaracao.setDescricaoOutrasOperacoesImobiliarias(ibgeForm.getDescricaoOutrasOperacoesImobiliarias());
+                declaracao.setDataLavraturaRegistroAverbacao(ibgeForm.getDataLavraturaRegistroAverbacao());
+                declaracao.setDestinacao(ibgeForm.getDestinacao());
+
+                // Endereço e Localização
+                declaracao.setTipoLogradouro(ibgeForm.getTipoLogradouro());
+                declaracao.setNomeLogradouro(ibgeForm.getNomeLogradouro());
+                declaracao.setNumeroImovel(ibgeForm.getNumeroImovel());
+                declaracao.setComplementoEndereco(ibgeForm.getComplementoEndereco());
+                declaracao.setComplementoNumeroImovel(ibgeForm.getComplementoNumeroImovel());
+                declaracao.setBairro(ibgeForm.getBairro());
+                declaracao.setInscricaoMunicipal(ibgeForm.getInscricaoMunicipal());
+                declaracao.setCodigoIbge(ibgeForm.getCodigoIbge());
+                declaracao.setDenominacao(ibgeForm.getDenominacao());
+                declaracao.setLocalizacao(ibgeForm.getLocalizacao());
+                declaracao.setCib(ibgeForm.getCib());
+
+                // Atualizar Alienantes e Adquirentes (Sync NI)
+                if (ibgeForm.getAlienantes() != null) {
+                        for (int i = 0; i < ibgeForm.getAlienantes().size(); i++) {
+                                if (i < declaracao.getAlienantes().size()) {
+                                        declaracao.getAlienantes().get(i)
+                                                        .setNi(ibgeForm.getAlienantes().get(i).getNi());
+                                }
+                        }
+                }
+                if (ibgeForm.getAdquirentes() != null) {
+                        for (int i = 0; i < ibgeForm.getAdquirentes().size(); i++) {
+                                if (i < declaracao.getAdquirentes().size()) {
+                                        declaracao.getAdquirentes().get(i)
+                                                        .setNi(ibgeForm.getAdquirentes().get(i).getNi());
+                                }
+                        }
+                }
+
+                ibgeDeclaracaoRepository.save(declaracao);
+
+                redirectAttributes.addFlashAttribute("mensagemSucesso", "Alterações salvas com sucesso!");
+                return "redirect:/malha/analise-ibge/" + id;
         }
 }

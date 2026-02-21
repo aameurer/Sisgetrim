@@ -21,4 +21,10 @@ public interface FiscalItbiRepository extends JpaRepository<FiscalItbi, Long> {
                         @org.springframework.data.repository.query.Param("inicio") java.time.LocalDate inicio,
                         @org.springframework.data.repository.query.Param("fim") java.time.LocalDate fim,
                         org.springframework.data.domain.Sort sort);
+
+        FiscalItbi findFirstByItbiTransmitenteCpfOrderByIdDesc(String cpf);
+
+        FiscalItbi findFirstByItbiAdquirenteCpfOrderByIdDesc(String cpf);
+
+        FiscalItbi findFirstByItbiProprietarioCpfOrderByIdDesc(String cpf);
 }
