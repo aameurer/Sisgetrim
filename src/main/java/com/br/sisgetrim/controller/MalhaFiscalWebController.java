@@ -28,6 +28,7 @@ public class MalhaFiscalWebController {
 
         private final DoiImportacaoRepository importacaoRepository;
         private final FiscalItbiImportacaoRepository itbiImportacaoRepository;
+        private final com.br.sisgetrim.repository.ibge.IbgeImportacaoRepository ibgeImportacaoRepository;
         private final UsuarioService usuarioService;
         private final com.br.sisgetrim.repository.CartorioRepository cartorioRepository;
         private final com.br.sisgetrim.repository.doi.DoiDeclaracaoRepository doiDeclaracaoRepository;
@@ -39,6 +40,7 @@ public class MalhaFiscalWebController {
         @Autowired
         public MalhaFiscalWebController(DoiImportacaoRepository importacaoRepository,
                         FiscalItbiImportacaoRepository itbiImportacaoRepository,
+                        com.br.sisgetrim.repository.ibge.IbgeImportacaoRepository ibgeImportacaoRepository,
                         UsuarioService usuarioService,
                         com.br.sisgetrim.repository.CartorioRepository cartorioRepository,
                         com.br.sisgetrim.repository.doi.DoiDeclaracaoRepository doiDeclaracaoRepository,
@@ -48,6 +50,7 @@ public class MalhaFiscalWebController {
                         FiscalItbiRepository fiscalItbiRepository) {
                 this.importacaoRepository = importacaoRepository;
                 this.itbiImportacaoRepository = itbiImportacaoRepository;
+                this.ibgeImportacaoRepository = ibgeImportacaoRepository;
                 this.usuarioService = usuarioService;
                 this.cartorioRepository = cartorioRepository;
                 this.doiDeclaracaoRepository = doiDeclaracaoRepository;
@@ -521,6 +524,8 @@ public class MalhaFiscalWebController {
                         model.addAttribute("importacoes", importacaoRepository.findByEntidade(entidade));
                         model.addAttribute("importacoesItbi",
                                         itbiImportacaoRepository.findByEntidadeOrderByCreatedAtDesc(entidade));
+                        model.addAttribute("importacoesIbge",
+                                        ibgeImportacaoRepository.findByEntidadeOrderByCreatedAtDesc(entidade));
                         model.addAttribute("entidade", entidade);
 
                         // Lista de Cartórios para o dropdown

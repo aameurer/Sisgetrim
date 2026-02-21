@@ -1,10 +1,14 @@
 package com.br.sisgetrim.controller;
 
 import com.br.sisgetrim.dto.doi.DoiJsonDTO;
+import com.br.sisgetrim.dto.ibge.IbgeImportRequestDTO;
+import com.br.sisgetrim.model.Entidade;
 import com.br.sisgetrim.model.doi.DoiImportacao;
+import com.br.sisgetrim.model.ibge.IbgeImportacao;
 import com.br.sisgetrim.service.doi.ImportacaoDoiService;
 import com.br.sisgetrim.service.FiscalItbiImportService;
 import com.br.sisgetrim.service.UsuarioService;
+import com.br.sisgetrim.service.ibge.ImportacaoIbgeService;
 import com.br.sisgetrim.service.ImportProgressService;
 import com.br.sisgetrim.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +26,19 @@ public class DoiController {
 
     private final ImportacaoDoiService importacaoDoiService;
     private final FiscalItbiImportService fiscalItbiImportService;
+    private final ImportacaoIbgeService importacaoIbgeService;
     private final UsuarioService usuarioService;
     private final ImportProgressService progressService;
 
     @Autowired
     public DoiController(ImportacaoDoiService importacaoDoiService,
             FiscalItbiImportService fiscalItbiImportService,
+            ImportacaoIbgeService importacaoIbgeService,
             UsuarioService usuarioService,
             ImportProgressService progressService) {
         this.importacaoDoiService = importacaoDoiService;
         this.fiscalItbiImportService = fiscalItbiImportService;
+        this.importacaoIbgeService = importacaoIbgeService;
         this.usuarioService = usuarioService;
         this.progressService = progressService;
     }
@@ -95,7 +102,7 @@ public class DoiController {
         try {
             Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
             Long entidadeId = usuario.getEntidades().stream()
-                    .map(com.br.sisgetrim.model.Entidade::getId)
+                    .map(Entidade::getId)
                     .findFirst()
                     .orElse(null);
             int total = fiscalItbiImportService.importarExcel(file, entidadeId);
@@ -112,6 +119,31 @@ public class DoiController {
             Map<String, Object> response = new HashMap<>();
             response.put("status", "error");
             response.put("message", "Erro ao importar arquivo Excel: " + e.getMessage());
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
+
+    @PostMapping("/importar-ibge")
+    public ResponseEntity<Map<String, Object>> importarIbge(
+            @RequestBody IbgeImportRequestDTO payload,
+            @AuthenticationPrincipal Usuario usuarioLogado) {
+        try {
+            Usuario usuario = usuarioService.buscarPorDocumento(usuarioLogado.getDocumento());
+            Entidade entidade = usuario.getEntidades().stream().findFirst()
+                    .orElseThrow(() -> new IllegalStateException("Usuário sem entidade associada."));
+
+            IbgeImportacao importacaoSalva = importacaoIbgeService.processarImportacao(payload, entidade, usuario);
+            int qtdeSalva = importacaoSalva.getTotalRegistros();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("message", "Foram importados " + qtdeSalva + " registros do IBGE.");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", "Erro na importação IBGE: " + e.getMessage());
             return ResponseEntity.internalServerError().body(response);
         }
     }
