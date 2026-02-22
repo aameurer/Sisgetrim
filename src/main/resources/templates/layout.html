@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    id="htmlRoot">
 
 <head>
     <meta charset="UTF-8">
@@ -23,11 +24,11 @@
             theme: {
                 extend: {
                     colors: {
-                        'amazon-bg': '#F0F9F6',
-                        'amazon-sidebar': '#E6F4EF',
-                        'amazon-primary': '#059669',
-                        'amazon-accent': '#34D399',
-                        'amazon-text': '#064E3B',
+                        'amazon-bg': 'var(--amazon-bg)',
+                        'amazon-sidebar': 'var(--amazon-sidebar)',
+                        'amazon-primary': 'var(--amazon-primary)',
+                        'amazon-accent': 'var(--amazon-accent)',
+                        'amazon-text': 'var(--amazon-text)',
                     },
                     fontFamily: {
                         outfit: ['Outfit', 'sans-serif'],
@@ -40,11 +41,21 @@
         }
     </script>
 
-    <!-- Custom Style Sheet -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- Custom Style Sheet (v=2 para invalidar cache com dark mode) -->
+    <link rel="stylesheet" th:href="@{/css/style.css(v=2)}">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme Init (executa antes do render para evitar flash) -->
+    <script>
+            (function () {
+                var theme = localStorage.getItem('sisgetrim-theme');
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                }
+            })();
+    </script>
 </head>
 
 <body class="bg-amazon-bg text-amazon-text min-h-screen flex antialiased overflow-x-hidden">

@@ -10,9 +10,19 @@
     --glass-border-light: rgba(16, 185, 129, 0.1);
 }
 
+/* Dark Mode Variables — html.dark para vencer especificidade de :root */
+html.dark {
+    --amazon-bg: #0f172a;
+    --amazon-sidebar: #1e293b;
+    --amazon-primary: #34d399;
+    --amazon-accent: #10b981;
+    --amazon-text: #e2e8f0;
+    --glass-bg-light: rgba(30, 41, 59, 0.8);
+    --glass-border-light: rgba(52, 211, 153, 0.15);
+}
+
 /* Base */
 * {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     -webkit-font-smoothing: antialiased;
 }
 
@@ -20,15 +30,17 @@ body {
     background-color: var(--amazon-bg);
     color: var(--amazon-text);
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-/* Glassmorphism Suave (Claro) */
+/* Glassmorphism Suave */
 .glass-panel {
     background: var(--glass-bg-light);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border-light);
     box-shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.05);
+    transition: background 0.4s ease, border-color 0.4s ease;
 }
 
 .glass-card {
@@ -36,7 +48,13 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(16, 185, 129, 0.1);
     box-shadow: 0 10px 40px -10px rgba(6, 78, 59, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.4s ease;
+}
+
+.dark .glass-card {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(52, 211, 153, 0.15);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
 .glass-card:hover {
@@ -45,14 +63,83 @@ body {
     box-shadow: 0 20px 50px -15px rgba(6, 78, 59, 0.12);
 }
 
-/* Navegação Lateral Clara */
+.dark .glass-card:hover {
+    box-shadow: 0 20px 50px -15px rgba(52, 211, 153, 0.15);
+}
+
+/* Dark mode overrides for common elements */
+.dark table thead {
+    background: rgba(30, 41, 59, 0.6) !important;
+}
+
+.dark table tbody tr:hover {
+    background: rgba(52, 211, 153, 0.05) !important;
+}
+
+.dark .bg-white {
+    background-color: #1e293b !important;
+}
+
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50 {
+    background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+.dark .text-slate-700 {
+    color: #cbd5e1 !important;
+}
+
+.dark .text-slate-500 {
+    color: #94a3b8 !important;
+}
+
+.dark .text-slate-400 {
+    color: #64748b !important;
+}
+
+.dark .text-slate-300 {
+    color: #94a3b8 !important;
+}
+
+.dark .border-slate-100,
+.dark .border-slate-50 {
+    border-color: rgba(52, 211, 153, 0.1) !important;
+}
+
+.dark .divide-slate-50>*+* {
+    border-color: rgba(52, 211, 153, 0.08) !important;
+}
+
+/* Sidebar dark */
+.dark .bg-amazon-sidebar\/80 {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+}
+
+.dark .sidebar-active-link {
+    background: linear-gradient(90deg, rgba(52, 211, 153, 0.12) 0%, rgba(52, 211, 153, 0) 100%);
+}
+
+/* Navegação Lateral */
 .sidebar-active-link {
     background: linear-gradient(90deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0) 100%);
     border-left: 4px solid var(--amazon-primary);
     color: var(--amazon-primary) !important;
 }
 
-/* Scrollbar Suave */
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+.dark-mode-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -70,7 +157,7 @@ body {
     background: var(--amazon-primary);
 }
 
-/* Animações Ambientais Claras */
+/* Animações Ambientais */
 @keyframes ambientGlowLight {
 
     0%,
@@ -85,4 +172,8 @@ body {
 
 .glow-soft {
     animation: ambientGlowLight 6s infinite ease-in-out;
+}
+
+.dark .glow-soft {
+    opacity: 0.15;
 }

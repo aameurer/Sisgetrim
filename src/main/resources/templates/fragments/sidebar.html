@@ -278,6 +278,22 @@
                     </button>
                 </form>
 
+                <!-- Dark Mode Toggle -->
+                <div class="flex items-center justify-center pt-1"
+                    x-data="{ isDark: document.documentElement.classList.contains('dark') }">
+                    <button @click="
+                        isDark = !isDark;
+                        document.documentElement.classList.toggle('dark', isDark);
+                        localStorage.setItem('sisgetrim-theme', isDark ? 'dark' : 'light');
+                    " class="dark-mode-toggle flex items-center space-x-2 px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300"
+                        :class="isDark
+                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20'
+                            : 'bg-slate-500/10 text-slate-500 border border-slate-500/20 hover:bg-slate-500/20'">
+                        <i class="fas text-sm" :class="isDark ? 'fa-sun' : 'fa-moon'"></i>
+                        <span x-text="isDark ? 'Modo Claro' : 'Modo Escuro'"></span>
+                    </button>
+                </div>
+
                 <!-- Copyright Sidebar -->
                 <div class="text-center pt-1">
                     <p class="text-[8px] font-bold text-amazon-primary/40 uppercase tracking-[0.1em]">
