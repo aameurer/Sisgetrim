@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Parâmetros da Malha</title>
+</head>
+
+<body>
+    <section layout:fragment="content" class="space-y-6" x-data="parametrosMalha()">
+
+        <!-- Alerta de Sucesso -->
+        <div th:if="${sucesso}" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
+            class="bg-emerald-50 border border-emerald-200 text-emerald-700 px-6 py-4 rounded-2xl flex items-center justify-between shadow-sm animate-in fade-in slide-in-from-top-2 duration-500">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-check-circle text-emerald-500"></i>
+                <span class="text-sm font-bold" th:text="${sucesso}">Salvo!</span>
+            </div>
+            <button @click="show = false" class="text-emerald-400 hover:text-emerald-600"><i
+                    class="fas fa-times"></i></button>
+        </div>
+
+        <!-- Alerta de Erro -->
+        <div th:if="${erro}" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 10000)"
+            class="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-2xl flex items-center justify-between shadow-sm animate-in fade-in slide-in-from-top-2 duration-500">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-exclamation-circle text-red-500"></i>
+                <span class="text-sm font-bold" th:text="${erro}">Erro!</span>
+            </div>
+            <button @click="show = false" class="text-red-400 hover:text-red-600"><i class="fas fa-times"></i></button>
+        </div>
+
+        <!-- Cabeçalho -->
+        <div
+            class="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border border-slate-200/60 rounded-3xl p-4 shadow-xl shadow-slate-200/40 animate-in fade-in slide-in-from-top-4 duration-700">
+            <div class="flex items-center justify-between">
+                <div class="pl-3 border-l-4 border-emerald-500 py-1">
+                    <h2 class="text-xl font-black text-slate-800 uppercase tracking-tight leading-none">Parâmetros da
+                        Malha</h2>
+                    <p class="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-tighter">Configuração de
+                        regras de cruzamento</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span x-show="loteId" x-cloak
+                        class="px-3 py-1.5 bg-blue-100 text-blue-700 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                        <i class="fas fa-layer-group mr-1"></i> Lote #<span x-text="loteId"></span>
+                    </span>
+                    <span x-show="totalAnalisado > 0" x-cloak
+                        class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                        <i class="fas fa-search mr-1"></i> <span x-text="totalAnalisado"></span> analisados
+                    </span>
+                    <span x-show="totalResultados > 0" x-cloak
+                        class="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                        <i class="fas fa-check-double mr-1"></i> <span x-text="totalResultados"></span> divergência(s)
+                    </span>
+                    <button @click="exportarCSV()"
+                        class="flex items-center space-x-2 px-5 py-2.5 bg-amber-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-amber-600 transition-all active:scale-95 shadow-lg shadow-amber-500/20">
+                        <i class="fas fa-file-csv"></i>
+                        <span>Exportar CSV</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário Principal -->
+        <form th:action="@{/admin/parametros-malha/salvar}" method="post" id="formParametros">
+
+            <!-- Card Período -->
+            <div
+                class="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/10 p-8 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="h-8 w-8 rounded-xl bg-blue-100/60 flex items-center justify-center text-blue-500">
+                        <i class="fas fa-calendar-alt text-sm"></i>
+                    </div>
+                    <h3 class="text-sm font-black text-slate-700 uppercase tracking-widest">Período</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="dataInicial"
+                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Data
+                            Inicial</label>
+                        <input type="date" id="dataInicial" name="dataInicial" th:value="${parametro.dataInicial}"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all">
+                    </div>
+                    <div>
+                        <label for="dataFinal"
+                            class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Data
+                            Final</label>
+                        <input type="date" id="dataFinal" name="dataFinal" th:value="${parametro.dataFinal}"
+                            class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-sm font-bold text-slate-700 focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Tipos de Parâmetros -->
+            <div
+                class="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/10 p-8 mb-6 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="h-8 w-8 rounded-xl bg-violet-100/60 flex items-center justify-center text-violet-500">
+                        <i class="fas fa-sliders-h text-sm"></i>
+                    </div>
+                    <h3 class="text-sm font-black text-slate-700 uppercase tracking-widest">Tipos de Parâmetros</h3>
+                </div>
+
+                <!-- Linha 1: Campo 1 (R$) + Campo 3 (%) — MALHA VALOR -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+                            <i class="fas fa-hashtag text-emerald-400 mr-1"></i> 1 - Diferença BC da DOI (CRI) vs
+                            CAD.FISCAL (R$)
+                            <span
+                                class="ml-2 text-[9px] font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">MALHA
+                                VALOR</span>
+                        </label>
+                        <div class="flex">
+                            <span
+                                class="inline-flex items-center px-4 bg-slate-100 border border-r-0 border-slate-200 rounded-l-2xl text-sm font-black text-slate-500">R$</span>
+                            <input type="text" id="diferencaBcDoi" name="diferencaBcDoi"
+                                th:value="${#numbers.formatDecimal(parametro.diferencaBcDoi, 1, 'POINT', 2, 'COMMA')}"
+                                class="mask-decimal w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-r-2xl text-sm font-bold text-slate-700 text-end focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all">
+                        </div>
+                        <p class="text-[9px] text-slate-400 mt-1.5 italic">Base de Cálculo da DOI diferente do
+                            CAD.FISCAL</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+                            <i class="fas fa-percentage text-amber-400 mr-1"></i> 3 - Valor DOI (CRI) abaixo do VVI (%)
+                        </label>
+                        <div class="flex">
+                            <input type="text" id="percentualAbaixoVvi" name="percentualAbaixoVvi"
+                                th:value="${#numbers.formatDecimal(parametro.percentualAbaixoVvi, 1, 'POINT', 2, 'COMMA')}"
+                                class="mask-decimal w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-l-2xl text-sm font-bold text-slate-700 text-end focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all">
+                            <span
+                                class="inline-flex items-center px-4 bg-slate-100 border border-l-0 border-slate-200 rounded-r-2xl text-sm font-black text-slate-500">%</span>
+                        </div>
+                        <p class="text-[9px] text-slate-400 mt-1.5 italic">Valor do CRI em X% abaixo do VVI - Valor
+                            Venal do Imóvel (AVALIAI)</p>
+                    </div>
+                </div>
+
+                <!-- Linha 2: Campo 2 (R$) + Campo 3 (%) — ALERTA MALHA -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+                            <i class="fas fa-hashtag text-emerald-400 mr-1"></i> 2 - Diferença Imposto DOI (CRI) vs
+                            CAD.FISCAL (R$)
+                            <span
+                                class="ml-2 text-[9px] font-black text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md">ALERTA
+                                MALHA</span>
+                        </label>
+                        <div class="flex">
+                            <span
+                                class="inline-flex items-center px-4 bg-slate-100 border border-r-0 border-slate-200 rounded-l-2xl text-sm font-black text-slate-500">R$</span>
+                            <input type="text" id="diferencaImpostoDoi" name="diferencaImpostoDoi"
+                                th:value="${#numbers.formatDecimal(parametro.diferencaImpostoDoi, 1, 'POINT', 2, 'COMMA')}"
+                                class="mask-decimal w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-r-2xl text-sm font-bold text-slate-700 text-end focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all">
+                        </div>
+                        <p class="text-[9px] text-slate-400 mt-1.5 italic">Valor do Imposto de DOI diferente do
+                            CAD.FISCAL</p>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">
+                            <i class="fas fa-percentage text-amber-400 mr-1"></i> 3 - Valor DOI (CRI) abaixo do VVI (%)
+                        </label>
+                        <div class="flex">
+                            <input type="text" id="percentualAbaixoImpostoDoi" name="percentualAbaixoImpostoDoi"
+                                th:value="${#numbers.formatDecimal(parametro.percentualAbaixoImpostoDoi, 1, 'POINT', 2, 'COMMA')}"
+                                class="mask-decimal w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-l-2xl text-sm font-bold text-slate-700 text-end focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all">
+                            <span
+                                class="inline-flex items-center px-4 bg-slate-100 border border-l-0 border-slate-200 rounded-r-2xl text-sm font-black text-slate-500">%</span>
+                        </div>
+                        <p class="text-[9px] text-slate-400 mt-1.5 italic">Valor do CRI em X% abaixo do VVI - Valor
+                            Venal do Imóvel (AVALIAI)</p>
+                    </div>
+                </div>
+
+                <!-- Linha 3: Checkbox Integralização -->
+                <div class="flex items-center space-x-3 p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                    <input type="checkbox" id="considerarIntegralizacaoCapital" name="considerarIntegralizacaoCapital"
+                        th:checked="${parametro.considerarIntegralizacaoCapital}"
+                        class="h-5 w-5 rounded-lg border-slate-300 text-emerald-500 focus:ring-emerald-500/30 transition-all cursor-pointer">
+                    <div class="flex-1">
+                        <label for="considerarIntegralizacaoCapital"
+                            class="text-[11px] font-black text-slate-700 uppercase tracking-wider cursor-pointer">
+                            <i class="fas fa-check-square text-emerald-400 mr-1"></i> 4 - Considerar Integralização de
+                            Capital
+                        </label>
+                        <p class="text-[9px] text-slate-400 mt-0.5 italic">Em caso de tipo de transação: Integralização
+                            de capital (LIIS)</p>
+                    </div>
+                    <span
+                        class="text-[9px] font-mono text-slate-400 bg-white px-3 py-1 rounded-lg border border-slate-200">considerar_integralizacao_capital</span>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="flex items-center justify-center space-x-4 mb-6">
+                <button type="button" @click="gerarMalha()" :disabled="loading"
+                    class="flex items-center space-x-2 px-8 py-3.5 bg-violet-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-violet-700 transition-all active:scale-95 shadow-lg shadow-violet-500/20 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <i class="fas" :class="loading ? 'fa-spinner fa-spin' : 'fa-cogs'"></i>
+                    <span x-text="loading ? 'Processando...' : 'Gerar Malha'"></span>
+                </button>
+                <button type="submit"
+                    class="flex items-center space-x-2 px-8 py-3.5 bg-emerald-500 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 transition-all active:scale-95 shadow-lg shadow-emerald-500/20">
+                    <i class="fas fa-save"></i>
+                    <span>Salvar Parâmetros</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Tabela de Resultados -->
+        <div
+            class="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-200/10 overflow-hidden min-h-[300px] animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left table-auto border-collapse" id="tabelaResultados">
+                    <thead class="bg-slate-50/50 border-b border-slate-100 sticky top-0 z-10 backdrop-blur-md">
+                        <tr>
+                            <th class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">#</th>
+                            <th @click="ordenar('matricula')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Matrícula <span
+                                    x-text="sortField==='matricula' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span></th>
+                            <th @click="ordenar('cadimoCib')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                CIB <span x-text="sortField==='cadimoCib' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span>
+                            </th>
+                            <th @click="ordenar('cadimoInscricao')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Inscrição Fiscal <span
+                                    x-text="sortField==='cadimoInscricao' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span>
+                            </th>
+                            <th @click="ordenar('situacao')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Situação <span
+                                    x-text="sortField==='situacao' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span></th>
+                            <th @click="ordenar('dataLavratura')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Data Lavratura <span
+                                    x-text="sortField==='dataLavratura' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span>
+                            </th>
+                            <th class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                Quadra/Lote/Bairro</th>
+                            <th @click="ordenar('valorBaseCalculoDoi')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest text-end cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Valor DOI <span
+                                    x-text="sortField==='valorBaseCalculoDoi' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span>
+                            </th>
+                            <th @click="ordenar('valorVenalFiscal')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest text-end cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Valor Fiscal <span
+                                    x-text="sortField==='valorVenalFiscal' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span>
+                            </th>
+                            <th @click="ordenar('diferencaValor')"
+                                class="px-4 py-2 text-[9px] font-black text-red-400 uppercase tracking-widest text-end cursor-pointer hover:text-red-600 transition-colors select-none">
+                                Vlr Diferença Base <span
+                                    x-text="sortField==='diferencaValor' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span>
+                            </th>
+                            <th class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                Parâmetros</th>
+                            <th @click="ordenar('cartorio')"
+                                class="px-4 py-2 text-[9px] font-black text-slate-400 uppercase tracking-widest cursor-pointer hover:text-emerald-600 transition-colors select-none">
+                                Cartório <span
+                                    x-text="sortField==='cartorio' ? (sortDir==='asc' ? '▲' : '▼') : ''"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50" id="tabelaBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Estado Vazio -->
+            <div id="estadoVazio" class="flex flex-col items-center justify-center py-20 text-slate-300">
+                <div class="relative mb-4">
+                    <i class="fas fa-search text-5xl opacity-10"></i>
+                </div>
+                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Nenhum resultado encontrado
+                </p>
+                <p class="text-[9px] text-slate-300 mt-2 font-bold italic">Clique em "Gerar Malha" para processar o
+                    cruzamento</p>
+            </div>
+        </div>
+
+        <script>
+            function aplicarMascaraDecimal(input) {
+                input.addEventListener('input', function () {
+                    let v = this.value.replace(/\D/g, '');
+                    if (v === '') { this.value = ''; return; }
+                    v = (parseInt(v, 10) / 100).toFixed(2);
+                    v = v.replace('.', ',');
+                    v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+                    this.value = v;
+                });
+            }
+
+            function desmascarar(valor) {
+                if (!valor) return '';
+                return valor.replace(/\./g, '').replace(',', '.');
+            }
+
+            function formatarMoeda(valor) {
+                if (valor == null || valor === '') return 'R$ 0,00';
+                const num = parseFloat(valor);
+                return 'R$ ' + num.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            }
+
+            function formatarData(data) {
+                if (!data) return '-';
+                const parts = data.split('-');
+                if (parts.length === 3) return parts[2] + '/' + parts[1] + '/' + parts[0];
+                return data;
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.mask-decimal').forEach(aplicarMascaraDecimal);
+                const form = document.getElementById('formParametros');
+                if (form) {
+                    form.addEventListener('submit', function () {
+                        form.querySelectorAll('.mask-decimal').forEach(function (input) {
+                            input.value = desmascarar(input.value);
+                        });
+                    });
+                }
+            });
+
+            function parametrosMalha() {
+                return {
+                    loading: false,
+                    totalResultados: 0,
+                    totalAnalisado: 0,
+                    loteId: null,
+                    resultados: [],
+                    sortField: '',
+                    sortDir: 'asc',
+
+                    gerarMalha() {
+                        this.loading = true;
+                        const form = document.getElementById('formParametros');
+                        const formData = new FormData(form);
+
+                        // Desmascarar valores antes de enviar
+                        form.querySelectorAll('.mask-decimal').forEach(function (input) {
+                            formData.set(input.name, desmascarar(input.value));
+                        });
+
+                        // Obter CSRF token
+                        const csrfMeta = document.querySelector('meta[name="_csrf"]');
+                        const csrfHeader = document.querySelector('meta[name="_csrf_header"]');
+
+                        const headers = {};
+                        if (csrfMeta && csrfHeader) {
+                            headers[csrfHeader.content] = csrfMeta.content;
+                        }
+
+                        const params = new URLSearchParams(formData);
+
+                        fetch('/admin/parametros-malha/gerar-malha', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                                ...headers
+                            },
+                            body: params.toString()
+                        })
+                            .then(response => {
+                                if (!response.ok) throw new Error('Erro na requisição: ' + response.status);
+                                return response.json();
+                            })
+                            .then(data => {
+                                this.loading = false;
+                                if (data.status === 'ok') {
+                                    this.resultados = data.resultados || [];
+                                    this.totalResultados = data.total || 0;
+                                    this.totalAnalisado = data.totalAnalisado || 0;
+                                    this.loteId = data.loteId || null;
+                                    this.renderizarTabela(this.resultados);
+                                } else {
+                                    alert(data.message || 'Erro ao gerar malha.');
+                                }
+                            })
+                            .catch(err => {
+                                this.loading = false;
+                                console.error('Erro:', err);
+                                alert('Erro ao processar cruzamento: ' + err.message);
+                            });
+                    },
+
+                    renderizarTabela(resultados) {
+                        const tbody = document.getElementById('tabelaBody');
+                        const vazio = document.getElementById('estadoVazio');
+
+                        tbody.innerHTML = '';
+
+                        if (resultados.length === 0) {
+                            vazio.style.display = 'flex';
+                            return;
+                        }
+
+                        vazio.style.display = 'none';
+
+                        resultados.forEach((item, index) => {
+                            const badges = (item.parametrosViolados || []).map(p => {
+                                const isBC = p.includes('BC');
+                                const color = isBC ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700';
+                                return '<span class="inline-block px-2 py-0.5 rounded-md text-[8px] font-black ' + color + ' mr-1 mb-1">' + p + '</span>';
+                            }).join('');
+
+                            const quadraLote = item.quadraLoteBairro || [
+                                item.cadimoQuadra ? 'Q:' + item.cadimoQuadra : '',
+                                item.cadimoLote ? 'L:' + item.cadimoLote : '',
+                                item.cadimoBairroNome ? '- ' + item.cadimoBairroNome : ''
+                            ].filter(Boolean).join(' ');
+
+                            const tr = document.createElement('tr');
+                            tr.className = 'hover:bg-slate-50/50 transition-colors';
+                            tr.innerHTML = `
+                                <td class="px-4 py-1.5 text-[10px] font-bold text-slate-400">${index + 1}</td>
+                                <td class="px-4 py-1.5 text-[11px] font-black text-slate-700">${item.matricula || '-'}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-bold text-slate-500">${item.cadimoCib || '-'}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-bold text-slate-500">${item.cadimoInscricao || '-'}</td>
+                                <td class="px-4 py-1.5">
+                                    <span class="px-2 py-0.5 rounded-lg text-[8px] font-black uppercase ${item.situacao === 'PROCESSADO' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'
+                                }">${item.situacao || '-'}</span>
+                                </td>
+                                <td class="px-4 py-1.5 text-[10px] font-bold text-slate-500">${formatarData(item.dataLavratura)}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-bold text-slate-500">${quadraLote || '-'}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-black text-slate-700 text-end">${formatarMoeda(item.valorBaseCalculoDoi)}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-black text-slate-700 text-end">${formatarMoeda(item.valorVenalFiscal)}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-black text-red-600 text-end">${formatarMoeda(item.diferencaValor)}</td>
+                                <td class="px-4 py-1.5">${badges || '-'}</td>
+                                <td class="px-4 py-1.5 text-[10px] font-bold text-slate-500">${item.cartorio || '-'}</td>
+                            `;
+                            tbody.appendChild(tr);
+                        });
+                    },
+
+                    ordenar(field) {
+                        if (this.sortField === field) {
+                            this.sortDir = this.sortDir === 'asc' ? 'desc' : 'asc';
+                        } else {
+                            this.sortField = field;
+                            this.sortDir = 'asc';
+                        }
+
+                        const dir = this.sortDir === 'asc' ? 1 : -1;
+                        const numericFields = ['valorBaseCalculoDoi', 'valorVenalFiscal', 'diferencaValor'];
+
+                        this.resultados.sort((a, b) => {
+                            let va = a[field];
+                            let vb = b[field];
+
+                            if (numericFields.includes(field)) {
+                                va = parseFloat(va) || 0;
+                                vb = parseFloat(vb) || 0;
+                                return (va - vb) * dir;
+                            }
+
+                            va = (va || '').toString().toLowerCase();
+                            vb = (vb || '').toString().toLowerCase();
+                            return va.localeCompare(vb) * dir;
+                        });
+
+                        this.renderizarTabela(this.resultados);
+                    },
+
+                    exportarCSV() {
+                        if (this.resultados.length === 0) {
+                            alert('Nenhum dado para exportar. Gere a malha primeiro.');
+                            return;
+                        }
+
+                        const headers = ['Matrícula', 'CIB', 'Inscrição Fiscal', 'Situação', 'Data Lavratura', 'Quadra/Lote/Bairro', 'Valor DOI', 'Valor Fiscal', 'Diferença', 'Parâmetros Violados', 'Cartório'];
+                        let csv = headers.join(';') + '\n';
+
+                        this.resultados.forEach(item => {
+                            const qlb = [
+                                item.cadimoQuadra ? 'Q:' + item.cadimoQuadra : '',
+                                item.cadimoLote ? 'L:' + item.cadimoLote : '',
+                                item.cadimoBairroNome || ''
+                            ].filter(Boolean).join(' ');
+
+                            const row = [
+                                item.matricula || '',
+                                item.cadimoCib || '',
+                                item.cadimoInscricao || '',
+                                item.situacao || '',
+                                item.dataLavratura || '',
+                                qlb,
+                                item.valorBaseCalculoDoi || '0',
+                                item.valorVenalFiscal || '0',
+                                item.diferencaValor || '0',
+                                (item.parametrosViolados || []).join(' | '),
+                                item.cartorio || ''
+                            ].map(v => '"' + String(v).replace(/"/g, '""') + '"');
+
+                            csv += row.join(';') + '\n';
+                        });
+
+                        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = 'malha_resultados_' + new Date().toISOString().slice(0, 10) + '.csv';
+                        link.click();
+                    }
+                };
+            }
+        </script>
+
+    </section>
+</body>
+
+</html>

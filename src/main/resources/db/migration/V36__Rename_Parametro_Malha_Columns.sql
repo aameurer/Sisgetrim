@@ -1,0 +1,14 @@
+-- Renomear colunas para prefixo parametro_malha_
+ALTER TABLE parametro_malha RENAME COLUMN data_inicial TO parametro_malha_data_inicial;
+ALTER TABLE parametro_malha RENAME COLUMN data_final TO parametro_malha_data_final;
+ALTER TABLE parametro_malha RENAME COLUMN diferenca_bc_doi TO parametro_malha_diferenca_bc_doi;
+ALTER TABLE parametro_malha RENAME COLUMN diferenca_imposto_doi TO parametro_malha_diferenca_imposto_doi;
+ALTER TABLE parametro_malha RENAME COLUMN percentual_abaixo_vvi TO parametro_malha_percentual_abaixo_vvi;
+ALTER TABLE parametro_malha RENAME COLUMN considerar_integralizacao_capital TO parametro_malha_considerar_integralizacao_capital;
+ALTER TABLE parametro_malha RENAME COLUMN malha_valor_reducao_nominal TO parametro_malha_malha_valor_reducao_nominal;
+ALTER TABLE parametro_malha RENAME COLUMN malha_valor_reducao_relativa TO parametro_malha_malha_valor_reducao_relativa;
+ALTER TABLE parametro_malha RENAME COLUMN alerta_malha_reducao_nominal TO parametro_malha_alerta_malha_reducao_nominal;
+ALTER TABLE parametro_malha RENAME COLUMN alerta_malha_reducao_relativa TO parametro_malha_alerta_malha_reducao_relativa;
+
+-- Novo campo: percentual abaixo imposto DOI
+ALTER TABLE parametro_malha ADD COLUMN parametro_malha_percentual_abaixo_imposto_doi DOUBLE PRECISION DEFAULT 1;
